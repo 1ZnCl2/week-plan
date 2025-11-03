@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../components/color_manage.dart';
+import 'package:week_plan/components/font_manage.dart';
+import '../../components/color_manage.dart';
 
 class CategoryButton extends StatelessWidget {
   final String categoryName;
@@ -20,11 +21,15 @@ class CategoryButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
+        shadowColor: const Color.fromARGB(10, 0, 0, 0),
+        backgroundColor: AppColors.grey(2),
       ),
       onPressed: onPressed,
       child: Text(
         categoryName,
-        style: TextStyle(color: AppColors.grey(9)),
+        style: AppFonts.blackTitle(size: 16).copyWith(
+          color: AppColors.grey(9),
+        ),
       ),
     );
   }

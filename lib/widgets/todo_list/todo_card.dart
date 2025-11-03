@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:week_plan/components/color_manage.dart';
+import 'package:week_plan/components/font_manage.dart';
 
 class TodoCard extends StatelessWidget {
   final String title;
@@ -18,16 +20,16 @@ class TodoCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
       ),
-      shadowColor: Colors.black26,
+      shadowColor: const Color.fromARGB(7, 0, 0, 0),
       child: ListTile(
         leading: Icon(
           isCompleted ? Icons.check_circle : Icons.radio_button_unchecked,
-          color: isCompleted ? Colors.green : Colors.grey,
+          color: isCompleted ? AppColors.green() : AppColors.grey(9),
         ),
         title: Text(
           title,
+          style: AppFonts.blackTitle(size: 20),
         ),
-        subtitle: Text(category),
       ),
     );
   }
