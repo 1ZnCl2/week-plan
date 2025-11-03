@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:week_plan/widgets/add_button.dart';
-import 'package:week_plan/widgets/todo_card.dart';
+import 'package:week_plan/widgets/todo_list/add_button.dart';
+import 'package:week_plan/widgets/todo_list/todo_card.dart';
 
 class TodoListScreen extends StatelessWidget {
   Scaffold build(BuildContext context) {
