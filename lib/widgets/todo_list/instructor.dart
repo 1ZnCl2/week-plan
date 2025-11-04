@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
+import 'package:week_plan/components/icon_manage.dart';
+import 'package:week_plan/widgets/todo_list/icon_text.dart';
 
 class Instructor extends StatelessWidget {
   const Instructor({Key? key}) : super(key: key);
@@ -15,17 +17,15 @@ class Instructor extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            '백로그',
-            style: AppFonts.greyTitle(size: 18),
+          IconText(
+            iconPath: AppIcon.inbox,
+            text: '백로그',
+          ),
+          IconText(
+            iconPath: AppIcon.server,
+            text: '저장소',
           ),
           SizedBox(height: 8),
-          Text(
-            'Here you can manage your tasks efficiently and stay organized throughout the week.',
-            style: TextStyle(
-              fontSize: 16,
-            ),
-          ),
         ],
       ),
     );

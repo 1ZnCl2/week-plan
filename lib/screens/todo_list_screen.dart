@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:week_plan/widgets/todo_list/add_button.dart';
+import 'package:week_plan/widgets/todo_list/instructor.dart';
 import 'package:week_plan/widgets/todo_list/todo_card.dart';
 
 class TodoListScreen extends StatelessWidget {
   Scaffold build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('주간 할 일'),
-      ),
       body: Center(
-        child: Column(
+        child: Row(
           children: [
-            AddButton(),
-            TodoCard(title: 'title', category: 'category'),
+            Instructor(),
+            SizedBox(width: 214),
+            Column(
+              children: [
+                AddButton(),
+                SizedBox(height: 15),
+                TodoCard(title: 'title', category: 'category'),
+              ],
+            ),
           ],
         ),
       ),
