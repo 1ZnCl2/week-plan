@@ -4,6 +4,9 @@ import 'package:week_plan/widgets/todo_list/instructor.dart';
 import 'package:week_plan/widgets/todo_list/todo_card.dart';
 
 class TodoListScreen extends StatelessWidget {
+  const TodoListScreen({super.key});
+
+  @override
   Scaffold build(BuildContext context) {
     return Scaffold(
       body: Center(

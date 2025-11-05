@@ -18,7 +18,6 @@ class AppFonts {
       fontWeight: bold,
       fontSize: size,
       color: AppColors.grey(9),
-      decoration: TextDecoration.none,
     );
   }
 
@@ -30,7 +29,6 @@ class AppFonts {
       fontWeight: bold,
       fontSize: size,
       color: AppColors.grey(7),
-      decoration: TextDecoration.none,
     );
   }
 }

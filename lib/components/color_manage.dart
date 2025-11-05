@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static Color grey(int shade) {
-    return _grey[shade] ?? _grey[4]!;
+    return _grey[shade] ?? _grey[2]!;
   }
 
   static const Map<int, Color> _grey = {
     1: Color(0xFFFDFDFD),
-    2: Color(0xFFEAFFB5),
+    2: Color(0xFFF6F6F6),
     3: Color(0xFFF0F0F0),
     4: Color(0xFFD9D9D9),
     5: Color(0xFFB6FD03),

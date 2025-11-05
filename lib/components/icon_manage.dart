@@ -9,4 +9,5 @@ class AppIcon {
   static const String trash = 'assets/icons/trash-01.svg';
   static const String square = 'assets/icons/square.svg';
   static const String stopCircle = 'assets/icons/stop-circle.svg';
+  static const String home = 'assets/icons/home-02.svg';
 }

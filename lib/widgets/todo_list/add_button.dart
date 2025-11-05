@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:week_plan/components/color_manage.dart';
 
 class AddButton extends StatelessWidget {
-  //final VoidCallback onPressed;
-
   const AddButton({
-    Key? key,
-    // required this.onPressed,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +17,7 @@ class AddButton extends StatelessWidget {
           color: AppColors.grey(2),
           border: Border.all(
             color: AppColors.grey(3),
+            width: 1,
           ),
           borderRadius: BorderRadius.circular(12.0),
           boxShadow: [
