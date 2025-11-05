@@ -17,17 +17,26 @@ class SubTaskAddButton extends StatelessWidget {
       child: Container(
         width: 130,
         height: 36,
-        alignment: Alignment.centerLeft,
+        padding: EdgeInsets.symmetric(
+          horizontal: 19,
+          vertical: 4,
+        ),
+        alignment: Alignment.center,
         decoration: BoxDecoration(
           color: AppColors.grey(1),
           border: Border.all(
             color: AppColors.grey(6),
+            width: 1,
           ),
           borderRadius: BorderRadius.circular(100.0),
         ),
         child: Text(
           '+ 새 하위 할 일',
           style: AppFonts.greyTitle(size: 14),
+          textHeightBehavior: const TextHeightBehavior(
+            applyHeightToFirstAscent: false,
+            applyHeightToLastDescent: false,
+          ),
         ),
       ),
     );

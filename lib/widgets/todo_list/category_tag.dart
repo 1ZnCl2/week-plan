@@ -14,9 +14,13 @@ class CategoryTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 42,
+      width: 74,
       height: 22,
       alignment: Alignment.center,
+      padding: EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 5,
+      ),
       decoration: BoxDecoration(
         color: color,
         boxShadow: [
@@ -29,6 +33,10 @@ class CategoryTag extends StatelessWidget {
       child: Text(
         categoryName,
         style: AppFonts.blackTitle(size: 10),
+        textHeightBehavior: const TextHeightBehavior(
+          applyHeightToFirstAscent: false,
+          applyHeightToLastDescent: false,
+        ),
       ),
     );
   }

@@ -34,7 +34,8 @@ class TodoCard extends StatelessWidget {
           width: 488,
           height: 165,
           padding: EdgeInsets.symmetric(
-            horizontal: 30,
+            horizontal: 20,
+            vertical: 9,
           ),
           decoration: BoxDecoration(
             color: Colors.white,
@@ -52,29 +53,36 @@ class TodoCard extends StatelessWidget {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
               GestureDetector(
                 child: SvgPicture.asset(AppIcon.square),
                 onTap: () {},
               ),
               SizedBox(width: 9),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    title,
-                    style: AppFonts.blackTitle(),
-                  ),
-                  CategoryTag(
-                    categoryName: category,
-                    color: AppColors.cyan(1),
-                  ),
-                  SubTaskAddButton(),
-                ],
+              SizedBox(
+                width: 307,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: 12,
+                  children: [
+                    Text(
+                      title,
+                      style: AppFonts.blackTitle(),
+                    ),
+                    CategoryTag(
+                      categoryName: category,
+                      color: AppColors.cyan(1),
+                    ),
+                    SubTaskAddButton(),
+                  ],
+                ),
               ),
               Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
                     children: [
@@ -92,7 +100,7 @@ class TodoCard extends StatelessWidget {
                   SizedBox(height: 63),
                   Text(
                     '11/05 23:59',
-                    style: AppFonts.greyTitle(),
+                    style: AppFonts.greyTitle(size: 16),
                   ),
                 ],
               ),
