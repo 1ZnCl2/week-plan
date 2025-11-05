@@ -21,7 +21,7 @@ class TodoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Stack(
       children: [
         Container(
           width: 11,
@@ -55,9 +55,16 @@ class TodoCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              GestureDetector(
-                child: SvgPicture.asset(AppIcon.square),
-                onTap: () {},
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    child: SvgPicture.asset(AppIcon.square),
+                    onTap: () {},
+                  ),
+                  SizedBox(height: 88),
+                ],
               ),
               SizedBox(width: 9),
               SizedBox(
@@ -71,11 +78,18 @@ class TodoCard extends StatelessWidget {
                     Text(
                       title,
                       style: AppFonts.blackTitle(),
+                      strutStyle: const StrutStyle(
+                        fontSize: 20,
+                        height: 1.0,
+                        leading: 0,
+                        forceStrutHeight: true,
+                      ),
                     ),
                     CategoryTag(
                       categoryName: category,
                       color: AppColors.cyan(1),
                     ),
+                    SizedBox(height: 6),
                     SubTaskAddButton(),
                   ],
                 ),
