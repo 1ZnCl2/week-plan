@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:week_plan/components/widgets/view_slider.dart';
 import 'package:week_plan/widgets/todo_list/add_button.dart';
 import 'package:week_plan/widgets/todo_list/instructor.dart';
 import 'package:week_plan/widgets/todo_list/todo_card.dart';
@@ -9,20 +10,31 @@ class TodoListScreen extends StatelessWidget {
   @override
   Scaffold build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Row(
-          children: [
-            Instructor(),
-            SizedBox(width: 214),
-            Column(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          MyCustomSlider(
+            value: 0,
+            onChanged: (double value) {
+              return;
+            },
+          ),
+          Center(
+            child: Row(
               children: [
-                AddButton(),
-                SizedBox(height: 15),
-                TodoCard(title: 'title', category: 'category'),
+                Instructor(),
+                SizedBox(width: 214),
+                Column(
+                  children: [
+                    AddButton(),
+                    SizedBox(height: 15),
+                    TodoCard(title: 'title', category: 'category'),
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -13,31 +13,31 @@ class Instructor extends StatelessWidget {
     return Container(
       height: 728,
       width: 266,
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.symmetric(
+        vertical: 72,
+        horizontal: 27,
+      ),
       color: AppColors.grey(1),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 16,
         children: [
           IconText(
             iconPath: AppIcon.home,
             text: '홈',
           ),
-          SizedBox(height: 16),
           IconText(
             iconPath: AppIcon.inbox,
             text: '백로그',
           ),
-          SizedBox(height: 16),
           IconText(
             iconPath: AppIcon.server,
             text: '저장소',
           ),
-          SizedBox(height: 8),
           Divider(
             color: AppColors.grey(4),
             thickness: 1,
           ),
-          SizedBox(height: 8),
           Text(
             '카테고리 +',
             style: AppFonts.greyTitle(size: 16),

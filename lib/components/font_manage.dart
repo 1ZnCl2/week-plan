@@ -31,4 +31,15 @@ class AppFonts {
       color: AppColors.grey(7),
     );
   }
+
+  static TextStyle whiteTitle({
+    double size = 20,
+  }) {
+    return TextStyle(
+      fontFamily: systemFont,
+      fontWeight: bold,
+      fontSize: size,
+      color: Colors.white,
+    );
+  }
 }
