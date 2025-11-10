@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/widgets/todo_plan/day_timeline_column.dart';
+import 'package:week_plan/widgets/todo_plan/schedule_tile.dart';
 
 enum DayOfWeek {
   monday,
@@ -41,53 +42,63 @@ class WeekCalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
+      child: Stack(
         children: [
-          Row(
-            children: DayOfWeek.values.map((day) {
-              return Container(
-                width: 180,
-                height: 44,
-                padding: EdgeInsets.symmetric(
-                  vertical: 12,
-                  horizontal: 69,
-                ),
-                decoration: BoxDecoration(
-                  color: AppColors.grey(3),
-                ),
-                child: Center(
-                  child: Text(
-                    currentDayName(day),
-                    style: AppFonts.blackTitle(
-                      size: 14,
-                    ),
-                  ),
-                ),
-              );
-            }).toList(),
+          ScheduleTile(
+            startTime: DateTime(2025, 11, 10, 10, 0),
+            endTime: DateTime(2025, 11, 10, 13, 0),
+            color: AppColors.cyan(2),
+            title: '웹툰 기획과 스토리 개발',
           ),
-          Row(
+          Column(
             children: [
-              DayTimelineColumn(
-                istimeshown: true,
+              Row(
+                children: DayOfWeek.values.map((day) {
+                  return Container(
+                    width: 180,
+                    height: 44,
+                    padding: EdgeInsets.symmetric(
+                      vertical: 12,
+                      horizontal: 69,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.grey(3),
+                    ),
+                    child: Center(
+                      child: Text(
+                        currentDayName(day),
+                        style: AppFonts.blackTitle(
+                          size: 14,
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
-              DayTimelineColumn(
-                istimeshown: false,
-              ),
-              DayTimelineColumn(
-                istimeshown: false,
-              ),
-              DayTimelineColumn(
-                istimeshown: false,
-              ),
-              DayTimelineColumn(
-                istimeshown: false,
-              ),
-              DayTimelineColumn(
-                istimeshown: false,
-              ),
-              DayTimelineColumn(
-                istimeshown: false,
+              Row(
+                children: [
+                  DayTimelineColumn(
+                    istimeshown: true,
+                  ),
+                  DayTimelineColumn(
+                    istimeshown: false,
+                  ),
+                  DayTimelineColumn(
+                    istimeshown: false,
+                  ),
+                  DayTimelineColumn(
+                    istimeshown: false,
+                  ),
+                  DayTimelineColumn(
+                    istimeshown: false,
+                  ),
+                  DayTimelineColumn(
+                    istimeshown: false,
+                  ),
+                  DayTimelineColumn(
+                    istimeshown: false,
+                  ),
+                ],
               ),
             ],
           ),
