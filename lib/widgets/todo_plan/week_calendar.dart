@@ -1,4 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:week_plan/components/color_manage.dart';
+import 'package:week_plan/components/font_manage.dart';
+import 'package:week_plan/widgets/todo_plan/day_timeline_column.dart';
+
+enum DayOfWeek {
+  monday,
+  tuesday,
+  wednesday,
+  thursday,
+  friday,
+  saturday,
+  sunday,
+}
+
+String currentDayName(DayOfWeek day) {
+  switch (day) {
+    case DayOfWeek.sunday:
+      return '일요일';
+    case DayOfWeek.monday:
+      return '월요일';
+    case DayOfWeek.tuesday:
+      return '화요일';
+    case DayOfWeek.wednesday:
+      return '수요일';
+    case DayOfWeek.thursday:
+      return '목요일';
+    case DayOfWeek.friday:
+      return '금요일';
+    case DayOfWeek.saturday:
+      return '토요일';
+    default:
+      return '';
+  }
+}
 
 class WeekCalendar extends StatelessWidget {
   const WeekCalendar({super.key});
@@ -7,16 +42,56 @@ class WeekCalendar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: List.generate(24, (hour) {
-          return Container(
-            width: 189,
-            height: 90,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade300),
-            ),
-            child: Text('$hour:00'),
-          );
-        }),
+        children: [
+          Row(
+            children: DayOfWeek.values.map((day) {
+              return Container(
+                width: 180,
+                height: 44,
+                padding: EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 69,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.grey(3),
+                ),
+                child: Center(
+                  child: Text(
+                    currentDayName(day),
+                    style: AppFonts.blackTitle(
+                      size: 14,
+                    ),
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+          Row(
+            children: [
+              DayTimelineColumn(
+                istimeshown: true,
+              ),
+              DayTimelineColumn(
+                istimeshown: false,
+              ),
+              DayTimelineColumn(
+                istimeshown: false,
+              ),
+              DayTimelineColumn(
+                istimeshown: false,
+              ),
+              DayTimelineColumn(
+                istimeshown: false,
+              ),
+              DayTimelineColumn(
+                istimeshown: false,
+              ),
+              DayTimelineColumn(
+                istimeshown: false,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 
 class DayTimelineColumn extends StatelessWidget {
-  const DayTimelineColumn({super.key});
+  final istimeshown;
+  const DayTimelineColumn({
+    super.key,
+    required this.istimeshown,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: List.generate(24, (hour) {
         return Container(
-          width: 189,
+          width: 180,
           height: 90,
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey.shade300),
           ),
-          child: Text('$hour:00'),
+          child: istimeshown ? Text('$hour:00') : null,
         );
       }),
     );
