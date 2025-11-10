@@ -17,6 +17,7 @@ class CategoryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Flexible(
+      fit: FlexFit.loose,
       child: Container(
         height: 44,
         padding: EdgeInsets.symmetric(horizontal: 13, vertical: 10),
