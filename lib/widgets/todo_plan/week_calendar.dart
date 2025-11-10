@@ -5,9 +5,19 @@ class WeekCalendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView(
-        gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 7),
-        children: []);
+    return SingleChildScrollView(
+      child: Column(
+        children: List.generate(24, (hour) {
+          return Container(
+            width: 189,
+            height: 90,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey.shade300),
+            ),
+            child: Text('$hour:00'),
+          );
+        }),
+      ),
+    );
   }
 }

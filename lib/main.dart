@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:week_plan/screens/todo_list_screen.dart';
+import 'package:week_plan/screens/todo_planer_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '주간 할 일',
-      home: TodoListScreen(),
+      home: TodoPlanerScreen(),
     );
   }
 }
