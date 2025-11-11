@@ -55,6 +55,7 @@ class MyCustomSlider extends StatelessWidget {
                       '전체 보기',
                       textAlign: TextAlign.center,
                       style: AppFonts.greyTitle(
+                        null,
                         size: 16,
                       ),
                     ),
@@ -69,6 +70,7 @@ class MyCustomSlider extends StatelessWidget {
                       '계획 보기',
                       textAlign: TextAlign.center,
                       style: AppFonts.greyTitle(
+                        null,
                         size: 16,
                       ),
                     ),

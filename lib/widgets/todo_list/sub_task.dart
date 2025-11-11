@@ -32,7 +32,7 @@ class SubTaskAddButton extends StatelessWidget {
         ),
         child: Text(
           '+ 새 하위 할 일',
-          style: AppFonts.greyTitle(size: 14),
+          style: AppFonts.greyTitle(null, size: 14),
           textHeightBehavior: const TextHeightBehavior(
             applyHeightToFirstAscent: false,
             applyHeightToLastDescent: false,
@@ -68,7 +68,7 @@ class SubTask extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: Text(
           subTaskName,
-          style: AppFonts.greyTitle(size: 14),
+          style: AppFonts.greyTitle(null, size: 14),
         ),
       ),
     );

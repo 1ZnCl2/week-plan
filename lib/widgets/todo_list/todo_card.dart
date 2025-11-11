@@ -114,7 +114,7 @@ class TodoCard extends StatelessWidget {
                   SizedBox(height: 63),
                   Text(
                     '11/05 23:59',
-                    style: AppFonts.greyTitle(size: 16),
+                    style: AppFonts.greyTitle(null, size: 16),
                   ),
                 ],
               ),

@@ -40,7 +40,7 @@ class Instructor extends StatelessWidget {
           ),
           Text(
             '카테고리 +',
-            style: AppFonts.greyTitle(size: 16),
+            style: AppFonts.greyTitle(null, size: 16),
           ),
           CategoryButton(
             categoryName: '공부',

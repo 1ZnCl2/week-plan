@@ -24,7 +24,7 @@ class AppColors {
   static const Map<int, Color> _cyan = {
     1: Color(0xFF5B9FF1),
     2: Color(0xFF7AB6FD),
-    3: Color(0xFF66F9FF),
+    3: Color(0xFFD5F1FA),
     4: Color(0xFF33F6FF),
     5: Color(0xFF00F4FF),
     6: Color(0xFF00E8F7),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DayTimelineColumn extends StatelessWidget {
-  final istimeshown;
+  final bool istimeshown;
   const DayTimelineColumn({
     super.key,
     required this.istimeshown,

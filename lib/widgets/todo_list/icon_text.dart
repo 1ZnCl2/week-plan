@@ -24,7 +24,7 @@ class IconText extends StatelessWidget {
         SizedBox(width: 5),
         Text(
           text,
-          style: AppFonts.greyTitle(),
+          style: AppFonts.greyTitle(null),
         ),
       ],
     );

@@ -21,14 +21,16 @@ class AppFonts {
     );
   }
 
-  static TextStyle greyTitle({
+  static TextStyle greyTitle(
+    Color? color, {
+    FontWeight bold = FontWeight.w700,
     double size = 20,
   }) {
     return TextStyle(
       fontFamily: systemFont,
       fontWeight: bold,
       fontSize: size,
-      color: AppColors.grey(7),
+      color: color ?? AppColors.grey(7),
     );
   }
 
@@ -40,6 +42,18 @@ class AppFonts {
       fontWeight: bold,
       fontSize: size,
       color: Colors.white,
+    );
+  }
+
+  static TextStyle colormediumTitle(
+    Color color, {
+    double size = 20,
+  }) {
+    return TextStyle(
+      fontFamily: systemFont,
+      fontWeight: medium,
+      fontSize: size,
+      color: color,
     );
   }
 }

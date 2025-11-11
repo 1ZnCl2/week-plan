@@ -44,12 +44,6 @@ class WeekCalendar extends StatelessWidget {
     return SingleChildScrollView(
       child: Stack(
         children: [
-          ScheduleTile(
-            startTime: DateTime(2025, 11, 10, 10, 0),
-            endTime: DateTime(2025, 11, 10, 13, 0),
-            color: AppColors.cyan(2),
-            title: '웹툰 기획과 스토리 개발',
-          ),
           Column(
             children: [
               Row(
@@ -101,6 +95,27 @@ class WeekCalendar extends StatelessWidget {
                 ],
               ),
             ],
+          ),
+          ScheduleTile(
+            startTime: DateTime(2025, 11, 10, 15, 0),
+            endTime: DateTime(2025, 11, 11, 18, 0),
+            color: AppColors.cyan(2),
+            textColor: Color(0xFF407283),
+            title: 'sample1',
+          ),
+          ScheduleTile(
+            startTime: DateTime(2025, 11, 11, 15, 0),
+            endTime: DateTime(2025, 11, 11, 18, 0),
+            color: AppColors.cyan(3),
+            textColor: Color(0xFF407283),
+            title: '컴퓨터 구조',
+          ),
+          ScheduleTile(
+            startTime: DateTime(2025, 11, 10, 10, 0),
+            endTime: DateTime(2025, 11, 10, 13, 0),
+            color: AppColors.cyan(3),
+            textColor: Color(0xFF407283),
+            title: '웹툰 기획과 스토리 개발',
           ),
         ],
       ),
