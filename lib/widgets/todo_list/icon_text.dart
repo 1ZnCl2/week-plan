@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:week_plan/components/color_manage.dart';
+import 'package:week_plan/components/font_manage.dart';
 
 class IconText extends StatelessWidget {
-  IconText({
-    Key? key,
-    required this.icon,
+  const IconText({
+    super.key,
+    required this.iconPath,
     required this.text,
-    this.textStyle,
-    this.spacing = 8.0,
-  }) : super(key: key);
+    this.gap = 5,
+  });
 
-  final IconData icon;
+  final String iconPath;
   final String text;
-  final TextStyle? textStyle;
-  final double spacing;
+  final double gap;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(
-          icon,
-          size: 24,
+        SvgPicture.asset(
+          iconPath,
+          color: AppColors.grey(7),
         ),
-        SizedBox(width: spacing),
+        SizedBox(width: gap),
         Text(
           text,
-          style: textStyle,
+          style: AppFonts.greyTitle(null),
         ),
       ],
     );
