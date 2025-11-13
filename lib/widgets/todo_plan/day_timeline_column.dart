@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
 class DayTimelineColumn extends StatelessWidget {
-  final bool istimeshown;
   const DayTimelineColumn({
     super.key,
-    required this.istimeshown,
   });
 
   @override
@@ -17,7 +15,6 @@ class DayTimelineColumn extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey.shade300),
           ),
-          child: istimeshown ? Text('$hour:00') : null,
         );
       }),
     );

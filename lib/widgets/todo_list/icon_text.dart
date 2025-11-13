@@ -8,10 +8,12 @@ class IconText extends StatelessWidget {
     super.key,
     required this.iconPath,
     required this.text,
+    this.gap = 5,
   });
 
   final String iconPath;
   final String text;
+  final double gap;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class IconText extends StatelessWidget {
           iconPath,
           color: AppColors.grey(7),
         ),
-        SizedBox(width: 5),
+        SizedBox(width: gap),
         Text(
           text,
           style: AppFonts.greyTitle(null),

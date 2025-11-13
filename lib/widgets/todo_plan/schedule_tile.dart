@@ -1,11 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
-import '';
 
 class ScheduleTile extends StatelessWidget {
   final DateTime startTime;
@@ -26,8 +23,8 @@ class ScheduleTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: startTime.hour.toDouble() * 90 + 44,
-      left: (startTime.weekday.toDouble() - 1) * 180,
+      top: startTime.hour.toDouble() * 90,
+      left: (startTime.weekday.toDouble() - 1) * 180 + 20,
       child: Container(
         padding: EdgeInsets.only(left: 12, top: 29),
         width: 180,
