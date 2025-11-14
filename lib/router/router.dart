@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:week_plan/screens/todo_list_screen.dart';
-import 'package:week_plan/screens/todo_planer_screen.dart'
+import 'package:week_plan/screens/todo_planer_screen.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: '/todo',
@@ -15,3 +15,8 @@ final GoRouter router = GoRouter(
     ),
   ],
 );
+
+class RouterRoots {
+  static const String todoList = '/todo';
+  static const String todoPlanner = '/plan';
+}
