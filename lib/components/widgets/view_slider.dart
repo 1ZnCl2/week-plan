@@ -57,18 +57,20 @@ class MyCustomSliderState extends ConsumerState<MyCustomSlider> {
                 child: SizedBox(
                   width: 92,
                   height: 36,
-                  child: Text(
-                    '할 일 보기',
-                    textAlign: TextAlign.center,
-                    style: isPagePlan
-                        ? AppFonts.greyTitle(
-                            null,
-                            bold: FontWeight.w500,
-                            size: 16,
-                          )
-                        : AppFonts.whiteTitle(
-                            size: 16,
-                          ),
+                  child: Center(
+                    child: Text(
+                      '할 일 보기',
+                      textAlign: TextAlign.center,
+                      style: isPagePlan
+                          ? AppFonts.greyTitle(
+                              null,
+                              bold: FontWeight.w500,
+                              size: 16,
+                            )
+                          : AppFonts.whiteTitle(
+                              size: 16,
+                            ),
+                    ),
                   ),
                 ),
               ),
@@ -80,18 +82,20 @@ class MyCustomSliderState extends ConsumerState<MyCustomSlider> {
                 child: SizedBox(
                   width: 92,
                   height: 36,
-                  child: Text(
-                    '계획 보기',
-                    textAlign: TextAlign.center,
-                    style: isPagePlan
-                        ? AppFonts.whiteTitle(
-                            size: 16,
-                          )
-                        : AppFonts.greyTitle(
-                            null,
-                            bold: FontWeight.w500,
-                            size: 16,
-                          ),
+                  child: Center(
+                    child: Text(
+                      '계획 보기',
+                      textAlign: TextAlign.center,
+                      style: isPagePlan
+                          ? AppFonts.whiteTitle(
+                              size: 16,
+                            )
+                          : AppFonts.greyTitle(
+                              null,
+                              bold: FontWeight.w500,
+                              size: 16,
+                            ),
+                    ),
                   ),
                 ),
               ),
