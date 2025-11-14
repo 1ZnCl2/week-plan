@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:week_plan/screens/todo_list_screen.dart';
 import 'package:week_plan/screens/todo_planer_screen.dart';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '주간 할 일',
-      home: TodoPlanerScreen(),
+      home: ProviderScope(child: TodoPlanerScreen()),
     );
   }
 }

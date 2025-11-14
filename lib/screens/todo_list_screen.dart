@@ -13,12 +13,7 @@ class TodoListScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MyCustomSlider(
-            value: 0,
-            onChanged: (double value) {
-              return;
-            },
-          ),
+          MyCustomSlider(),
           Center(
             child: Row(
               children: [
