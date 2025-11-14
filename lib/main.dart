@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:week_plan/screens/todo_list_screen.dart';
-import 'package:week_plan/screens/todo_planer_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:week_plan/router/router.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -12,9 +12,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: '주간 할 일',
-      home: TodoPlanerScreen(),
+    return MaterialApp.router(
+      title: 'Week Plan',
+      routerConfig: router,
     );
   }
 }
