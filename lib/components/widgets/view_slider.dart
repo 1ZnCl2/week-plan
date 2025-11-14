@@ -30,7 +30,9 @@ class MyCustomSliderState extends ConsumerState<MyCustomSlider> {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Positioned(
+          AnimatedPositioned(
+            duration: Duration(milliseconds: 70),
+            curve: Curves.easeInOut,
             left: isPagePlan ? 96 : 0,
             child: Container(
               width: 92,
@@ -55,10 +57,15 @@ class MyCustomSliderState extends ConsumerState<MyCustomSlider> {
                   child: Text(
                     '전체 보기',
                     textAlign: TextAlign.center,
-                    style: AppFonts.greyTitle(
-                      null,
-                      size: 16,
-                    ),
+                    style: isPagePlan
+                        ? AppFonts.greyTitle(
+                            null,
+                            bold: FontWeight.w500,
+                            size: 16,
+                          )
+                        : AppFonts.whiteTitle(
+                            size: 16,
+                          ),
                   ),
                 ),
               ),
@@ -72,10 +79,15 @@ class MyCustomSliderState extends ConsumerState<MyCustomSlider> {
                   child: Text(
                     '계획 보기',
                     textAlign: TextAlign.center,
-                    style: AppFonts.greyTitle(
-                      null,
-                      size: 16,
-                    ),
+                    style: isPagePlan
+                        ? AppFonts.whiteTitle(
+                            size: 16,
+                          )
+                        : AppFonts.greyTitle(
+                            null,
+                            bold: FontWeight.w500,
+                            size: 16,
+                          ),
                   ),
                 ),
               ),
