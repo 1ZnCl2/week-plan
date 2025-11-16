@@ -64,6 +64,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '888388114814',
     projectId: 'weekplan-79db1',
     storageBucket: 'weekplan-79db1.firebasestorage.app',
+    iosClientId: '888388114814-mjckl7jhouke5b5kle3uv7oprsopmavm.apps.googleusercontent.com',
     iosBundleId: 'com.example.weekPlan',
   );
 
@@ -73,6 +74,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '888388114814',
     projectId: 'weekplan-79db1',
     storageBucket: 'weekplan-79db1.firebasestorage.app',
+    iosClientId: '888388114814-mjckl7jhouke5b5kle3uv7oprsopmavm.apps.googleusercontent.com',
     iosBundleId: 'com.example.weekPlan',
   );
 
@@ -85,4 +87,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'weekplan-79db1.firebasestorage.app',
     measurementId: 'G-VBWLZDR7C2',
   );
+
 }
