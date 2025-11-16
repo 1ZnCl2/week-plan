@@ -22,16 +22,11 @@ ScheduleModel _$ScheduleModelFromJson(Map<String, dynamic> json) {
 mixin _$ScheduleModel {
   String get scheduleId => throw _privateConstructorUsedError;
   String get scheduleName => throw _privateConstructorUsedError;
-  String get category => throw _privateConstructorUsedError;
   String get refId => throw _privateConstructorUsedError;
-  String get uid => throw _privateConstructorUsedError;
   DateTime get startTime => throw _privateConstructorUsedError;
   DateTime get endTime => throw _privateConstructorUsedError;
   bool get isAllDay => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
-  bool get isRecurring => throw _privateConstructorUsedError;
-  bool get isSprint => throw _privateConstructorUsedError;
-  bool get isPriority => throw _privateConstructorUsedError;
 
   /// Serializes this ScheduleModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -52,16 +47,11 @@ abstract class $ScheduleModelCopyWith<$Res> {
   $Res call(
       {String scheduleId,
       String scheduleName,
-      String category,
       String refId,
-      String uid,
       DateTime startTime,
       DateTime endTime,
       bool isAllDay,
-      bool isCompleted,
-      bool isRecurring,
-      bool isSprint,
-      bool isPriority});
+      bool isCompleted});
 }
 
 /// @nodoc
@@ -81,16 +71,11 @@ class _$ScheduleModelCopyWithImpl<$Res, $Val extends ScheduleModel>
   $Res call({
     Object? scheduleId = null,
     Object? scheduleName = null,
-    Object? category = null,
     Object? refId = null,
-    Object? uid = null,
     Object? startTime = null,
     Object? endTime = null,
     Object? isAllDay = null,
     Object? isCompleted = null,
-    Object? isRecurring = null,
-    Object? isSprint = null,
-    Object? isPriority = null,
   }) {
     return _then(_value.copyWith(
       scheduleId: null == scheduleId
@@ -101,17 +86,9 @@ class _$ScheduleModelCopyWithImpl<$Res, $Val extends ScheduleModel>
           ? _value.scheduleName
           : scheduleName // ignore: cast_nullable_to_non_nullable
               as String,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as String,
       refId: null == refId
           ? _value.refId
           : refId // ignore: cast_nullable_to_non_nullable
-              as String,
-      uid: null == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
               as String,
       startTime: null == startTime
           ? _value.startTime
@@ -129,18 +106,6 @@ class _$ScheduleModelCopyWithImpl<$Res, $Val extends ScheduleModel>
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
-      isRecurring: null == isRecurring
-          ? _value.isRecurring
-          : isRecurring // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isSprint: null == isSprint
-          ? _value.isSprint
-          : isSprint // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isPriority: null == isPriority
-          ? _value.isPriority
-          : isPriority // ignore: cast_nullable_to_non_nullable
-              as bool,
     ) as $Val);
   }
 }
@@ -156,16 +121,11 @@ abstract class _$$ScheduleModelImplCopyWith<$Res>
   $Res call(
       {String scheduleId,
       String scheduleName,
-      String category,
       String refId,
-      String uid,
       DateTime startTime,
       DateTime endTime,
       bool isAllDay,
-      bool isCompleted,
-      bool isRecurring,
-      bool isSprint,
-      bool isPriority});
+      bool isCompleted});
 }
 
 /// @nodoc
@@ -183,16 +143,11 @@ class __$$ScheduleModelImplCopyWithImpl<$Res>
   $Res call({
     Object? scheduleId = null,
     Object? scheduleName = null,
-    Object? category = null,
     Object? refId = null,
-    Object? uid = null,
     Object? startTime = null,
     Object? endTime = null,
     Object? isAllDay = null,
     Object? isCompleted = null,
-    Object? isRecurring = null,
-    Object? isSprint = null,
-    Object? isPriority = null,
   }) {
     return _then(_$ScheduleModelImpl(
       scheduleId: null == scheduleId
@@ -203,17 +158,9 @@ class __$$ScheduleModelImplCopyWithImpl<$Res>
           ? _value.scheduleName
           : scheduleName // ignore: cast_nullable_to_non_nullable
               as String,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as String,
       refId: null == refId
           ? _value.refId
           : refId // ignore: cast_nullable_to_non_nullable
-              as String,
-      uid: null == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
               as String,
       startTime: null == startTime
           ? _value.startTime
@@ -231,18 +178,6 @@ class __$$ScheduleModelImplCopyWithImpl<$Res>
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
-      isRecurring: null == isRecurring
-          ? _value.isRecurring
-          : isRecurring // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isSprint: null == isSprint
-          ? _value.isSprint
-          : isSprint // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isPriority: null == isPriority
-          ? _value.isPriority
-          : isPriority // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -253,16 +188,11 @@ class _$ScheduleModelImpl implements _ScheduleModel {
   _$ScheduleModelImpl(
       {required this.scheduleId,
       required this.scheduleName,
-      required this.category,
       required this.refId,
-      required this.uid,
       required this.startTime,
       required this.endTime,
       required this.isAllDay,
-      required this.isCompleted,
-      required this.isRecurring,
-      required this.isSprint,
-      required this.isPriority});
+      required this.isCompleted});
 
   factory _$ScheduleModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ScheduleModelImplFromJson(json);
@@ -272,11 +202,7 @@ class _$ScheduleModelImpl implements _ScheduleModel {
   @override
   final String scheduleName;
   @override
-  final String category;
-  @override
   final String refId;
-  @override
-  final String uid;
   @override
   final DateTime startTime;
   @override
@@ -285,16 +211,10 @@ class _$ScheduleModelImpl implements _ScheduleModel {
   final bool isAllDay;
   @override
   final bool isCompleted;
-  @override
-  final bool isRecurring;
-  @override
-  final bool isSprint;
-  @override
-  final bool isPriority;
 
   @override
   String toString() {
-    return 'ScheduleModel(scheduleId: $scheduleId, scheduleName: $scheduleName, category: $category, refId: $refId, uid: $uid, startTime: $startTime, endTime: $endTime, isAllDay: $isAllDay, isCompleted: $isCompleted, isRecurring: $isRecurring, isSprint: $isSprint, isPriority: $isPriority)';
+    return 'ScheduleModel(scheduleId: $scheduleId, scheduleName: $scheduleName, refId: $refId, startTime: $startTime, endTime: $endTime, isAllDay: $isAllDay, isCompleted: $isCompleted)';
   }
 
   @override
@@ -306,41 +226,20 @@ class _$ScheduleModelImpl implements _ScheduleModel {
                 other.scheduleId == scheduleId) &&
             (identical(other.scheduleName, scheduleName) ||
                 other.scheduleName == scheduleName) &&
-            (identical(other.category, category) ||
-                other.category == category) &&
             (identical(other.refId, refId) || other.refId == refId) &&
-            (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.startTime, startTime) ||
                 other.startTime == startTime) &&
             (identical(other.endTime, endTime) || other.endTime == endTime) &&
             (identical(other.isAllDay, isAllDay) ||
                 other.isAllDay == isAllDay) &&
             (identical(other.isCompleted, isCompleted) ||
-                other.isCompleted == isCompleted) &&
-            (identical(other.isRecurring, isRecurring) ||
-                other.isRecurring == isRecurring) &&
-            (identical(other.isSprint, isSprint) ||
-                other.isSprint == isSprint) &&
-            (identical(other.isPriority, isPriority) ||
-                other.isPriority == isPriority));
+                other.isCompleted == isCompleted));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      scheduleId,
-      scheduleName,
-      category,
-      refId,
-      uid,
-      startTime,
-      endTime,
-      isAllDay,
-      isCompleted,
-      isRecurring,
-      isSprint,
-      isPriority);
+  int get hashCode => Object.hash(runtimeType, scheduleId, scheduleName, refId,
+      startTime, endTime, isAllDay, isCompleted);
 
   /// Create a copy of ScheduleModel
   /// with the given fields replaced by the non-null parameter values.
@@ -362,16 +261,11 @@ abstract class _ScheduleModel implements ScheduleModel {
   factory _ScheduleModel(
       {required final String scheduleId,
       required final String scheduleName,
-      required final String category,
       required final String refId,
-      required final String uid,
       required final DateTime startTime,
       required final DateTime endTime,
       required final bool isAllDay,
-      required final bool isCompleted,
-      required final bool isRecurring,
-      required final bool isSprint,
-      required final bool isPriority}) = _$ScheduleModelImpl;
+      required final bool isCompleted}) = _$ScheduleModelImpl;
 
   factory _ScheduleModel.fromJson(Map<String, dynamic> json) =
       _$ScheduleModelImpl.fromJson;
@@ -381,11 +275,7 @@ abstract class _ScheduleModel implements ScheduleModel {
   @override
   String get scheduleName;
   @override
-  String get category;
-  @override
   String get refId;
-  @override
-  String get uid;
   @override
   DateTime get startTime;
   @override
@@ -394,12 +284,6 @@ abstract class _ScheduleModel implements ScheduleModel {
   bool get isAllDay;
   @override
   bool get isCompleted;
-  @override
-  bool get isRecurring;
-  @override
-  bool get isSprint;
-  @override
-  bool get isPriority;
 
   /// Create a copy of ScheduleModel
   /// with the given fields replaced by the non-null parameter values.
