@@ -18,7 +18,7 @@ _$WeeklyTodoModelImpl _$$WeeklyTodoModelImplFromJson(
       includingSubtask: json['includingSubtask'] as bool?,
       refId: json['refId'] as String?,
       impact: (json['impact'] as num?)?.toInt(),
-      deadline: const TimestampConverter().fromJson(json['deadline']),
+      deadline: (json['deadline'] as Timestamp).toDate(),
     );
 
 Map<String, dynamic> _$$WeeklyTodoModelImplToJson(
@@ -33,5 +33,5 @@ Map<String, dynamic> _$$WeeklyTodoModelImplToJson(
       'includingSubtask': instance.includingSubtask,
       'refId': instance.refId,
       'impact': instance.impact,
-      'deadline': const TimestampConverter().toJson(instance.deadline),
+      'deadline': instance.deadline,
     };

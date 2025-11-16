@@ -29,8 +29,7 @@ mixin _$WeeklyTodoModel {
   bool? get includingSubtask => throw _privateConstructorUsedError;
   String? get refId => throw _privateConstructorUsedError;
   int? get impact => throw _privateConstructorUsedError;
-  @TimestampConverter()
-  Timestamp? get deadline => throw _privateConstructorUsedError;
+  DateTime? get deadline => throw _privateConstructorUsedError;
 
   /// Serializes this WeeklyTodoModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -58,7 +57,7 @@ abstract class $WeeklyTodoModelCopyWith<$Res> {
       bool? includingSubtask,
       String? refId,
       int? impact,
-      @TimestampConverter() Timestamp? deadline});
+      DateTime? deadline});
 }
 
 /// @nodoc
@@ -127,7 +126,7 @@ class _$WeeklyTodoModelCopyWithImpl<$Res, $Val extends WeeklyTodoModel>
       deadline: freezed == deadline
           ? _value.deadline
           : deadline // ignore: cast_nullable_to_non_nullable
-              as Timestamp?,
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -150,7 +149,7 @@ abstract class _$$WeeklyTodoModelImplCopyWith<$Res>
       bool? includingSubtask,
       String? refId,
       int? impact,
-      @TimestampConverter() Timestamp? deadline});
+      DateTime? deadline});
 }
 
 /// @nodoc
@@ -217,7 +216,7 @@ class __$$WeeklyTodoModelImplCopyWithImpl<$Res>
       deadline: freezed == deadline
           ? _value.deadline
           : deadline // ignore: cast_nullable_to_non_nullable
-              as Timestamp?,
+              as DateTime?,
     ));
   }
 }
@@ -235,7 +234,7 @@ class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
       this.includingSubtask,
       this.refId,
       this.impact,
-      @TimestampConverter() required this.deadline});
+      this.deadline});
 
   factory _$WeeklyTodoModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$WeeklyTodoModelImplFromJson(json);
@@ -259,8 +258,7 @@ class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
   @override
   final int? impact;
   @override
-  @TimestampConverter()
-  final Timestamp? deadline;
+  final DateTime? deadline;
 
   @override
   String toString() {
@@ -314,17 +312,16 @@ class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
 
 abstract class _WeeklyTodoModel implements WeeklyTodoModel {
   factory _WeeklyTodoModel(
-          {required final String todoId,
-          required final String todoName,
-          required final String category,
-          required final String uid,
-          required final bool isCompleted,
-          required final bool isSprint,
-          final bool? includingSubtask,
-          final String? refId,
-          final int? impact,
-          @TimestampConverter() required final Timestamp? deadline}) =
-      _$WeeklyTodoModelImpl;
+      {required final String todoId,
+      required final String todoName,
+      required final String category,
+      required final String uid,
+      required final bool isCompleted,
+      required final bool isSprint,
+      final bool? includingSubtask,
+      final String? refId,
+      final int? impact,
+      final DateTime? deadline}) = _$WeeklyTodoModelImpl;
 
   factory _WeeklyTodoModel.fromJson(Map<String, dynamic> json) =
       _$WeeklyTodoModelImpl.fromJson;
@@ -348,8 +345,7 @@ abstract class _WeeklyTodoModel implements WeeklyTodoModel {
   @override
   int? get impact;
   @override
-  @TimestampConverter()
-  Timestamp? get deadline;
+  DateTime? get deadline;
 
   /// Create a copy of WeeklyTodoModel
   /// with the given fields replaced by the non-null parameter values.

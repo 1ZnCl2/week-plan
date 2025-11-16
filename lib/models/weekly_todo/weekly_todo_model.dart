@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:week_plan/models/timestamp_converter.dart';
 
 part 'weekly_todo_model.freezed.dart';
 part 'weekly_todo_model.g.dart';
@@ -17,7 +16,7 @@ class WeeklyTodoModel with _$WeeklyTodoModel {
     bool? includingSubtask,
     String? refId,
     int? impact,
-    @TimestampConverter() required Timestamp? deadline,
+    DateTime? deadline,
   }) = _WeeklyTodoModel;
 
   factory WeeklyTodoModel.fromJson(Map<String, dynamic> json) =>
@@ -30,7 +29,7 @@ class WeeklyTodoModel with _$WeeklyTodoModel {
       category: doc['category'],
       uid: doc['uid'],
       impact: doc['impact'],
-      deadline: doc['deadline'] ?? Timestamp(0, 0),
+      deadline: (doc['deadline'] as Timestamp).toDate(),
       isCompleted: doc['is_completed'],
       isSprint: doc['is_sprint'] ?? false,
       includingSubtask: doc['including_subtask'] ?? false,
