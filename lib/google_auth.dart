@@ -7,10 +7,12 @@ class AuthService {
     try {
       GoogleAuthProvider googleProvider = GoogleAuthProvider();
 
-      // 👉 Web에서는 signInWithPopup
-      final userCredential = await _auth.signInWithPopup(googleProvider);
+      googleProvider.setCustomParameters({
+        'client_id':
+            '888388114814-icgbm24be14dq0u3rr7vpcejq6d78u2n.apps.googleusercontent.com'
+      });
 
-      return userCredential.user;
+      await FirebaseAuth.instance.signInWithRedirect(googleProvider);
     } catch (e) {
       print("Google sign-in error: $e");
       return null;

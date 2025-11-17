@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:week_plan/google_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:async';
 
 import 'package:week_plan/components/icon_manage.dart';
 import 'package:week_plan/components/widgets/view_slider.dart';
@@ -23,11 +25,7 @@ class TodoListScreen extends StatelessWidget {
               SizedBox(width: 624),
               GestureDetector(
                 onTap: () async {
-                  final user = await AuthService().signInWithGoogle();
-                  if (user != null) {
-                    // 로그인 성공하면 홈 화면으로 이동
-                    Navigator.pushReplacementNamed(context, '/home');
-                  }
+                  await AuthService().signInWithGoogle();
                 },
                 child: SvgPicture.asset(AppIcon.logIn),
               )
