@@ -13,19 +13,35 @@ void main() async {
   );
 
   // redirect 결과 받기
-  await FirebaseAuth.instance.getRedirectResult();
 
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends ConsumerWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.watch(routerProvider);
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
 
+class _MyAppState extends ConsumerState<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+
+    // 🔥 redirect 결과는 반드시 ProviderScope 아래에서 받아야 한다
+    FirebaseAuth.instance.getRedirectResult().then((result) {
+      if (result.user != null) {
+        debugPrint("User logged in with redirect: ${result.user!.uid}");
+      }
+    }).catchError((e) {
+      debugPrint("Redirect error: $e");
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final router = ref.watch(routerProvider);
     return MaterialApp.router(
       title: 'Week Plan',
       routerConfig: router,
