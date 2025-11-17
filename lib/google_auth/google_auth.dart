@@ -13,6 +13,8 @@ class AuthService {
       });
 
       await FirebaseAuth.instance.signInWithRedirect(googleProvider);
+
+      return _auth.currentUser;
     } catch (e) {
       print("Google sign-in error: $e");
       return null;
