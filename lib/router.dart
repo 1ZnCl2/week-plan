@@ -8,11 +8,8 @@ import 'package:go_router/go_router.dart';
 import 'package:week_plan/screens/main_frame.dart';
 import 'package:week_plan/screens/todo_list_screen.dart';
 import 'package:week_plan/screens/todo_planer_screen.dart';
-import 'package:week_plan/providers/google_auth/google_auth_provider.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
-  final user = ref.watch(authStateProvider).value;
-
   return GoRouter(
     initialLocation: '/todo',
     routes: [

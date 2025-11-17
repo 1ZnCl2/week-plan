@@ -14,6 +14,7 @@ class CustomedAppBar extends ConsumerWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(authStateProvider).value;
+
     return AppBar(
       automaticallyImplyLeading: true,
       toolbarHeight: 30,
@@ -22,24 +23,23 @@ class CustomedAppBar extends ConsumerWidget implements PreferredSizeWidget {
         'Week Plan',
         style: AppFonts.blackTitle(size: 14),
       ),
-      leading: GestureDetector(
-        onTap: () async {
-          await AuthService().signInWithGoogle();
-          if (user != null) {
-            debugPrint('User signed in: ${user.displayName}');
-          } else {
-            debugPrint('Sign-in failed');
-          }
-        },
-        child: user == null
-            ? SvgPicture.asset(AppIcon.logIn,
-                width: 24, height: 24, color: AppColors.grey(9))
-            : Icon(
-                Icons.person,
-                size: 24,
-                color: AppColors.grey(9),
-              ),
-      ),
+      actions: [
+        GestureDetector(
+          onTap: () async {
+            await AuthService().signInWithGoogle();
+            print('AppBar user: $user');
+          },
+          child: user == null
+              ? SvgPicture.asset(AppIcon.logIn,
+                  width: 24, height: 24, color: AppColors.grey(9))
+              : SvgPicture.asset(
+                  AppIcon.userProfile,
+                  height: 24,
+                  width: 24,
+                  color: AppColors.grey(9),
+                ),
+        ),
+      ],
     );
   }
 
