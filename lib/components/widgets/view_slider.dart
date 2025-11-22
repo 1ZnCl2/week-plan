@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/providers/slider_provider.dart';
-import 'package:week_plan/router/router.dart';
+import 'package:week_plan/router.dart';
 
 class MyCustomSlider extends ConsumerStatefulWidget {
   const MyCustomSlider({super.key});

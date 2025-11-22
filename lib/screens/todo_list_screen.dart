@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:week_plan/components/color_manage.dart';
+import 'dart:async';
+
+import 'package:week_plan/components/icon_manage.dart';
 import 'package:week_plan/components/widgets/view_slider.dart';
 import 'package:week_plan/widgets/todo_list/add_button.dart';
 import 'package:week_plan/widgets/todo_list/instructor.dart';
 import 'package:week_plan/widgets/todo_list/todo_card.dart';
 
-class TodoListScreen extends StatelessWidget {
+class TodoListScreen extends ConsumerWidget {
   const TodoListScreen({super.key});
 
   @override
-  Scaffold build(BuildContext context) {
+  Scaffold build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MyCustomSlider(),
+          Row(
+            children: [MyCustomSlider()],
+          ),
           Center(
             child: Row(
               children: [

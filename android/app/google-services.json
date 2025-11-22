@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "888388114814",
+    "project_id": "weekplan-79db1",
+    "storage_bucket": "weekplan-79db1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:888388114814:android:9cbfd2aa4b71bdfc5d7b2f",
+        "android_client_info": {
+          "package_name": "com.example.week_plan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "888388114814-icgbm24be14dq0u3rr7vpcejq6d78u2n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9kEY7bUc4JIoWDA80rJ_lYXximwOyuOg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "888388114814-icgbm24be14dq0u3rr7vpcejq6d78u2n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "888388114814-mjckl7jhouke5b5kle3uv7oprsopmavm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.weekPlan"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

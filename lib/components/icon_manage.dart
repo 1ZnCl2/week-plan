@@ -10,4 +10,5 @@ class AppIcon {
   static const String square = 'assets/icons/square.svg';
   static const String stopCircle = 'assets/icons/stop-circle.svg';
   static const String home = 'assets/icons/home-02.svg';
+  static const String userProfile = 'assets/icons/user-profile.svg';
 }
