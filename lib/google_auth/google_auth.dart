@@ -15,8 +15,6 @@ class AuthService {
 
       await FirebaseAuth.instance.signInWithPopup(googleProvider);
 
-      print('$googleProvider');
-
       return _auth.currentUser;
     } catch (e) {
       print("Google sign-in error: $e");

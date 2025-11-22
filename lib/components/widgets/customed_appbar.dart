@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:week_plan/google_auth/google_auth.dart';
 import 'package:week_plan/components/font_manage.dart';
+import 'package:week_plan/repository/user/user_repository.dart';
 
 class CustomedAppBar extends ConsumerWidget implements PreferredSizeWidget {
   const CustomedAppBar({super.key});
@@ -27,7 +28,7 @@ class CustomedAppBar extends ConsumerWidget implements PreferredSizeWidget {
         GestureDetector(
           onTap: () async {
             await AuthService().signInWithGoogle();
-            print('AppBar user: $user');
+            await UserRepository().ensureUserDocument();
           },
           child: user == null
               ? SvgPicture.asset(AppIcon.logIn,
