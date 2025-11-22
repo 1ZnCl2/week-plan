@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:week_plan/components/widgets/view_slider.dart';
 import 'package:week_plan/widgets/todo_list/add_button.dart';
+import 'package:week_plan/widgets/todo_list/editting_card.dart';
 import 'package:week_plan/widgets/todo_list/instructor.dart';
 import 'package:week_plan/widgets/todo_list/sprint_box.dart';
 import 'package:week_plan/widgets/todo_list/todo_card.dart';
@@ -30,6 +31,7 @@ class TodoListScreen extends ConsumerWidget {
                     AddButton(),
                     SprintBox(),
                     TodoCard(title: 'title', category: 'category'),
+                    EdittingCard(),
                   ],
                 ),
               ],
