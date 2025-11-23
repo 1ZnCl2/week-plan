@@ -13,9 +13,10 @@ class SprintBox extends StatelessWidget {
         horizontal: 6,
       ),
       decoration: BoxDecoration(
-          color: Colors.transparent,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(width: 3, color: AppColors.cyan(2))),
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(width: 3, color: AppColors.cyan(2)),
+      ),
       child: Column(
         children: [
           TodoCard(title: 'title', category: 'cate'),
