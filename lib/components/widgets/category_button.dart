@@ -16,43 +16,45 @@ class CategoryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      fit: FlexFit.loose,
-      child: Container(
-        height: 44,
-        padding: EdgeInsets.symmetric(horizontal: 13, vertical: 10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(
-            color: AppColors.grey(4),
-            width: 1,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: const Color.fromARGB(10, 0, 0, 0),
-              blurRadius: 12,
+    return Row(
+      children: [
+        Container(
+          height: 44,
+          padding: EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              color: AppColors.grey(4),
+              width: 1,
             ),
-          ],
-          borderRadius: BorderRadius.circular(100),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 5,
-              height: 5,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: const Color.fromARGB(10, 0, 0, 0),
+                blurRadius: 12,
               ),
-            ),
-            SizedBox(width: 3),
-            Text(
-              categoryName,
-              style: AppFonts.blackTitle(size: 14),
-            ),
-          ],
+            ],
+            borderRadius: BorderRadius.circular(100),
+          ),
+          child: Row(
+            children: [
+              Container(
+                width: 5,
+                height: 5,
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              SizedBox(width: 3),
+              Text(
+                categoryName,
+                style: AppFonts.blackTitle(size: 14),
+              ),
+            ],
+          ),
         ),
-      ),
+        Expanded(child: SizedBox()),
+      ],
     );
   }
 }

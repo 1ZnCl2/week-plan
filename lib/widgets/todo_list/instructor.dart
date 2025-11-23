@@ -17,22 +17,38 @@ class Instructor extends StatelessWidget {
         vertical: 72,
         horizontal: 27,
       ),
-      color: AppColors.grey(1),
+      decoration: BoxDecoration(
+        color: AppColors.grey(1),
+        border: Border.all(width: 1, color: AppColors.grey(4)),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 4,
+          )
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 16,
         children: [
-          IconText(
-            iconPath: AppIcon.home,
-            text: '홈',
+          GestureDetector(
+            child: IconText(
+              iconPath: AppIcon.home,
+              text: '홈',
+            ),
           ),
-          IconText(
-            iconPath: AppIcon.inbox,
-            text: '백로그',
+          GestureDetector(
+            child: IconText(
+              iconPath: AppIcon.inbox,
+              text: '백로그',
+            ),
           ),
-          IconText(
-            iconPath: AppIcon.server,
-            text: '저장소',
+          GestureDetector(
+            child: IconText(
+              iconPath: AppIcon.server,
+              text: '저장소',
+            ),
           ),
           Divider(
             color: AppColors.grey(4),
