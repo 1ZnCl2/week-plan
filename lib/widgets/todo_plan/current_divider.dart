@@ -13,7 +13,7 @@ class CurrentDivider extends StatelessWidget {
         alignment: Alignment.centerLeft,
         children: [
           Container(
-            width: 1260,
+            width: 1280,
             height: 2,
             color: AppColors.cyan(2),
           ),
