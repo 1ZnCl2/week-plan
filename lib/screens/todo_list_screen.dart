@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:week_plan/components/color_manage.dart';
 
 import 'package:week_plan/components/widgets/view_slider.dart';
 import 'package:week_plan/widgets/todo_list/add_button.dart';
@@ -16,16 +17,25 @@ class TodoListScreen extends ConsumerWidget {
   Scaffold build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [MyCustomSlider()],
           ),
-          Center(
+          SizedBox(
+            height: 17,
+          ),
+          Container(
+            height: 806,
+            width: 1260,
+            color: AppColors.grey(1),
             child: Row(
               children: [
                 Instructor(),
                 SizedBox(width: 214),
                 Column(
+                  mainAxisSize: MainAxisSize.min,
                   spacing: 15,
                   children: [
                     AddButton(),
