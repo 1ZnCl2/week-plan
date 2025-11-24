@@ -17,6 +17,7 @@ class CategoryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Container(
           height: 44,
@@ -53,7 +54,6 @@ class CategoryButton extends StatelessWidget {
             ],
           ),
         ),
-        Expanded(child: SizedBox()),
       ],
     );
   }
