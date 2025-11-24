@@ -15,7 +15,6 @@ class TodoPlanerScreen extends StatelessWidget {
         children: [
           SizedBox(
             width: 1260,
-            height: 44,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -28,7 +27,10 @@ class TodoPlanerScreen extends StatelessWidget {
               ],
             ),
           ),
-          WeekCalendar(),
+          SizedBox(
+            height: 11,
+          ),
+          SizedBox(width: 1280, child: WeekCalendar()),
         ],
       ),
     );
