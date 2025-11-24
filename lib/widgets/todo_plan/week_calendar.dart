@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/widgets/todo_plan/current_divider.dart';
@@ -36,11 +37,11 @@ String currentDayName(DayOfWeek day) {
   }
 }
 
-class WeekCalendar extends StatelessWidget {
+class WeekCalendar extends ConsumerWidget {
   const WeekCalendar({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       spacing: 9,
       children: [

@@ -10,9 +10,11 @@ class AddScheduleBlock extends StatelessWidget {
     return Container(
       width: 101,
       height: 28,
+      alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: AppColors.grey(1),
-        border: Border.all(color: AppColors.grey(5)),
+        color: AppColors.grey(4),
+        border: Border.all(color: AppColors.grey(6)),
+        borderRadius: BorderRadius.circular(100),
       ),
       child: Text(
         '+ 더 가져오기',

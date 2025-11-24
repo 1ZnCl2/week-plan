@@ -10,14 +10,21 @@ class TodoContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 275,
+      width: 1280,
       decoration: BoxDecoration(
         color: AppColors.grey(3),
       ),
+      padding: EdgeInsets.only(left: 45),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           AddScheduleBlock(),
+          SizedBox(
+            height: 8,
+          ),
           Row(
+            spacing: 45,
             children: [
               ScheduleBlock(isNull: false),
               ScheduleBlock(
