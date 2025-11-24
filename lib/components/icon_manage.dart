@@ -12,4 +12,6 @@ class AppIcon {
   static const String home = 'assets/icons/home-02.svg';
   static const String userProfile = 'assets/icons/user-profile.svg';
   static const String star = 'assets/icons/star-01.svg';
+  static const String chevornRight = 'assets/icons/chevron-right-01.svg';
+  static const String chevornLeft = 'assets/icons/chevron-left-01.svg';
 }
