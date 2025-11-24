@@ -51,7 +51,9 @@ class MyCustomSliderState extends ConsumerState<MyCustomSlider> {
             children: [
               GestureDetector(
                 onTap: () {
-                  ref.read(sliderProvider.notifier).toggleSlider();
+                  if (isPagePlan) {
+                    ref.read(sliderProvider.notifier).toggleSlider();
+                  }
                   context.go(RouterRoots.todoList);
                 },
                 child: SizedBox(
@@ -76,7 +78,10 @@ class MyCustomSliderState extends ConsumerState<MyCustomSlider> {
               ),
               GestureDetector(
                 onTap: () {
-                  ref.read(sliderProvider.notifier).toggleSlider();
+                  if (!isPagePlan) {
+                    ref.read(sliderProvider.notifier).toggleSlider();
+                  }
+
                   context.go(RouterRoots.todoPlanner);
                 },
                 child: SizedBox(

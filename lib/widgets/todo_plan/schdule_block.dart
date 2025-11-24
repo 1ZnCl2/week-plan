@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:week_plan/components/color_manage.dart';
 
-class SchduleBlock extends StatelessWidget {
+class ScheduleBlock extends StatelessWidget {
   final bool isNull;
-  const SchduleBlock({
+  const ScheduleBlock({
     super.key,
     required this.isNull,
   });
