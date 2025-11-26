@@ -1,5 +1,6 @@
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
@@ -8,14 +9,18 @@ import 'package:week_plan/widgets/todo_list/category_tag.dart';
 import 'package:week_plan/widgets/todo_list/sub_task.dart';
 
 class TodoCard extends StatelessWidget {
+  static final defaultDeadline = DateTime(2999, 12, 31, 23, 59);
+
   final String title;
   final String category;
+  final DateTime? deadline;
   final bool isCompleted;
 
   const TodoCard({
     super.key,
     required this.title,
     required this.category,
+    this.deadline,
     this.isCompleted = false,
   });
 
@@ -113,7 +118,9 @@ class TodoCard extends StatelessWidget {
                   ),
                   SizedBox(height: 63),
                   Text(
-                    '11/05 23:59',
+                    DateFormat('MM/dd HH:mm')
+                        .format(deadline ?? DateTime(2999, 12, 31, 23, 59))
+                        .toString(),
                     style: AppFonts.greyTitle(null, size: 16),
                   ),
                 ],

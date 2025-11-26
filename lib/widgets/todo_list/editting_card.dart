@@ -1,20 +1,24 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
+import 'package:week_plan/providers/weekly_todo_screen/todo_name_input_provider.dart';
 import 'package:week_plan/widgets/todo_list/add_category_tag.dart';
 import 'package:week_plan/widgets/todo_list/category_tag.dart';
 import 'package:week_plan/widgets/todo_list/sub_task.dart';
 
-class EdittingCard extends StatelessWidget {
+class EdittingCard extends ConsumerWidget {
   const EdittingCard({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final todoNameController = ref.watch(todoNameControllerProvider);
+
     return Stack(
       children: [
         Container(
@@ -73,14 +77,14 @@ class EdittingCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   spacing: 12,
                   children: [
-                    Text(
-                      '할 일을 입력해 주세요.',
-                      style: AppFonts.colormediumTitle(AppColors.grey(6)),
-                      strutStyle: const StrutStyle(
-                        fontSize: 20,
-                        height: 1.0,
-                        leading: 0,
-                        forceStrutHeight: true,
+                    TextField(
+                      controller: todoNameController,
+                      decoration: InputDecoration(
+                        labelText: '할 일을 입력해 주세요.',
+                        labelStyle: AppFonts.colormediumTitle(
+                          AppColors.grey(6),
+                        ),
+                        border: InputBorder.none,
                       ),
                     ),
                     AddCategoryTag(),
@@ -97,13 +101,16 @@ class EdittingCard extends StatelessWidget {
                     children: [
                       GestureDetector(
                         child: SvgPicture.asset(
-                          AppIcon.stopCircle,
+                          AppIcon.check02,
                           color: AppColors.grey(7),
                         ),
                         onTap: () {},
                       ),
                       SizedBox(width: 14),
-                      SvgPicture.asset(AppIcon.pencil),
+                      GestureDetector(
+                        child: SvgPicture.asset(AppIcon.trash),
+                        onTap: () {},
+                      ),
                     ],
                   ),
                   SizedBox(height: 63),
