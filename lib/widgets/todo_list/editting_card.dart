@@ -5,17 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
+import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_name_input_provider.dart';
 import 'package:week_plan/widgets/todo_list/add_category_tag.dart';
 import 'package:week_plan/widgets/todo_list/category_tag.dart';
 import 'package:week_plan/widgets/todo_list/sub_task.dart';
 
 class EdittingCard extends ConsumerWidget {
-  const EdittingCard({
-    super.key,
-  });
+  const EdittingCard({super.key});
 
-  @override
   Widget build(BuildContext context, WidgetRef ref) {
     final todoNameController = ref.watch(todoNameControllerProvider);
 
@@ -78,13 +76,16 @@ class EdittingCard extends ConsumerWidget {
                   spacing: 12,
                   children: [
                     TextField(
+                      style: AppFonts.blackTitle(),
                       controller: todoNameController,
                       decoration: InputDecoration(
-                        labelText: '할 일을 입력해 주세요.',
-                        labelStyle: AppFonts.colormediumTitle(
+                        hintText: '할 일을 입력해 주세요.',
+                        hintStyle: AppFonts.colormediumTitle(
                           AppColors.grey(6),
                         ),
                         border: InputBorder.none,
+                        isCollapsed: true,
+                        contentPadding: EdgeInsets.symmetric(vertical: 3),
                       ),
                     ),
                     AddCategoryTag(),
@@ -109,7 +110,10 @@ class EdittingCard extends ConsumerWidget {
                       SizedBox(width: 14),
                       GestureDetector(
                         child: SvgPicture.asset(AppIcon.trash),
-                        onTap: () {},
+                        onTap: () {
+                          todoNameController.dispose();
+                          ref.read(isEditingProvider.notifier).state = false;
+                        },
                       ),
                     ],
                   ),
