@@ -120,9 +120,11 @@ class TodoCard extends StatelessWidget {
                       ),
                       SizedBox(height: 63),
                       Text(
-                        DateFormat('MM/dd HH:mm')
-                            .format(deadline ?? DateTime(2999, 12, 31, 23, 59))
-                            .toString(),
+                        deadline != null
+                            ? DateFormat('MM/dd HH:mm')
+                                .format(deadline!)
+                                .toString()
+                            : '00/00 23:59',
                         style: AppFonts.greyTitle(null, size: 16),
                       ),
                     ],

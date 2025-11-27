@@ -35,27 +35,21 @@ class TodoListScreen extends ConsumerWidget {
             ),
           ),
           Expanded(
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: SingleChildScrollView(
-                child: SizedBox(
-                  width: 500,
-                  child: Column(
-                    children: [
-                      AddButton(),
-                      TodoCard(title: 'title', category: 'category'),
-                      isEditing ? EditingCard() : SizedBox(),
-                      SprintBox(),
-                      ...todoList.map(
-                        (item) => TodoCard(
-                          title: item['todo_name'],
-                          category: item['category'],
-                          deadline: item['deadline'],
-                        ),
-                      ),
-                    ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  AddButton(),
+                  TodoCard(title: 'title', category: 'category'),
+                  isEditing ? EditingCard() : SizedBox(),
+                  SprintBox(),
+                  ...todoList.map(
+                    (item) => TodoCard(
+                      title: item['todo_name'],
+                      category: item['category'],
+                      deadline: item['deadline'],
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           ),

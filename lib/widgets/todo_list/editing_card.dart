@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
-import 'package:week_plan/providers/services/weekly_todo_add_usecase_provider.dart';
+import 'package:week_plan/providers/usecases/weekly_todo_add_usecase_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_name_input_provider.dart';
 import 'package:week_plan/widgets/todo_list/add_category_tag.dart';
