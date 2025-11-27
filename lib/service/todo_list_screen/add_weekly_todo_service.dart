@@ -18,6 +18,8 @@ class AddWeeklyTodoService {
         todoName: todoName,
         category: category,
         uid: Uid,
+        deadline: deadline,
+        impact: impact,
         isCompleted: false,
         isSprint: false));
   }

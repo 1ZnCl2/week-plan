@@ -18,12 +18,14 @@ final addWeeklyTodoUsecaseProvider =
     );
 
     final uid = ref.read(uidProvider);
+    final deadline = ref.read(dateTimePickerProvider);
+
     if (uid == null) {
       debugPrint('uid is null');
 
       return;
     }
-    final deadline = ref.read(dateTimePickerProvider);
+    debugPrint('current deadline : $deadline');
     final impact = 3;
 
     service.addWeeklyTodo(uid, todoName, category, deadline, impact);

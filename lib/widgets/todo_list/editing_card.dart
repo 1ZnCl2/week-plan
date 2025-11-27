@@ -37,7 +37,7 @@ class _EditingCardState extends ConsumerState<EditingCard> {
 
   @override
   Widget build(BuildContext context) {
-    final todoNameController = ref.read(todoNameControllerProvider);
+    final todoNameController = ref.watch(todoNameControllerProvider);
 
     return Container(
       width: 488,
@@ -137,7 +137,6 @@ class _EditingCardState extends ConsumerState<EditingCard> {
                         color: AppColors.grey(7),
                       ),
                       onTap: () async {
-                        debugPrint('weekly Todo is excuted');
                         final addTodo = ref.read(addWeeklyTodoUsecaseProvider);
                         await addTodo(todoNameController.text, '미정');
                       },

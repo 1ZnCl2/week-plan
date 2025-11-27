@@ -8,6 +8,7 @@ import 'package:week_plan/components/widgets/view_slider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_list_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_name_input_provider.dart';
+import 'package:week_plan/providers/weekly_todo_screen/todo_stream_list_provider.dart';
 import 'package:week_plan/widgets/todo_list/add_button.dart';
 import 'package:week_plan/widgets/todo_list/editing_card.dart';
 import 'package:week_plan/widgets/todo_list/instructor.dart';
@@ -19,7 +20,7 @@ class TodoListScreen extends ConsumerWidget {
 
   @override
   Scaffold build(BuildContext context, WidgetRef ref) {
-    final todoList = ref.watch(todoListProvider);
+    final todoStreamed = ref.watch(weeklyTodoStreamProvider);
     final isEditing = ref.watch(isEditingProvider);
 
     return Scaffold(
@@ -42,16 +43,20 @@ class TodoListScreen extends ConsumerWidget {
                 AddButton(),
                 if (isEditing) EditingCard(),
                 SprintBox(),
-                TodoCard(title: 'title', category: 'category'),
-                TodoCard(title: 'title', category: 'category'),
-                TodoCard(title: 'title', category: 'category'),
-                TodoCard(title: 'title', category: 'category'),
-                ...todoList.map(
-                  (item) => TodoCard(
-                    title: item['todo_name'],
-                    category: item['category'],
-                    deadline: item['deadline'],
+                todoStreamed.when(
+                  data: (todoList) => Column(
+                    children: [
+                      ...todoList.map(
+                        (item) => TodoCard(
+                          title: item.todoName,
+                          category: item.category,
+                          deadline: item.deadline,
+                        ),
+                      ),
+                    ],
                   ),
+                  loading: () => CircularProgressIndicator(),
+                  error: (e, _) => Text('$e'),
                 ),
               ],
             ),

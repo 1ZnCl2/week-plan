@@ -8,8 +8,8 @@ final todoListProvider = StateNotifierProvider<TodoListNotifier, List>(
 class TodoListNotifier extends StateNotifier<List<WeeklyTodoModel>> {
   TodoListNotifier() : super([]);
 
-  void addItemtoList(WeeklyTodoModel newItem) {
-    state = [...state, newItem];
+  void addItemtoList(List<WeeklyTodoModel> newItems) {
+    state = [...state, ...newItems];
   }
 
   void subtractItemtoList(WeeklyTodoModel targetItem) {

@@ -6,15 +6,20 @@ import 'package:week_plan/models/weekly_todo/weekly_todo_model.dart';
 class WeeklyTodoRepository {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<List<WeeklyTodoModel>> syncWeeklyTodo(String UId) async {
-    final snapshot = await firestore
+  Stream<List<WeeklyTodoModel>> streamWeeklyTodos(String uid) {
+    return firestore
         .collection('weekly_todos')
-        .where('uid', isEqualTo: UId)
-        .get();
-
-    return snapshot.docs
-        .map((doc) => WeeklyTodoModel.fromJson(doc.data()))
-        .toList();
+        .where('uid', isEqualTo: uid)
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs
+          .map(
+            (doc) => WeeklyTodoModel.fromJson({
+              ...doc.data(),
+            }),
+          )
+          .toList();
+    });
   }
 
   Future<void> addTodo(WeeklyTodoModel todo) async {
