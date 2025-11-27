@@ -7,6 +7,7 @@ import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/widgets/view_slider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_list_provider.dart';
+import 'package:week_plan/providers/weekly_todo_screen/todo_name_input_provider.dart';
 import 'package:week_plan/widgets/todo_list/add_button.dart';
 import 'package:week_plan/widgets/todo_list/editing_card.dart';
 import 'package:week_plan/widgets/todo_list/instructor.dart';
@@ -20,9 +21,15 @@ class TodoListScreen extends ConsumerWidget {
   Scaffold build(BuildContext context, WidgetRef ref) {
     final todoList = ref.watch(todoListProvider);
     final isEditing = ref.watch(isEditingProvider);
+    final todoNameController = ref.read(todoNameControllerProvider);
+
+    debugPrint('current text state: ${todoNameController.text}');
 
     return Scaffold(
-      body: Row(
+      body: TextField(
+        controller: todoNameController,
+      ), /*Row(
+        spacing: 217,
         children: [
           SizedBox(
             width: 266,
@@ -39,28 +46,35 @@ class TodoListScreen extends ConsumerWidget {
               child: Column(
                 children: [
                   AddButton(),
-                  TodoCard(title: 'title', category: 'category'),
-                  isEditing ? EditingCard() : SizedBox(),
+                  if (isEditing) EditingCard(),
                   SprintBox(),
-                  ...todoList.map(
-                    (item) => TodoCard(
-                      title: item['todo_name'],
-                      category: item['category'],
-                      deadline: item['deadline'],
-                    ),
-                  ),
+                  TodoCard(title: 'title', category: 'category'),
+                  TodoCard(title: 'title', category: 'category'),
+                  TodoCard(title: 'title', category: 'category'),
+                  TodoCard(title: 'title', category: 'category'),
+             ...todoList.map(
+                (item) => TodoCard(
+                  title: item['todo_name'],
+                  category: item['category'],
+                  deadline: item['deadline'],
+                ),
+              ), 
                 ],
               ),
             ),
           ),
+        ],
+      ),
+    );*/
 
-          /*    Container(
+      /*    Container(
             height: 806,
             width: 1260,
             color: AppColors.grey(1),
-          ),*/
+          ),
         ],
       ),
+    );*/
     );
   }
 }

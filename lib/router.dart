@@ -9,39 +9,24 @@ final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: '/todo',
     routes: [
-      ShellRoute(
-        builder: (context, state, child) {
-          return MainFrame(child: child);
-        },
-        routes: [
-          GoRoute(
-            path: '/todo',
-            pageBuilder: (context, state) => CustomTransitionPage(
-              key: state.pageKey,
-              child: const TodoListScreen(),
-              transitionsBuilder: _fade,
-            ),
-          ),
-          GoRoute(
-            path: '/plan',
-            pageBuilder: (context, state) => CustomTransitionPage(
-              key: state.pageKey,
-              child: const TodoPlanerScreen(),
-              transitionsBuilder: _fade,
-            ),
-          ),
-        ],
+      GoRoute(
+        path: '/todo',
+        builder: (context, state) => MainFrame(child: const TodoListScreen()),
       ),
+      GoRoute(
+          path: '/plan',
+          builder: (context, state) =>
+              MainFrame(child: const TodoPlanerScreen())),
     ],
   );
 });
 
-Widget _fade(context, animation, secondary, child) {
+/* Widget _fade(context, animation, secondary, child) {
   return FadeTransition(
     opacity: animation,
     child: child,
   );
-}
+} */
 
 class RouterRoots {
   static const String todoList = '/todo';
