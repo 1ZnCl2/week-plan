@@ -4,9 +4,8 @@ import 'package:week_plan/repository/weekly_todo/weekly_todo_repository.dart';
 
 class AddWeeklyTodoService {
   final WeeklyTodoRepository todoRepo;
-  final UserRepository userRepo;
 
-  AddWeeklyTodoService(this.todoRepo, this.userRepo);
+  AddWeeklyTodoService(this.todoRepo);
 
   void addWeeklyTodo(String Uid, String todoName, String category,
       DateTime deadline, int impact) {

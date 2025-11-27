@@ -18,42 +18,44 @@ class _DatePickerWidgetState extends ConsumerState<DatePickerWidget> {
   Widget build(BuildContext context) {
     final selectedDate = ref.watch(dateTimePickerProvider);
 
-    return Row(
-      children: [
-        GestureDetector(
-          onTap: () async {
-            final DateTime? dateTime = await showDatePicker(
-              context: context,
-              initialDate: selectedDate,
-              firstDate: DateTime(2020),
-              lastDate: DateTime(2100),
-            );
+    return SizedBox(
+      height: 25,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GestureDetector(
+            onTap: () async {
+              final DateTime? dateTime = await showDatePicker(
+                context: context,
+                initialDate: selectedDate,
+                firstDate: DateTime(2020),
+                lastDate: DateTime(2100),
+              );
 
-            final TimeOfDay? timeOfDay = await showTimePicker(
-              context: context,
-              initialTime: TimeOfDay(
-                hour: 23,
-                minute: 59,
-              ),
-            );
+              if (dateTime != null) {
+                ref.read(dateTimePickerProvider.notifier).selectDate(dateTime);
+              }
 
-            if (dateTime != null) {
-              ref
-                  .read(dateTimePickerProvider.notifier)
-                  .selectDate(selectedDate);
-            }
+              final TimeOfDay? timeOfDay = await showTimePicker(
+                context: context,
+                initialTime: TimeOfDay(
+                  hour: 23,
+                  minute: 59,
+                ),
+              );
 
-            if (timeOfDay != null) {
-              ref.read(dateTimePickerProvider.notifier).updateTime(timeOfDay);
-            }
-          },
-          child: SvgPicture.asset(AppIcon.blankedCalendar),
-        ),
-        Text(
-          '${selectedDate.month}/${selectedDate.day} ${selectedDate.hour}:${selectedDate.minute}',
-          style: AppFonts.greyTitle(null, size: 16),
-        ),
-      ],
+              if (timeOfDay != null) {
+                ref.read(dateTimePickerProvider.notifier).updateTime(timeOfDay);
+              }
+            },
+            child: SvgPicture.asset(AppIcon.blankedCalendar),
+          ),
+          Text(
+            '${selectedDate.month}/${selectedDate.day} ${selectedDate.hour.toString().padLeft(2, '0')}:${selectedDate.minute.toString().padLeft(2, '0')}',
+            style: AppFonts.greyTitle(null, size: 16),
+          ),
+        ],
+      ),
     );
   }
 }

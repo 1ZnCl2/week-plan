@@ -12,14 +12,12 @@ final addWeeklyTodoUsecaseProvider =
   return (todoName, category) async {
     final service = AddWeeklyTodoService(
       WeeklyTodoRepository(),
-      UserRepository(),
     );
 
     final uid = ref.read(uidProvider);
     if (uid == null) {
       return;
     }
-
     final deadline = ref.read(dateTimePickerProvider);
     final impact = 3;
 

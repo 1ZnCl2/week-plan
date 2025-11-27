@@ -1,33 +1,32 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
+import 'package:week_plan/providers/services/weekly_todo_add_usecase_provider.dart';
+import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
+import 'package:week_plan/providers/weekly_todo_screen/todo_name_input_provider.dart';
+import 'package:week_plan/widgets/todo_list/add_category_tag.dart';
 import 'package:week_plan/widgets/todo_list/category_tag.dart';
+import 'package:week_plan/widgets/todo_list/date_picker_widget.dart';
 import 'package:week_plan/widgets/todo_list/sub_task.dart';
 
-class TodoCard extends StatelessWidget {
-  static final defaultDeadline = DateTime(2999, 12, 31, 23, 59);
-
-  final String title;
-  final String category;
-  final DateTime? deadline;
-  final bool isCompleted;
-
-  const TodoCard({
-    super.key,
-    required this.title,
-    required this.category,
-    this.deadline,
-    this.isCompleted = false,
-  });
+class EditingCard extends ConsumerStatefulWidget {
+  const EditingCard({super.key});
 
   @override
+  ConsumerState<EditingCard> createState() => _EditingCardState();
+}
+
+class _EditingCardState extends ConsumerState<EditingCard> {
+  @override
   Widget build(BuildContext context) {
+    final todoNameController = ref.read(todoNameControllerProvider);
+
     return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(12.0),
       child: Container(
         width: 488,
         height: 165,
@@ -45,6 +44,7 @@ class TodoCard extends StatelessWidget {
           ],
         ),
         child: Stack(
+          clipBehavior: Clip.none,
           children: [
             Container(
               width: 11,
@@ -60,14 +60,17 @@ class TodoCard extends StatelessWidget {
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
                 children: [
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
-                        child: SvgPicture.asset(AppIcon.square),
+                        child: SvgPicture.asset(
+                          AppIcon.star,
+                          width: 24,
+                          height: 24,
+                        ),
                         onTap: () {},
                       ),
                       SizedBox(height: 88),
@@ -75,27 +78,27 @@ class TodoCard extends StatelessWidget {
                   ),
                   SizedBox(width: 9),
                   SizedBox(
-                    width: 307,
+                    width: 287,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
                       spacing: 12,
                       children: [
-                        Text(
-                          title,
+                        TextField(
                           style: AppFonts.blackTitle(),
-                          strutStyle: const StrutStyle(
-                            fontSize: 20,
-                            height: 1.0,
-                            leading: 0,
-                            forceStrutHeight: true,
+                          controller: todoNameController,
+                          readOnly: false,
+                          decoration: InputDecoration(
+                            hintText: '할 일을 입력해 주세요.',
+                            hintStyle: AppFonts.colormediumTitle(
+                              AppColors.grey(6),
+                            ),
+                            border: InputBorder.none,
+                            isCollapsed: true,
+                            contentPadding: EdgeInsets.symmetric(vertical: 3),
                           ),
                         ),
-                        CategoryTag(
-                          categoryName: category,
-                          color: AppColors.cyan(1),
-                        ),
+                        AddCategoryTag(),
                         SizedBox(height: 6),
                         SubTaskAddButton(),
                       ],
@@ -104,27 +107,32 @@ class TodoCard extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Row(
                         children: [
                           GestureDetector(
                             child: SvgPicture.asset(
-                              AppIcon.stopCircle,
+                              AppIcon.check02,
                               color: AppColors.grey(7),
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              ref.read(addWeeklyTodoUsecaseProvider);
+                            },
                           ),
                           SizedBox(width: 14),
-                          SvgPicture.asset(AppIcon.pencil),
+                          GestureDetector(
+                            child: SvgPicture.asset(AppIcon.trash),
+                            onTap: () {
+                              todoNameController.clear();
+                              ref.read(isEditingProvider.notifier).state =
+                                  false;
+                            },
+                          ),
                         ],
                       ),
                       SizedBox(height: 63),
-                      Text(
-                        DateFormat('MM/dd HH:mm')
-                            .format(deadline ?? DateTime(2999, 12, 31, 23, 59))
-                            .toString(),
-                        style: AppFonts.greyTitle(null, size: 16),
-                      ),
+                      DatePickerWidget(),
                     ],
                   ),
                 ],

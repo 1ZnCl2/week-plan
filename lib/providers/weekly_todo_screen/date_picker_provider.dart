@@ -10,10 +10,19 @@ class DatePickerWidgetNotifier extends StateNotifier<DateTime> {
 
   void selectDate(DateTime selectedDate) {
     state = selectedDate;
+
+    debugPrint('selected as a $state');
   }
 
   void updateTime(TimeOfDay time) {
-    state = state.copyWith(hour: time.hour, minute: time.minute);
+    state = state.copyWith(
+        year: state.year,
+        month: state.month,
+        day: state.day,
+        hour: time.hour,
+        minute: time.minute);
+
+    debugPrint('updated as a $state');
   }
 
   void initializeDate() {

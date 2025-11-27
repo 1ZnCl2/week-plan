@@ -15,8 +15,6 @@ class AddButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
     return GestureDetector(
       onTap: () {
         ref.read(isEditingProvider.notifier).state = true;
