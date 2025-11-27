@@ -21,14 +21,9 @@ class TodoListScreen extends ConsumerWidget {
   Scaffold build(BuildContext context, WidgetRef ref) {
     final todoList = ref.watch(todoListProvider);
     final isEditing = ref.watch(isEditingProvider);
-    final todoNameController = ref.read(todoNameControllerProvider);
-
-    debugPrint('current text state: ${todoNameController.text}');
 
     return Scaffold(
-      body: TextField(
-        controller: todoNameController,
-      ), /*Row(
+      body: Row(
         spacing: 217,
         children: [
           SizedBox(
@@ -41,33 +36,31 @@ class TodoListScreen extends ConsumerWidget {
               ],
             ),
           ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  AddButton(),
-                  if (isEditing) EditingCard(),
-                  SprintBox(),
-                  TodoCard(title: 'title', category: 'category'),
-                  TodoCard(title: 'title', category: 'category'),
-                  TodoCard(title: 'title', category: 'category'),
-                  TodoCard(title: 'title', category: 'category'),
-             ...todoList.map(
-                (item) => TodoCard(
-                  title: item['todo_name'],
-                  category: item['category'],
-                  deadline: item['deadline'],
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                AddButton(),
+                if (isEditing) EditingCard(),
+                SprintBox(),
+                TodoCard(title: 'title', category: 'category'),
+                TodoCard(title: 'title', category: 'category'),
+                TodoCard(title: 'title', category: 'category'),
+                TodoCard(title: 'title', category: 'category'),
+                ...todoList.map(
+                  (item) => TodoCard(
+                    title: item['todo_name'],
+                    category: item['category'],
+                    deadline: item['deadline'],
+                  ),
                 ),
-              ), 
-                ],
-              ),
+              ],
             ),
           ),
         ],
       ),
-    );*/
+    );
 
-      /*    Container(
+    /*    Container(
             height: 806,
             width: 1260,
             color: AppColors.grey(1),
@@ -75,6 +68,5 @@ class TodoListScreen extends ConsumerWidget {
         ],
       ),
     );*/
-    );
   }
 }

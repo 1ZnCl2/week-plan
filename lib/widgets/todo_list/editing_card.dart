@@ -21,13 +21,31 @@ class EditingCard extends ConsumerStatefulWidget {
 }
 
 class _EditingCardState extends ConsumerState<EditingCard> {
+  late FocusNode _textFieldFocus;
+
+  @override
+  void initState() {
+    super.initState();
+    _textFieldFocus = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _textFieldFocus.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final todoNameController = ref.read(todoNameControllerProvider);
 
     return Container(
       width: 488,
-      height: 165,
+      height: 168,
+      padding: EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 9,
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(
@@ -36,8 +54,8 @@ class _EditingCardState extends ConsumerState<EditingCard> {
         ),
         borderRadius: BorderRadius.circular(12.0),
         boxShadow: [
-          BoxShadow(
-            color: const Color.fromARGB(10, 0, 0, 0),
+          const BoxShadow(
+            color: Color.fromARGB(10, 0, 0, 0),
             blurRadius: 12,
           ),
         ],
@@ -52,15 +70,13 @@ class _EditingCardState extends ConsumerState<EditingCard> {
               color: AppColors.grey(7),
             ),
           ), */
-          Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 9,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
+          Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 24,
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -75,38 +91,43 @@ class _EditingCardState extends ConsumerState<EditingCard> {
                 SizedBox(height: 88),
               ],
             ),
-            SizedBox(width: 9),
-            SizedBox(
-              width: 287,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 12,
-                children: [
-                  TextField(
-                    style: AppFonts.blackTitle(),
-                    controller: todoNameController,
-                    readOnly: false,
-                    decoration: InputDecoration(
-                      hintText: '할 일을 입력해 주세요.',
-                      hintStyle: AppFonts.colormediumTitle(
-                        AppColors.grey(6),
-                      ),
-                      border: InputBorder.none,
-                      isCollapsed: true,
-                      contentPadding: EdgeInsets.symmetric(vertical: 3),
+          ),
+          SizedBox(width: 9),
+          SizedBox(
+            width: 277,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 12,
+              children: [
+                TextField(
+                  focusNode: _textFieldFocus,
+                  style: AppFonts.blackTitle(),
+                  controller: todoNameController,
+                  maxLines: 1,
+                  keyboardType: TextInputType.text,
+                  scrollPhysics: const BouncingScrollPhysics(),
+                  scrollPadding: EdgeInsets.zero,
+                  decoration: InputDecoration(
+                    hintText: '할 일을 입력해 주세요.',
+                    hintStyle: AppFonts.colormediumTitle(
+                      AppColors.grey(6),
                     ),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(vertical: 3),
                   ),
-                  AddCategoryTag(),
-                  SizedBox(height: 6),
-                  SubTaskAddButton(),
-                ],
-              ),
+                ),
+                AddCategoryTag(),
+                SizedBox(height: 6),
+                SubTaskAddButton(),
+              ],
             ),
-            Column(
+          ),
+          SizedBox(
+            width: 130,
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
               children: [
                 Row(
                   children: [
@@ -115,8 +136,10 @@ class _EditingCardState extends ConsumerState<EditingCard> {
                         AppIcon.check02,
                         color: AppColors.grey(7),
                       ),
-                      onTap: () {
-                        ref.read(addWeeklyTodoUsecaseProvider);
+                      onTap: () async {
+                        debugPrint('weekly Todo is excuted');
+                        final addTodo = ref.read(addWeeklyTodoUsecaseProvider);
+                        await addTodo(todoNameController.text, '미정');
                       },
                     ),
                     SizedBox(width: 14),
@@ -133,8 +156,8 @@ class _EditingCardState extends ConsumerState<EditingCard> {
                 DatePickerWidget(),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

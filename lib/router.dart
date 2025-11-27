@@ -2,7 +2,6 @@ import 'package:go_router/go_router.dart';
 import 'package:week_plan/screens/main_frame.dart';
 import 'package:week_plan/screens/todo_list_screen.dart';
 import 'package:week_plan/screens/todo_planer_screen.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
