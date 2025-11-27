@@ -16,4 +16,5 @@ class AppIcon {
   static const String chevornLeft = 'assets/icons/chevron-left-01.svg';
   static const String minusButton = 'assets/icons/minus-button-01.svg';
   static const String plusButton = 'assets/icons/plus-button-01.svg';
+  static const String check02 = 'assets/icons/check-02.svg';
 }

@@ -5,7 +5,7 @@ import 'package:week_plan/components/widgets/category_button.dart';
 import 'package:week_plan/widgets/todo_plan/week_calendar.dart';
 import 'package:week_plan/components/widgets/view_slider.dart';
 import 'package:week_plan/widgets/todo_plan/week_handler.dart';
-import 'package:week_plan/providers/weekly-screen/todo_container_provider.dart';
+import 'package:week_plan/providers/weekly_screen/todo_container_provider.dart';
 import 'package:week_plan/widgets/todo_plan/todo_container.dart';
 
 class TodoPlanerScreen extends ConsumerWidget {

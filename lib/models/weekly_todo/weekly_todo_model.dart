@@ -7,7 +7,7 @@ part 'weekly_todo_model.g.dart';
 @freezed
 class WeeklyTodoModel with _$WeeklyTodoModel {
   factory WeeklyTodoModel({
-    required String todoId,
+    required String? todoId,
     required String todoName,
     required String category,
     required String uid,
@@ -24,7 +24,7 @@ class WeeklyTodoModel with _$WeeklyTodoModel {
 
   factory WeeklyTodoModel.fromDocumentSnapshot(DocumentSnapshot doc) {
     return WeeklyTodoModel(
-      todoName: doc['todo_name'],
+      todoName: doc['todo_name'] ?? '',
       todoId: doc['todo_id'],
       category: doc['category'],
       uid: doc['uid'],

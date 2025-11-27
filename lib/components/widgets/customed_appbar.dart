@@ -16,31 +16,34 @@ class CustomedAppBar extends ConsumerWidget implements PreferredSizeWidget {
     final user = ref.watch(authStateProvider).value;
 
     return AppBar(
+      titleSpacing: 0,
       automaticallyImplyLeading: true,
-      toolbarHeight: 30,
       backgroundColor: Colors.white,
       title: Text(
         'Week Plan',
         style: AppFonts.blackTitle(size: 14),
       ),
       actions: [
-        GestureDetector(
-          onTap: () async {
-            await AuthService().signInWithGoogle();
-            await UserRepository().ensureUserDocument();
-          },
-          child: user == null
-              ? SvgPicture.asset(AppIcon.logIn, width: 24, height: 24)
-              : SvgPicture.asset(
-                  AppIcon.userProfile,
-                  height: 24,
-                  width: 24,
-                ),
+        Center(
+          child: SizedBox(
+            height: 30,
+            width: 30,
+            child: GestureDetector(
+              onTap: () async {
+                await AuthService().signInWithGoogle();
+                await UserRepository().ensureUserDocument();
+              },
+              child: user == null
+                  ? SvgPicture.asset(AppIcon.logIn, width: 24, height: 24)
+                  : SvgPicture.asset(AppIcon.userProfile,
+                      height: 24, width: 24),
+            ),
+          ),
         ),
       ],
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(30);
 }

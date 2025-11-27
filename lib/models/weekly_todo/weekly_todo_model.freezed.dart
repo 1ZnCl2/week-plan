@@ -20,7 +20,7 @@ WeeklyTodoModel _$WeeklyTodoModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$WeeklyTodoModel {
-  String get todoId => throw _privateConstructorUsedError;
+  String? get todoId => throw _privateConstructorUsedError;
   String get todoName => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
@@ -48,7 +48,7 @@ abstract class $WeeklyTodoModelCopyWith<$Res> {
       _$WeeklyTodoModelCopyWithImpl<$Res, WeeklyTodoModel>;
   @useResult
   $Res call(
-      {String todoId,
+      {String? todoId,
       String todoName,
       String category,
       String uid,
@@ -90,7 +90,7 @@ class _$WeeklyTodoModelCopyWithImpl<$Res, $Val extends WeeklyTodoModel>
       todoId: null == todoId
           ? _value.todoId
           : todoId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       todoName: null == todoName
           ? _value.todoName
           : todoName // ignore: cast_nullable_to_non_nullable
@@ -140,7 +140,7 @@ abstract class _$$WeeklyTodoModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String todoId,
+      {String? todoId,
       String todoName,
       String category,
       String uid,
@@ -225,7 +225,7 @@ class __$$WeeklyTodoModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
   _$WeeklyTodoModelImpl(
-      {required this.todoId,
+      {this.todoId,
       required this.todoName,
       required this.category,
       required this.uid,
@@ -240,7 +240,7 @@ class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
       _$$WeeklyTodoModelImplFromJson(json);
 
   @override
-  final String todoId;
+  final String? todoId;
   @override
   final String todoName;
   @override
@@ -312,7 +312,7 @@ class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
 
 abstract class _WeeklyTodoModel implements WeeklyTodoModel {
   factory _WeeklyTodoModel(
-      {required final String todoId,
+      {required final String? todoId,
       required final String todoName,
       required final String category,
       required final String uid,
@@ -327,7 +327,7 @@ abstract class _WeeklyTodoModel implements WeeklyTodoModel {
       _$WeeklyTodoModelImpl.fromJson;
 
   @override
-  String get todoId;
+  String? get todoId;
   @override
   String get todoName;
   @override

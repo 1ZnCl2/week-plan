@@ -9,11 +9,9 @@ class MainFrame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: CustomedAppBar(), // 항상 보여줄 상단 컴포넌트
-      ),
-      body: child, // 라우트가 바뀌면 이 부분만 바뀜
+      appBar: CustomedAppBar(), // 불변하는 상단 컴포넌트
+
+      body: child, // 라우트가 바뀔 때 교체되는 부분
     );
   }
 }

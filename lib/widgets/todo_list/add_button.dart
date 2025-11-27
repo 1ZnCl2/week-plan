@@ -1,15 +1,24 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:week_plan/components/color_manage.dart';
+import 'package:week_plan/models/weekly_todo/weekly_todo_model.dart';
+import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
+import 'package:week_plan/providers/weekly_todo_screen/todo_list_provider.dart';
+import 'package:week_plan/repository/weekly_todo/weekly_todo_repository.dart';
 
-class AddButton extends StatelessWidget {
+class AddButton extends ConsumerWidget {
   const AddButton({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        ref.read(isEditingProvider.notifier).state = true;
+      },
       child: Container(
         width: 488,
         height: 60,
