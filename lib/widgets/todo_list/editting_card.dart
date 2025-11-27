@@ -9,6 +9,7 @@ import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider
 import 'package:week_plan/providers/weekly_todo_screen/todo_name_input_provider.dart';
 import 'package:week_plan/widgets/todo_list/add_category_tag.dart';
 import 'package:week_plan/widgets/todo_list/category_tag.dart';
+import 'package:week_plan/widgets/todo_list/date_picker_widget.dart';
 import 'package:week_plan/widgets/todo_list/sub_task.dart';
 
 class EdittingCard extends ConsumerWidget {
@@ -118,18 +119,7 @@ class EdittingCard extends ConsumerWidget {
                     ],
                   ),
                   SizedBox(height: 63),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {},
-                        child: SvgPicture.asset(AppIcon.blankedCalendar),
-                      ),
-                      Text(
-                        '00/00 00:00',
-                        style: AppFonts.greyTitle(null, size: 16),
-                      ),
-                    ],
-                  ),
+                  DatePickerWidget(),
                 ],
               ),
             ],
