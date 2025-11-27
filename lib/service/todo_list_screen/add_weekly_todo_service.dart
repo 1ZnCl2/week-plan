@@ -13,6 +13,7 @@ class AddWeeklyTodoService {
     if (Uid == '') {
       return;
     }
+
     todoRepo.addTodo(WeeklyTodoModel(
         todoId: '',
         todoName: todoName,

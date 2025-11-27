@@ -29,16 +29,28 @@ class _DatePickerWidgetState extends ConsumerState<DatePickerWidget> {
               lastDate: DateTime(2100),
             );
 
+            final TimeOfDay? timeOfDay = await showTimePicker(
+              context: context,
+              initialTime: TimeOfDay(
+                hour: 23,
+                minute: 59,
+              ),
+            );
+
             if (dateTime != null) {
               ref
                   .read(dateTimePickerProvider.notifier)
                   .selectDate(selectedDate);
             }
+
+            if (timeOfDay != null) {
+              ref.read(dateTimePickerProvider.notifier).updateTime(timeOfDay);
+            }
           },
           child: SvgPicture.asset(AppIcon.blankedCalendar),
         ),
         Text(
-          '${selectedDate.month}/${selectedDate.day} 00:00',
+          '${selectedDate.month}/${selectedDate.day} ${selectedDate.hour}:${selectedDate.minute}',
           style: AppFonts.greyTitle(null, size: 16),
         ),
       ],

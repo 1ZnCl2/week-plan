@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:week_plan/providers/google_auth/google_auth_provider.dart';
 import 'package:week_plan/providers/user_provider/user_provider.dart';
+import 'package:week_plan/providers/weekly_todo_screen/date_picker_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_list_provider.dart';
 import 'package:week_plan/repository/user/user_repository.dart';
@@ -15,15 +15,18 @@ final addWeeklyTodoUsecaseProvider =
       UserRepository(),
     );
 
-    final Uid = ref.read(uidProvider);
-    if (Uid == null) {
+    final uid = ref.read(uidProvider);
+    if (uid == null) {
       return;
     }
 
-    service.addWeeklyTodo(Uid, todoName, category, deadline);
+    final deadline = ref.read(dateTimePickerProvider);
+    final impact = 3;
 
-    // Provider 상태 업데이트
-    ref.read(todoListProvider.notifier).addItemtoList();
+    service.addWeeklyTodo(uid, todoName, category, deadline, impact);
+
+    // 초기화라는 것을 합니다.
+    ref.read(dateTimePickerProvider.notifier).initializeDate();
     ref.read(isEditingProvider.notifier).state = false;
   };
 });
