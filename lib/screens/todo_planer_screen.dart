@@ -69,10 +69,11 @@ class TodoPlanerScreen extends ConsumerWidget {
                           color: AppColors.grey(3),
                         ),
                       ),
-                      AnimatedSize(
-                        duration: Duration(milliseconds: 250),
-                        child: isOpen ? TodoContainer() : SizedBox.shrink(),
-                      ),
+                      if (isOpen)
+                        AnimatedSize(
+                          duration: Duration(milliseconds: 250),
+                          child: TodoContainer(),
+                        ),
                     ],
                   ),
                 ),
