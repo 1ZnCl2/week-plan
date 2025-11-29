@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
 import 'package:week_plan/components/widgets/category_button.dart';
+import 'package:week_plan/providers/weekly_todo_screen/category_list_stream_provider.dart';
+import 'package:week_plan/providers/weekly_todo_screen/is_editing_category_provider.dart';
+import 'package:week_plan/widgets/todo_list/add_category_tag.dart';
+import 'package:week_plan/widgets/todo_list/editing_category_tag.dart';
 import 'package:week_plan/widgets/todo_list/icon_text.dart';
 
-class Instructor extends StatelessWidget {
+class Instructor extends ConsumerWidget {
   const Instructor({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isEditingCategory = ref.watch(isEditingCategoryProvider);
+    final categoryStreamed = ref.watch(categoryListStreamProvider);
+
     return Container(
       height: 728,
       width: 266,
@@ -54,20 +63,41 @@ class Instructor extends StatelessWidget {
             color: AppColors.grey(4),
             thickness: 1,
           ),
-          Text(
-            '카테고리 +',
-            style: AppFonts.greyTitle(null, size: 16),
+          Row(
+            children: [
+              Text(
+                '카테고리',
+                style: AppFonts.greyTitle(null, size: 16),
+              ),
+              isEditingCategory == 0
+                  ? GestureDetector(
+                      child: SvgPicture.asset(AppIcon.pencil),
+                      onTap: () {
+                        ref.read(isEditingCategoryProvider.notifier).state = 1;
+                      },
+                    )
+                  : GestureDetector(
+                      child: SvgPicture.asset(AppIcon.check02),
+                      onTap: () => ref
+                          .read(isEditingCategoryProvider.notifier)
+                          .state = 0,
+                    ),
+            ],
           ),
-          CategoryButton(
-            categoryName: '공부',
-            color: AppColors.cyan(1),
-            onPressed: () {},
+          categoryStreamed.when(
+            data: (categoryList) => Column(
+              spacing: 7,
+              children: [
+                ...categoryList.map((item) => CategoryButton(
+                    categoryName: item.categoryName,
+                    color: Color(int.parse('0xFF${item.colorHex}')))),
+              ],
+            ),
+            loading: () => CircularProgressIndicator(),
+            error: (e, _) => Text('$e'),
           ),
-          CategoryButton(
-            categoryName: '일상',
-            color: AppColors.mint(),
-            onPressed: () {},
-          ),
+          if (isEditingCategory == 1) AddCategoryTag(),
+          if (isEditingCategory == 2) EditingCategoryTag(),
         ],
       ),
     );

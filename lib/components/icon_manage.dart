@@ -17,4 +17,5 @@ class AppIcon {
   static const String minusButton = 'assets/icons/minus-button-01.svg';
   static const String plusButton = 'assets/icons/plus-button-01.svg';
   static const String check02 = 'assets/icons/check-02.svg';
+  static const String x03 = 'assets/icons/x-03.svg';
 }

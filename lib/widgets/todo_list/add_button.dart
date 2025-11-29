@@ -17,7 +17,7 @@ class AddButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: () {
-        ref.read(isEditingProvider.notifier).state = true;
+        ref.read(isEditingTodoCardProvider.notifier).state = true;
       },
       child: Container(
         width: 488,
