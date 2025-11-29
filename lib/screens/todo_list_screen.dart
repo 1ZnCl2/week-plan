@@ -7,8 +7,8 @@ import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/widgets/view_slider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_list_provider.dart';
-import 'package:week_plan/providers/weekly_todo_screen/todo_name_input_provider.dart';
-import 'package:week_plan/providers/weekly_todo_screen/todo_stream_list_provider.dart';
+import 'package:week_plan/providers/weekly_todo_screen/todo_name_controller_provider.dart';
+import 'package:week_plan/providers/weekly_todo_screen/todo_list_stream_provider.dart';
 import 'package:week_plan/widgets/todo_list/add_button.dart';
 import 'package:week_plan/widgets/todo_list/editing_card.dart';
 import 'package:week_plan/widgets/todo_list/instructor.dart';
@@ -21,7 +21,7 @@ class TodoListScreen extends ConsumerWidget {
   @override
   Scaffold build(BuildContext context, WidgetRef ref) {
     final todoStreamed = ref.watch(weeklyTodoStreamProvider);
-    final isEditing = ref.watch(isEditingProvider);
+    final isEditing = ref.watch(isEditingTodoCardProvider);
 
     return Scaffold(
       body: Row(

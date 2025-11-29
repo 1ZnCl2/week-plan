@@ -25,9 +25,9 @@ class TodoPlanerScreen extends ConsumerWidget {
               children: [
                 MyCustomSlider(),
                 CategoryButton(
-                    categoryName: 'categoryName',
-                    color: AppColors.cyan(1),
-                    onPressed: () {}),
+                  categoryName: 'categoryName',
+                  color: AppColors.cyan(1),
+                ),
                 WeekHandler(),
               ],
             ),
