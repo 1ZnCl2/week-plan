@@ -1,10 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:week_plan/models/weekly_todo/weekly_todo_model.dart';
+import 'package:week_plan/providers/firestore_provider.dart';
 import 'package:week_plan/providers/user_provider/user_provider.dart';
 import 'package:week_plan/repository/weekly_todo/weekly_todo_repository.dart';
 
 final weeklyTodoStreamProvider = StreamProvider<List<WeeklyTodoModel>>((ref) {
-  final repo = WeeklyTodoRepository();
+  final db = ref.read(firestoreProvider);
+  final repo = WeeklyTodoRepository(db);
   final uid = ref.watch(uidProvider);
 
   if (uid == null) {
