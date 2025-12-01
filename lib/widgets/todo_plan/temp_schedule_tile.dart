@@ -31,19 +31,6 @@ class TempScheduleTile extends ConsumerWidget {
       left: (startTime.weekday.toDouble() - 1) * 180 + 20,
       child: Stack(
         children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            height: 14,
-            child: GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onPanStart: (d) =>
-                  notifier.startResize(d.localPosition.dy, startTime),
-              onPanUpdate: (d) => notifier.updateStart(d.localPosition.dy),
-              onPanEnd: (_) => notifier.endResize(),
-            ),
-          ),
           Container(
             padding: EdgeInsets.only(left: 14, top: 12),
             width: 180,
@@ -89,6 +76,19 @@ class TempScheduleTile extends ConsumerWidget {
                   ),
                 ),
               ],
+            ),
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 14,
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onPanStart: (d) =>
+                  notifier.startResize(d.localPosition.dy, startTime),
+              onPanUpdate: (d) => notifier.updateStart(d.localPosition.dy),
+              onPanEnd: (_) => notifier.endResize(),
             ),
           ),
           Positioned(

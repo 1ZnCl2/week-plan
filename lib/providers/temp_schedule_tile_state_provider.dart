@@ -79,6 +79,9 @@ class TempTileNotifier extends StateNotifier<TempTileState?> {
         dragStartPoint: dy,
         originalStart: startPointDate,
         originalEnd: startPointDate);
+    if (state != null) {
+      debugPrint('$state');
+    }
   }
 
   void endResize() {
@@ -92,10 +95,10 @@ class TempTileNotifier extends StateNotifier<TempTileState?> {
 
   void updateStart(double dy) {
     if (state == null) return;
-    final deltaHours = dy / 90;
-    final deltaMinutes = (deltaHours * 60).round();
+    final double deltaY = dy - state!.dragStartPoint;
+    final deltaMinutes = (deltaY / 90 * 60).round();
 
-    final newStart = state!.start.add(Duration(minutes: deltaMinutes));
+    final newStart = state!.originalStart!.add(Duration(minutes: deltaMinutes));
 
     state = state!.copyWith(start: newStart);
   }
@@ -106,10 +109,6 @@ class TempTileNotifier extends StateNotifier<TempTileState?> {
     final deltaMinutes = (deltaY / 90 * 60).round();
 
     final newEnd = state!.originalEnd!.add(Duration(minutes: deltaMinutes));
-
-    if (state != null) {
-      debugPrint('${state!.end}');
-    }
 
     state = state!.copyWith(end: newEnd);
   }
