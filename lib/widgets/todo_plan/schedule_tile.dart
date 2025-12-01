@@ -48,13 +48,11 @@ class ScheduleTile extends StatelessWidget {
             SizedBox(height: 13),
             SizedBox(
               width: 114,
-              child: Flexible(
-                child: Text(
-                  title,
-                  style: AppFonts.colormediumTitle(
-                    size: 16,
-                    textColor,
-                  ),
+              child: Text(
+                title,
+                style: AppFonts.colormediumTitle(
+                  size: 16,
+                  textColor,
                 ),
               ),
             ),
