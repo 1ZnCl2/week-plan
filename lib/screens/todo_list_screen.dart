@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:week_plan/components/color_manage.dart';
 
 import 'package:week_plan/components/widgets/view_slider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
-import 'package:week_plan/providers/weekly_todo_screen/todo_list_provider.dart';
-import 'package:week_plan/providers/weekly_todo_screen/todo_name_controller_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_list_stream_provider.dart';
 import 'package:week_plan/widgets/todo_list/add_button.dart';
 import 'package:week_plan/widgets/todo_list/editing_card.dart';

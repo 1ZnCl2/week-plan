@@ -5,9 +5,8 @@ import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
 import 'package:week_plan/providers/usecases/category_add_usecase_provider.dart';
-import 'package:week_plan/providers/weekly_todo_screen/category_name_contoller_provider.dart';
+import 'package:week_plan/providers/category_provider/category_name_contoller_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_editing_category_provider.dart';
-import 'package:week_plan/service/add_category_service.dart';
 
 class EditingCategoryTag extends ConsumerStatefulWidget {
   final String colorHex;

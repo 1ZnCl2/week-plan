@@ -11,14 +11,10 @@ import 'package:week_plan/providers/schedule_provider/temp_schedule_tile_state_p
 class TempScheduleTile extends ConsumerStatefulWidget {
   const TempScheduleTile(
       {super.key,
-      required this.startTime,
       required this.color,
-      required this.endTime,
       required this.textColor,
       required this.title});
 
-  final DateTime startTime;
-  final DateTime endTime;
   final Color color;
   final String title;
   final Color textColor;
@@ -45,22 +41,23 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
   @override
   Widget build(BuildContext context) {
     final notifier = ref.watch(tempTileProvider.notifier);
+    final tempTileState = ref.watch(tempTileProvider);
     final scheduleNameController = ref.watch(scheduleTileNameController);
 
     return Positioned(
-      top: widget.startTime.hour.toDouble() * 90 +
-          widget.startTime.minute.toDouble() * 90 / 60,
-      left: (widget.startTime.weekday.toDouble() - 1) * 180 + 20,
+      top: tempTileState!.start.hour.toDouble() * 90 +
+          tempTileState!.start.minute.toDouble() * 90 / 60,
+      left: (tempTileState.start.weekday.toDouble() - 1) * 180 + 20,
       child: Stack(
         children: [
           Container(
             padding: EdgeInsets.only(left: 14, top: 12),
             width: 180,
             height: 90 *
-                (widget.endTime.hour +
-                        widget.endTime.minute / 60 -
-                        widget.startTime.hour -
-                        widget.startTime.minute / 60)
+                (tempTileState.end.hour +
+                        tempTileState.end.minute / 60 -
+                        tempTileState.start.hour -
+                        tempTileState.start.minute / 60)
                     .toDouble(),
             decoration: BoxDecoration(
               color: widget.color,
@@ -73,11 +70,12 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
                   children: [
                     IntrinsicWidth(
                       child: SizedBox(
-                        width: 140,
+                        width: 130,
                         child: TextField(
                           focusNode: _textFieldFocus,
                           style: AppFonts.colormediumTitle(AppColors.grey(8),
                               size: 16),
+                          readOnly: !notifier.isEdited(),
                           controller: scheduleNameController,
                           maxLines: 1,
                           keyboardType: TextInputType.text,
@@ -107,7 +105,7 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
                   ],
                 ),
                 Text(
-                  '${widget.startTime.hour.toString().padLeft(2, '0')}:${widget.startTime.minute.toString().padLeft(2, '0')}~${widget.endTime.hour.toString().padLeft(2, '0')}:${widget.endTime.minute.toString().padLeft(2, '0')}',
+                  '${tempTileState.start.hour.toString().padLeft(2, '0')}:${tempTileState.start.minute.toString().padLeft(2, '0')}~${tempTileState.end.hour.toString().padLeft(2, '0')}:${tempTileState.end.minute.toString().padLeft(2, '0')}',
                   style: AppFonts.greyTitle(
                     null,
                     size: 12,
@@ -117,6 +115,22 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
               ],
             ),
           ),
+          Positioned.fill(
+              top: 50,
+              bottom: 14,
+              child: Container(
+                color: Colors.red.withOpacity(0.3),
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onPanStart: (d) => notifier.startDrag(
+                      d.globalPosition.dx, d.globalPosition.dy),
+                  onPanUpdate: (d) => notifier.updateDrag(
+                    d.globalPosition.dx,
+                    d.globalPosition.dy,
+                  ),
+                  onPanEnd: (_) => notifier.endDrag(),
+                ),
+              )),
           Positioned(
             top: 0,
             left: 0,
@@ -124,8 +138,7 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
             height: 14,
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
-              onPanStart: (d) =>
-                  notifier.startResize(d.localPosition.dy, widget.startTime),
+              onPanStart: (d) => notifier.startResize(d.localPosition.dy),
               onPanUpdate: (d) => notifier.updateStart(d.localPosition.dy),
               onPanEnd: (_) => notifier.endResize(),
             ),
@@ -137,8 +150,7 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
             height: 14,
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
-              onPanStart: (d) =>
-                  notifier.startResize(d.localPosition.dy, widget.endTime),
+              onPanStart: (d) => notifier.startResize(d.localPosition.dy),
               onPanUpdate: (d) => notifier.updateEnd(d.localPosition.dy),
               onPanEnd: (_) => notifier.endResize(),
             ),

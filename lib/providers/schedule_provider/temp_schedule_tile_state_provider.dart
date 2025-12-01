@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TempTileState {
@@ -6,7 +6,8 @@ class TempTileState {
   final DateTime end;
   final DateTime? originalStart;
   final DateTime? originalEnd;
-  final double dragStartPoint;
+  final double dragStartY;
+  final double? dragStartX;
 
   final bool isDragging;
   final bool isResizing;
@@ -15,8 +16,9 @@ class TempTileState {
     required this.start,
     required this.end,
     this.originalStart,
+    this.dragStartX,
     this.originalEnd,
-    this.dragStartPoint = 0,
+    this.dragStartY = 0,
     this.isDragging = false,
     this.isResizing = false,
   });
@@ -28,7 +30,8 @@ class TempTileState {
     DateTime? end,
     DateTime? originalStart,
     DateTime? originalEnd,
-    double? dragStartPoint,
+    double? dragStartX,
+    double? dragStartY,
     bool? isDragging,
     bool? isResizing,
   }) {
@@ -37,7 +40,8 @@ class TempTileState {
       end: end ?? this.end,
       originalStart: originalStart ?? this.originalStart,
       originalEnd: originalEnd ?? this.originalEnd,
-      dragStartPoint: dragStartPoint ?? this.dragStartPoint,
+      dragStartX: dragStartX ?? this.dragStartX,
+      dragStartY: dragStartY ?? this.dragStartY,
       isDragging: isDragging ?? this.isDragging,
       isResizing: isResizing ?? this.isResizing,
     );
@@ -62,40 +66,95 @@ class TempTileNotifier extends StateNotifier<TempTileState?> {
     state = null;
   }
 
-  void startDrag(double dy) {
-    if (state == null) return;
-    state = state!.copyWith(isDragging: true);
+  bool isEdited() {
+    if (state == null) {
+      return false;
+    }
+    if (state!.isDragging || state!.isResizing) {
+      return true;
+    }
+    return false;
+  }
+
+  void startDrag(double dx, double dy) {
+    debugPrint("startDrag is executed");
+
+    state = state!.copyWith(
+      isDragging: true,
+      dragStartY: dy,
+      dragStartX: dx,
+      originalStart: state!.start,
+      originalEnd: state!.end,
+    );
+
+    debugPrint("dragStartX: ${state?.dragStartX}");
+    debugPrint("originalStart: ${state?.originalStart}");
+    debugPrint("originalEnd: ${state?.originalEnd}");
+    debugPrint("dragStartPoint: ${state?.dragStartY}");
+  }
+
+  void updateDrag(double dx, double dy) {
+    final s = state!;
+    if (s == null || !s.isDragging) return;
+    if (s.originalStart == null || s.originalEnd == null) return;
+    if (s.dragStartX == null) return;
+
+    debugPrint("updateDrag is executed");
+
+    final offsetMinutes = ((dy - s.dragStartY) / 90 * 60).round();
+    final offsetDays = ((dx - s.dragStartX!) / 180).round();
+
+    final newStart = s.originalStart!.add(
+      Duration(days: offsetDays, minutes: offsetMinutes),
+    );
+    final newEnd = s.originalEnd!.add(
+      Duration(days: offsetDays, minutes: offsetMinutes),
+    );
+
+    state = s.copyWith(
+      start: newStart,
+      end: newEnd,
+    );
+
+    debugPrint("dragStartX: ${state?.dragStartX}");
+    debugPrint("originalStart: ${state?.originalStart}");
+    debugPrint("originalEnd: ${state?.originalEnd}");
+    debugPrint("dragStartPoint: ${state?.dragStartY}");
   }
 
   void endDrag() {
-    if (state == null) return;
-    state = state!.copyWith(isDragging: false);
+    final s = state!;
+    state = s.copyWith(
+      start: s.start,
+      end: s.end,
+      isDragging: false,
+    );
+
+    debugPrint("start: ${state?.start}");
+    debugPrint("end: ${state?.end}");
   }
 
-  void startResize(double dy, DateTime startPointDate) {
+  void startResize(double dy) {
     if (state == null) return;
     state = state!.copyWith(
         isResizing: true,
-        dragStartPoint: dy,
-        originalStart: startPointDate,
-        originalEnd: startPointDate);
-    if (state != null) {
-      debugPrint('$state');
-    }
+        dragStartY: dy,
+        originalStart: state!.start,
+        originalEnd: state!.end);
   }
 
   void endResize() {
     if (state == null) return;
     state = state!.copyWith(
         isResizing: false,
-        dragStartPoint: 0,
+        dragStartY: 0,
         originalEnd: null,
         originalStart: null);
   }
 
   void updateStart(double dy) {
     if (state == null) return;
-    final double deltaY = dy - state!.dragStartPoint;
+    final double deltaY = dy - state!.dragStartY;
     final deltaMinutes = (deltaY / 90 * 60).round();
 
     final newStart = state!.originalStart!.add(Duration(minutes: deltaMinutes));
@@ -105,7 +164,7 @@ class TempTileNotifier extends StateNotifier<TempTileState?> {
 
   void updateEnd(double dy) {
     if (state == null) return;
-    final double deltaY = dy - state!.dragStartPoint;
+    final double deltaY = dy - state!.dragStartY;
     final deltaMinutes = (deltaY / 90 * 60).round();
 
     final newEnd = state!.originalEnd!.add(Duration(minutes: deltaMinutes));

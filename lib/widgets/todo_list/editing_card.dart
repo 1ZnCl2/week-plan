@@ -9,7 +9,6 @@ import 'package:week_plan/providers/usecases/weekly_todo_add_usecase_provider.da
 import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_name_controller_provider.dart';
 import 'package:week_plan/widgets/todo_list/add_category_tag.dart';
-import 'package:week_plan/widgets/todo_list/category_tag.dart';
 import 'package:week_plan/widgets/todo_list/date_picker_widget.dart';
 import 'package:week_plan/widgets/todo_list/sub_task.dart';
 

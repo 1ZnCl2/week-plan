@@ -158,8 +158,6 @@ class WeekCalendar extends ConsumerWidget {
                           ref
                               .read(isEditingScheduleTileProvider.notifier)
                               .state = true;
-
-                          print("x: $dx, y: $dy");
                         },
                         child: Row(
                           children: [
@@ -198,8 +196,6 @@ class WeekCalendar extends ConsumerWidget {
                       CurrentDivider(),
                       if (tempStartTime != null && isAddingScheduleTile)
                         TempScheduleTile(
-                            startTime: tempStartTime.start,
-                            endTime: tempStartTime.end,
                             color: AppColors.grey(1),
                             title: '새 일정 타일',
                             textColor: AppColors.grey(8)),

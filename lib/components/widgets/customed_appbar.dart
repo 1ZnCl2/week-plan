@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/providers/google_auth/google_auth_provider.dart';
-import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

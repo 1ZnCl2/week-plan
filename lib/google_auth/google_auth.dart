@@ -11,7 +11,6 @@ class AuthService {
         'client_id':
             '888388114814-icgbm24be14dq0u3rr7vpcejq6d78u2n.apps.googleusercontent.com'
       });
-      print('sign in with google is excuted');
 
       await FirebaseAuth.instance.signInWithPopup(googleProvider);
 
