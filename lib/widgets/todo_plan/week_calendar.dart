@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
-import 'package:week_plan/providers/is_adding_schedule_tile_provider.dart';
-import 'package:week_plan/providers/temp_schedule_tile_state_provider.dart';
+import 'package:week_plan/providers/is_editing_schedule_tile_provider.dart';
+import 'package:week_plan/providers/schedule_provider/temp_schedule_tile_state_provider.dart';
 import 'package:week_plan/widgets/todo_plan/current_divider.dart';
 import 'package:week_plan/widgets/todo_plan/day_timeline_column.dart';
 import 'package:week_plan/widgets/todo_plan/schedule_tile.dart';
@@ -27,7 +27,6 @@ int weekdayFromDx(double dx) {
 }
 
 DateTime dateFromDxDy(DateTime startDateOfWeek, int weekDay, double dy) {
-  const double halfHourHeight = 45;
   int hour = (dy / 90).toInt();
   int minute = ((dy / 90 - hour) * 60).toInt();
   int day = startDateOfWeek.day + weekDay - 1;
@@ -67,7 +66,7 @@ class WeekCalendar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isAddingScheduleTile = ref.watch(isAddingScheduleTileProvider);
+    final isAddingScheduleTile = ref.watch(isEditingScheduleTileProvider);
     final tempStartTime = ref.watch(tempTileProvider);
 
     return Column(
@@ -157,7 +156,7 @@ class WeekCalendar extends ConsumerWidget {
                               .read(tempTileProvider.notifier)
                               .create(tempStartTime);
                           ref
-                              .read(isAddingScheduleTileProvider.notifier)
+                              .read(isEditingScheduleTileProvider.notifier)
                               .state = true;
 
                           print("x: $dx, y: $dy");
