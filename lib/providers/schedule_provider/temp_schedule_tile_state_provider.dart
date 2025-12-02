@@ -77,8 +77,6 @@ class TempTileNotifier extends StateNotifier<TempTileState?> {
   }
 
   void startDrag(double dx, double dy) {
-    debugPrint("startDrag is executed");
-
     state = state!.copyWith(
       isDragging: true,
       dragStartY: dy,
@@ -86,11 +84,6 @@ class TempTileNotifier extends StateNotifier<TempTileState?> {
       originalStart: state!.start,
       originalEnd: state!.end,
     );
-
-    debugPrint("dragStartX: ${state?.dragStartX}");
-    debugPrint("originalStart: ${state?.originalStart}");
-    debugPrint("originalEnd: ${state?.originalEnd}");
-    debugPrint("dragStartPoint: ${state?.dragStartY}");
   }
 
   void updateDrag(double dx, double dy) {
@@ -98,8 +91,6 @@ class TempTileNotifier extends StateNotifier<TempTileState?> {
     if (s == null || !s.isDragging) return;
     if (s.originalStart == null || s.originalEnd == null) return;
     if (s.dragStartX == null) return;
-
-    debugPrint("updateDrag is executed");
 
     final offsetMinutes = ((dy - s.dragStartY) / 90 * 60).round();
     final offsetDays = ((dx - s.dragStartX!) / 180).round();
@@ -115,11 +106,6 @@ class TempTileNotifier extends StateNotifier<TempTileState?> {
       start: newStart,
       end: newEnd,
     );
-
-    debugPrint("dragStartX: ${state?.dragStartX}");
-    debugPrint("originalStart: ${state?.originalStart}");
-    debugPrint("originalEnd: ${state?.originalEnd}");
-    debugPrint("dragStartPoint: ${state?.dragStartY}");
   }
 
   void endDrag() {
@@ -129,9 +115,6 @@ class TempTileNotifier extends StateNotifier<TempTileState?> {
       end: s.end,
       isDragging: false,
     );
-
-    debugPrint("start: ${state?.start}");
-    debugPrint("end: ${state?.end}");
   }
 
   void startResize(double dy) {

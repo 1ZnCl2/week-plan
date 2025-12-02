@@ -34,4 +34,15 @@ class ScheduleRepository {
             .map((e) => ScheduleModel.fromDocumentSnapshot(e))
             .toList());
   }
+
+  Future<void> addSchedule(ScheduleModel todo) async {
+    final docRef = firestore.collection('schedules').doc();
+    final newTodo = todo.copyWith(scheduleId: docRef.id);
+
+    await docRef.set(newTodo.toJson());
+  }
+
+  Future<void> deleteSchedule(String id) async {
+    await firestore.collection('schedules').doc(id).delete();
+  }
 }

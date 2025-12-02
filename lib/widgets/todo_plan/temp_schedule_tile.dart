@@ -7,6 +7,7 @@ import 'package:week_plan/components/icon_manage.dart';
 import 'package:week_plan/providers/is_editing_schedule_tile_provider.dart';
 import 'package:week_plan/providers/schedule_provider/schedule_tile_name_contorller.dart';
 import 'package:week_plan/providers/schedule_provider/temp_schedule_tile_state_provider.dart';
+import 'package:week_plan/providers/usecases/add_schedule_usecase_provider.dart';
 
 class TempScheduleTile extends ConsumerStatefulWidget {
   const TempScheduleTile(
@@ -70,12 +71,12 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
                   children: [
                     IntrinsicWidth(
                       child: SizedBox(
-                        width: 130,
+                        width: 120,
                         child: TextField(
                           focusNode: _textFieldFocus,
                           style: AppFonts.colormediumTitle(AppColors.grey(8),
                               size: 16),
-                          readOnly: !notifier.isEdited(),
+                          readOnly: notifier.isEdited(),
                           controller: scheduleNameController,
                           maxLines: 1,
                           keyboardType: TextInputType.text,
@@ -94,12 +95,10 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        notifier.clear();
-                        ref.read(isEditingScheduleTileProvider.notifier).state =
-                            false;
+                        ref.read(addScheduleUsecaseProvider)();
                       },
                       child: SvgPicture.asset(
-                        AppIcon.square,
+                        AppIcon.check02,
                       ),
                     ),
                   ],
@@ -116,7 +115,7 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
             ),
           ),
           Positioned.fill(
-              top: 50,
+              top: 55,
               bottom: 14,
               child: Container(
                 color: Colors.red.withOpacity(0.3),

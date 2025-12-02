@@ -8,9 +8,10 @@ part of 'schedule_model.dart';
 
 _$ScheduleModelImpl _$$ScheduleModelImplFromJson(Map<String, dynamic> json) =>
     _$ScheduleModelImpl(
-      scheduleId: json['scheduleId'] as String,
+      scheduleId: json['scheduleId'] as String?,
       scheduleName: json['scheduleName'] as String,
       refId: json['refId'] as String,
+      uid: json['uid'] as String,
       startTime: DateTime.parse(json['startTime'] as String),
       endTime: DateTime.parse(json['endTime'] as String),
       isAllDay: json['isAllDay'] as bool,
@@ -22,6 +23,7 @@ Map<String, dynamic> _$$ScheduleModelImplToJson(_$ScheduleModelImpl instance) =>
       'scheduleId': instance.scheduleId,
       'scheduleName': instance.scheduleName,
       'refId': instance.refId,
+      'uid': instance.uid,
       'startTime': instance.startTime.toIso8601String(),
       'endTime': instance.endTime.toIso8601String(),
       'isAllDay': instance.isAllDay,
