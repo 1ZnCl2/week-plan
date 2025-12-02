@@ -1,5 +1,4 @@
 import 'package:week_plan/models/weekly_todo/weekly_todo_model.dart';
-import 'package:week_plan/repository/user/user_repository.dart';
 import 'package:week_plan/repository/weekly_todo/weekly_todo_repository.dart';
 
 class AddWeeklyTodoService {
@@ -7,9 +6,9 @@ class AddWeeklyTodoService {
 
   AddWeeklyTodoService(this.todoRepo);
 
-  void addWeeklyTodo(String Uid, String todoName, String category,
+  void addWeeklyTodo(String uid, String todoName, String category,
       DateTime deadline, int impact) {
-    if (Uid == '') {
+    if (uid == '') {
       return;
     }
 
@@ -17,7 +16,7 @@ class AddWeeklyTodoService {
         todoId: '',
         todoName: todoName,
         category: category,
-        uid: Uid,
+        uid: uid,
         deadline: deadline,
         impact: impact,
         isCompleted: false,

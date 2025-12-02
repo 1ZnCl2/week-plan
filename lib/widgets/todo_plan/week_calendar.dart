@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
+import 'package:week_plan/providers/is_editing_schedule_tile_provider.dart';
+import 'package:week_plan/providers/schedule_provider/temp_schedule_tile_state_provider.dart';
 import 'package:week_plan/widgets/todo_plan/current_divider.dart';
 import 'package:week_plan/widgets/todo_plan/day_timeline_column.dart';
 import 'package:week_plan/widgets/todo_plan/schedule_tile.dart';
 import 'package:week_plan/widgets/todo_plan/comprehensive_list.dart';
+import 'package:week_plan/widgets/todo_plan/temp_schedule_tile.dart';
 import 'package:week_plan/widgets/todo_plan/timeline_column.dart';
 
 enum DayOfWeek {
@@ -16,6 +19,27 @@ enum DayOfWeek {
   friday,
   saturday,
   sunday,
+}
+
+int weekdayFromDx(double dx) {
+  const double colWidth = 180;
+  return (dx / colWidth).toInt() + 1; // Monday = 1
+}
+
+DateTime dateFromDxDy(DateTime startDateOfWeek, int weekDay, double dy) {
+  int hour = (dy / 90).toInt();
+  int minute = ((dy / 90 - hour) * 60).toInt();
+  int day = startDateOfWeek.day + weekDay - 1;
+
+  final startDateForTile = DateTime(
+    startDateOfWeek.year,
+    startDateOfWeek.month,
+    day,
+    hour,
+    minute,
+  );
+
+  return startDateForTile;
 }
 
 String currentDayName(DayOfWeek day) {
@@ -42,6 +66,9 @@ class WeekCalendar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isAddingScheduleTile = ref.watch(isEditingScheduleTileProvider);
+    final tempStartTime = ref.watch(tempTileProvider);
+
     return Column(
       spacing: 9,
       children: [
@@ -114,17 +141,36 @@ class WeekCalendar extends ConsumerWidget {
                 children: [
                   Stack(
                     children: [
-                      Row(
-                        children: [
-                          TimelineColumn(),
-                          DayTimelineColumn(),
-                          DayTimelineColumn(),
-                          DayTimelineColumn(),
-                          DayTimelineColumn(),
-                          DayTimelineColumn(),
-                          DayTimelineColumn(),
-                          DayTimelineColumn(),
-                        ],
+                      GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTapDown: (details) {
+                          final localOffset =
+                              details.localPosition; // Offset(dx, dy)
+                          final dx = localOffset.dx;
+                          final dy = localOffset.dy;
+                          final day = weekdayFromDx(dx);
+                          final tempStartTime =
+                              dateFromDxDy(DateTime(2025, 12, 1), day, dy);
+
+                          ref
+                              .read(tempTileProvider.notifier)
+                              .create(tempStartTime);
+                          ref
+                              .read(isEditingScheduleTileProvider.notifier)
+                              .state = true;
+                        },
+                        child: Row(
+                          children: [
+                            TimelineColumn(),
+                            DayTimelineColumn(),
+                            DayTimelineColumn(),
+                            DayTimelineColumn(),
+                            DayTimelineColumn(),
+                            DayTimelineColumn(),
+                            DayTimelineColumn(),
+                            DayTimelineColumn(),
+                          ],
+                        ),
                       ),
                       ScheduleTile(
                         startTime: DateTime(2025, 11, 10, 15, 0),
@@ -148,6 +194,11 @@ class WeekCalendar extends ConsumerWidget {
                         title: '웹툰 기획과 스토리 개발',
                       ),
                       CurrentDivider(),
+                      if (tempStartTime != null && isAddingScheduleTile)
+                        TempScheduleTile(
+                            color: AppColors.grey(1),
+                            title: '새 일정 타일',
+                            textColor: AppColors.grey(8)),
                     ],
                   ),
                 ],

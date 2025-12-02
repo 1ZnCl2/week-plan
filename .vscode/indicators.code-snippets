@@ -1,0 +1,57 @@
+{
+  "Insert Work Bullet": {
+    "prefix": "workbullet",
+    "body": [
+      "• $0"
+    ],
+    "description": "Insert a bullet work indicator"
+  },
+
+  "Insert Check Emoji": {
+    "prefix": "checkemoji",
+    "body": [
+      "✅ $0"
+    ],
+    "description": "Insert a check emoji"
+  },
+
+  "Insert Checkbox (unchecked)": {
+    "prefix": "cbx",
+    "body": [
+      "[ ] $0"
+    ],
+    "description": "Insert an unchecked checkbox"
+  },
+
+  "Insert Checkbox (checked)": {
+    "prefix": "cbxok",
+    "body": [
+      "[x] $0"
+    ],
+    "description": "Insert a checked checkbox"
+  },
+
+  "Insert Arrow": {
+    "prefix": "warrow",
+    "body": [
+      "→ $0"
+    ],
+    "description": "Insert a right arrow"
+  },
+
+  "Insert Fullwidth Space": {
+    "prefix": "fwspace",
+    "body": [
+      "　$0"
+    ],
+    "description": "Insert a fullwidth (ideographic) space"
+  },
+
+  "Insert Custom Symbol 翔": {
+    "prefix": "xiang",
+    "body": [
+      "翔 $0"
+    ],
+    "description": "Insert the character 翔 (example)"
+  }
+}

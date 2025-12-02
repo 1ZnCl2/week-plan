@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
 
@@ -48,13 +47,11 @@ class ScheduleTile extends StatelessWidget {
             SizedBox(height: 13),
             SizedBox(
               width: 114,
-              child: Flexible(
-                child: Text(
-                  title,
-                  style: AppFonts.colormediumTitle(
-                    size: 16,
-                    textColor,
-                  ),
+              child: Text(
+                title,
+                style: AppFonts.colormediumTitle(
+                  size: 16,
+                  textColor,
                 ),
               ),
             ),

@@ -20,9 +20,10 @@ ScheduleModel _$ScheduleModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ScheduleModel {
-  String get scheduleId => throw _privateConstructorUsedError;
+  String? get scheduleId => throw _privateConstructorUsedError;
   String get scheduleName => throw _privateConstructorUsedError;
   String get refId => throw _privateConstructorUsedError;
+  String get uid => throw _privateConstructorUsedError;
   DateTime get startTime => throw _privateConstructorUsedError;
   DateTime get endTime => throw _privateConstructorUsedError;
   bool get isAllDay => throw _privateConstructorUsedError;
@@ -45,9 +46,10 @@ abstract class $ScheduleModelCopyWith<$Res> {
       _$ScheduleModelCopyWithImpl<$Res, ScheduleModel>;
   @useResult
   $Res call(
-      {String scheduleId,
+      {String? scheduleId,
       String scheduleName,
       String refId,
+      String uid,
       DateTime startTime,
       DateTime endTime,
       bool isAllDay,
@@ -69,19 +71,20 @@ class _$ScheduleModelCopyWithImpl<$Res, $Val extends ScheduleModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? scheduleId = null,
+    Object? scheduleId = freezed,
     Object? scheduleName = null,
     Object? refId = null,
+    Object? uid = null,
     Object? startTime = null,
     Object? endTime = null,
     Object? isAllDay = null,
     Object? isCompleted = null,
   }) {
     return _then(_value.copyWith(
-      scheduleId: null == scheduleId
+      scheduleId: freezed == scheduleId
           ? _value.scheduleId
           : scheduleId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       scheduleName: null == scheduleName
           ? _value.scheduleName
           : scheduleName // ignore: cast_nullable_to_non_nullable
@@ -89,6 +92,10 @@ class _$ScheduleModelCopyWithImpl<$Res, $Val extends ScheduleModel>
       refId: null == refId
           ? _value.refId
           : refId // ignore: cast_nullable_to_non_nullable
+              as String,
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
               as String,
       startTime: null == startTime
           ? _value.startTime
@@ -119,9 +126,10 @@ abstract class _$$ScheduleModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String scheduleId,
+      {String? scheduleId,
       String scheduleName,
       String refId,
+      String uid,
       DateTime startTime,
       DateTime endTime,
       bool isAllDay,
@@ -141,19 +149,20 @@ class __$$ScheduleModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? scheduleId = null,
+    Object? scheduleId = freezed,
     Object? scheduleName = null,
     Object? refId = null,
+    Object? uid = null,
     Object? startTime = null,
     Object? endTime = null,
     Object? isAllDay = null,
     Object? isCompleted = null,
   }) {
     return _then(_$ScheduleModelImpl(
-      scheduleId: null == scheduleId
+      scheduleId: freezed == scheduleId
           ? _value.scheduleId
           : scheduleId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       scheduleName: null == scheduleName
           ? _value.scheduleName
           : scheduleName // ignore: cast_nullable_to_non_nullable
@@ -161,6 +170,10 @@ class __$$ScheduleModelImplCopyWithImpl<$Res>
       refId: null == refId
           ? _value.refId
           : refId // ignore: cast_nullable_to_non_nullable
+              as String,
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
               as String,
       startTime: null == startTime
           ? _value.startTime
@@ -189,6 +202,7 @@ class _$ScheduleModelImpl implements _ScheduleModel {
       {required this.scheduleId,
       required this.scheduleName,
       required this.refId,
+      required this.uid,
       required this.startTime,
       required this.endTime,
       required this.isAllDay,
@@ -198,11 +212,13 @@ class _$ScheduleModelImpl implements _ScheduleModel {
       _$$ScheduleModelImplFromJson(json);
 
   @override
-  final String scheduleId;
+  final String? scheduleId;
   @override
   final String scheduleName;
   @override
   final String refId;
+  @override
+  final String uid;
   @override
   final DateTime startTime;
   @override
@@ -214,7 +230,7 @@ class _$ScheduleModelImpl implements _ScheduleModel {
 
   @override
   String toString() {
-    return 'ScheduleModel(scheduleId: $scheduleId, scheduleName: $scheduleName, refId: $refId, startTime: $startTime, endTime: $endTime, isAllDay: $isAllDay, isCompleted: $isCompleted)';
+    return 'ScheduleModel(scheduleId: $scheduleId, scheduleName: $scheduleName, refId: $refId, uid: $uid, startTime: $startTime, endTime: $endTime, isAllDay: $isAllDay, isCompleted: $isCompleted)';
   }
 
   @override
@@ -227,6 +243,7 @@ class _$ScheduleModelImpl implements _ScheduleModel {
             (identical(other.scheduleName, scheduleName) ||
                 other.scheduleName == scheduleName) &&
             (identical(other.refId, refId) || other.refId == refId) &&
+            (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.startTime, startTime) ||
                 other.startTime == startTime) &&
             (identical(other.endTime, endTime) || other.endTime == endTime) &&
@@ -239,7 +256,7 @@ class _$ScheduleModelImpl implements _ScheduleModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, scheduleId, scheduleName, refId,
-      startTime, endTime, isAllDay, isCompleted);
+      uid, startTime, endTime, isAllDay, isCompleted);
 
   /// Create a copy of ScheduleModel
   /// with the given fields replaced by the non-null parameter values.
@@ -259,9 +276,10 @@ class _$ScheduleModelImpl implements _ScheduleModel {
 
 abstract class _ScheduleModel implements ScheduleModel {
   factory _ScheduleModel(
-      {required final String scheduleId,
+      {required final String? scheduleId,
       required final String scheduleName,
       required final String refId,
+      required final String uid,
       required final DateTime startTime,
       required final DateTime endTime,
       required final bool isAllDay,
@@ -271,11 +289,13 @@ abstract class _ScheduleModel implements ScheduleModel {
       _$ScheduleModelImpl.fromJson;
 
   @override
-  String get scheduleId;
+  String? get scheduleId;
   @override
   String get scheduleName;
   @override
   String get refId;
+  @override
+  String get uid;
   @override
   DateTime get startTime;
   @override
