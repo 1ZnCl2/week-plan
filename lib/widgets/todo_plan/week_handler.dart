@@ -4,7 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
-import 'package:week_plan/providers/what_is_this_week_provider.dart';
+import 'package:week_plan/providers/usecases/add_comprehensive_list_usecase_provider.dart';
+import 'package:week_plan/providers/week_base_date_provider.dart';
 
 class WeekHandler extends ConsumerWidget {
   const WeekHandler({super.key});

@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
+import 'package:week_plan/providers/comprehensive_list_provider/comprehensive_list_provider.dart';
 import 'package:week_plan/providers/is_editing_schedule_tile_provider.dart';
 import 'package:week_plan/providers/schedule_provider/temp_schedule_tile_state_provider.dart';
-import 'package:week_plan/providers/what_is_this_week_provider.dart';
+import 'package:week_plan/providers/usecases/add_comprehensive_list_usecase_provider.dart';
+import 'package:week_plan/providers/usecases/add_schedule_usecase_provider.dart';
+import 'package:week_plan/providers/week_base_date_provider.dart';
+import 'package:week_plan/service/group_dates.dart';
 import 'package:week_plan/widgets/todo_plan/current_divider.dart';
 import 'package:week_plan/widgets/todo_plan/day_timeline_column.dart';
 import 'package:week_plan/widgets/todo_plan/schedule_tile.dart';
@@ -70,78 +74,67 @@ class WeekCalendar extends ConsumerWidget {
     final isAddingScheduleTile = ref.watch(isEditingScheduleTileProvider);
     final tempStartTime = ref.watch(tempTileProvider);
     final weekBase = ref.watch(weekBaseDateProvider);
+    final asyncList = ref.watch(comprehensiveListStreamProvider(weekBase));
 
     return Column(
       spacing: 9,
       children: [
         Padding(
           padding: EdgeInsets.only(left: 20),
-          child: Row(
-            children: DayOfWeek.values.asMap().entries.map((entry) {
-              final index = entry.key;
-              final day = entry.value;
+          child: Column(
+            spacing: 9,
+            children: [
+              Row(
+                children: DayOfWeek.values.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final day = entry.value;
 
-              debugPrint('index / day : $index / $day');
+                  final date = weekBase.add(Duration(days: index));
 
-              final date = weekBase.add(Duration(days: index));
-              debugPrint('date : $date');
-
-              return Container(
-                width: 180,
-                height: 44,
-                padding: EdgeInsets.symmetric(
-                  vertical: 12,
-                  horizontal: 10,
-                ),
-                decoration: BoxDecoration(
-                  color: AppColors.grey(3),
-                ),
-                child: Center(
-                  child: Text(
-                    '${date.month}/${date.day} ${currentDayName(day)}',
-                    style: AppFonts.blackTitle(
-                      size: 14,
+                  return Container(
+                    width: 180,
+                    height: 44,
+                    padding: EdgeInsets.symmetric(
+                      vertical: 12,
+                      horizontal: 10,
                     ),
-                  ),
-                ),
-              );
-            }).toList(),
+                    decoration: BoxDecoration(
+                      color: AppColors.grey(3),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '${date.month}/${date.day} ${currentDayName(day)}',
+                        style: AppFonts.blackTitle(
+                          size: 14,
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+              asyncList.when(
+                data: (list) {
+                  final grouped = groupByDate(list);
+
+                  return Row(
+                    children: List.generate(7, (index) {
+                      final date = weekBase.add(Duration(days: index));
+                      final key = DateTime(date.year, date.month, date.day);
+                      final itemsForThisDay = grouped[key] ?? [];
+
+                      return ComprehensiveListWidget(
+                        isToday: false,
+                        today: date,
+                        items: itemsForThisDay,
+                      );
+                    }),
+                  );
+                },
+                loading: () => CircularProgressIndicator(),
+                error: (e, st) => Text('에러: $e'),
+              ),
+            ],
           ),
-        ),
-        Row(
-          children: [
-            SizedBox(
-              width: 20,
-            ),
-            ComprehensiveListWidget(
-              isToday: true,
-              title: '오늘의 할 일',
-            ),
-            ComprehensiveListWidget(
-              isToday: false,
-              title: '오늘의 할 일',
-            ),
-            ComprehensiveListWidget(
-              isToday: false,
-              title: '오늘의 할 일',
-            ),
-            ComprehensiveListWidget(
-              isToday: false,
-              title: '오늘의 할 일',
-            ),
-            ComprehensiveListWidget(
-              isToday: false,
-              title: '오늘의 할 일',
-            ),
-            ComprehensiveListWidget(
-              isToday: false,
-              title: '오늘의 할 일',
-            ),
-            ComprehensiveListWidget(
-              isToday: false,
-              title: '오늘의 할 일',
-            ),
-          ],
         ),
         SizedBox(
           height: 622,

@@ -22,9 +22,10 @@ ComprehensiveModel _$ComprehensiveModelFromJson(Map<String, dynamic> json) {
 mixin _$ComprehensiveModel {
   String get id => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
-  String get contentName => throw _privateConstructorUsedError;
+  String get content_name => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime get date => throw _privateConstructorUsedError;
-  bool get isCompleted => throw _privateConstructorUsedError;
+  bool get is_completed => throw _privateConstructorUsedError;
 
   /// Serializes this ComprehensiveModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -45,9 +46,9 @@ abstract class $ComprehensiveModelCopyWith<$Res> {
   $Res call(
       {String id,
       String uid,
-      String contentName,
-      DateTime date,
-      bool isCompleted});
+      String content_name,
+      @TimestampConverter() DateTime date,
+      bool is_completed});
 }
 
 /// @nodoc
@@ -67,9 +68,9 @@ class _$ComprehensiveModelCopyWithImpl<$Res, $Val extends ComprehensiveModel>
   $Res call({
     Object? id = null,
     Object? uid = null,
-    Object? contentName = null,
+    Object? content_name = null,
     Object? date = null,
-    Object? isCompleted = null,
+    Object? is_completed = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -80,17 +81,17 @@ class _$ComprehensiveModelCopyWithImpl<$Res, $Val extends ComprehensiveModel>
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String,
-      contentName: null == contentName
-          ? _value.contentName
-          : contentName // ignore: cast_nullable_to_non_nullable
+      content_name: null == content_name
+          ? _value.content_name
+          : content_name // ignore: cast_nullable_to_non_nullable
               as String,
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      isCompleted: null == isCompleted
-          ? _value.isCompleted
-          : isCompleted // ignore: cast_nullable_to_non_nullable
+      is_completed: null == is_completed
+          ? _value.is_completed
+          : is_completed // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -107,9 +108,9 @@ abstract class _$$ComprehensiveModelImplCopyWith<$Res>
   $Res call(
       {String id,
       String uid,
-      String contentName,
-      DateTime date,
-      bool isCompleted});
+      String content_name,
+      @TimestampConverter() DateTime date,
+      bool is_completed});
 }
 
 /// @nodoc
@@ -127,9 +128,9 @@ class __$$ComprehensiveModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? uid = null,
-    Object? contentName = null,
+    Object? content_name = null,
     Object? date = null,
-    Object? isCompleted = null,
+    Object? is_completed = null,
   }) {
     return _then(_$ComprehensiveModelImpl(
       id: null == id
@@ -140,17 +141,17 @@ class __$$ComprehensiveModelImplCopyWithImpl<$Res>
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String,
-      contentName: null == contentName
-          ? _value.contentName
-          : contentName // ignore: cast_nullable_to_non_nullable
+      content_name: null == content_name
+          ? _value.content_name
+          : content_name // ignore: cast_nullable_to_non_nullable
               as String,
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      isCompleted: null == isCompleted
-          ? _value.isCompleted
-          : isCompleted // ignore: cast_nullable_to_non_nullable
+      is_completed: null == is_completed
+          ? _value.is_completed
+          : is_completed // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -162,9 +163,9 @@ class _$ComprehensiveModelImpl implements _ComprehensiveModel {
   _$ComprehensiveModelImpl(
       {required this.id,
       required this.uid,
-      required this.contentName,
-      required this.date,
-      required this.isCompleted});
+      required this.content_name,
+      @TimestampConverter() required this.date,
+      required this.is_completed});
 
   factory _$ComprehensiveModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ComprehensiveModelImplFromJson(json);
@@ -174,15 +175,16 @@ class _$ComprehensiveModelImpl implements _ComprehensiveModel {
   @override
   final String uid;
   @override
-  final String contentName;
+  final String content_name;
   @override
+  @TimestampConverter()
   final DateTime date;
   @override
-  final bool isCompleted;
+  final bool is_completed;
 
   @override
   String toString() {
-    return 'ComprehensiveModel(id: $id, uid: $uid, contentName: $contentName, date: $date, isCompleted: $isCompleted)';
+    return 'ComprehensiveModel(id: $id, uid: $uid, content_name: $content_name, date: $date, is_completed: $is_completed)';
   }
 
   @override
@@ -192,17 +194,17 @@ class _$ComprehensiveModelImpl implements _ComprehensiveModel {
             other is _$ComprehensiveModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.uid, uid) || other.uid == uid) &&
-            (identical(other.contentName, contentName) ||
-                other.contentName == contentName) &&
+            (identical(other.content_name, content_name) ||
+                other.content_name == content_name) &&
             (identical(other.date, date) || other.date == date) &&
-            (identical(other.isCompleted, isCompleted) ||
-                other.isCompleted == isCompleted));
+            (identical(other.is_completed, is_completed) ||
+                other.is_completed == is_completed));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, uid, contentName, date, isCompleted);
+      Object.hash(runtimeType, id, uid, content_name, date, is_completed);
 
   /// Create a copy of ComprehensiveModel
   /// with the given fields replaced by the non-null parameter values.
@@ -225,9 +227,9 @@ abstract class _ComprehensiveModel implements ComprehensiveModel {
   factory _ComprehensiveModel(
       {required final String id,
       required final String uid,
-      required final String contentName,
-      required final DateTime date,
-      required final bool isCompleted}) = _$ComprehensiveModelImpl;
+      required final String content_name,
+      @TimestampConverter() required final DateTime date,
+      required final bool is_completed}) = _$ComprehensiveModelImpl;
 
   factory _ComprehensiveModel.fromJson(Map<String, dynamic> json) =
       _$ComprehensiveModelImpl.fromJson;
@@ -237,11 +239,12 @@ abstract class _ComprehensiveModel implements ComprehensiveModel {
   @override
   String get uid;
   @override
-  String get contentName;
+  String get content_name;
   @override
+  @TimestampConverter()
   DateTime get date;
   @override
-  bool get isCompleted;
+  bool get is_completed;
 
   /// Create a copy of ComprehensiveModel
   /// with the given fields replaced by the non-null parameter values.
