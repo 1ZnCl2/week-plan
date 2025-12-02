@@ -115,21 +115,19 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
             ),
           ),
           Positioned.fill(
-              top: 55,
-              bottom: 14,
-              child: Container(
-                color: Colors.red.withOpacity(0.3),
-                child: GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onPanStart: (d) => notifier.startDrag(
-                      d.globalPosition.dx, d.globalPosition.dy),
-                  onPanUpdate: (d) => notifier.updateDrag(
-                    d.globalPosition.dx,
-                    d.globalPosition.dy,
-                  ),
-                  onPanEnd: (_) => notifier.endDrag(),
-                ),
-              )),
+            top: 55,
+            bottom: 14,
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onPanStart: (d) =>
+                  notifier.startDrag(d.globalPosition.dx, d.globalPosition.dy),
+              onPanUpdate: (d) => notifier.updateDrag(
+                d.globalPosition.dx,
+                d.globalPosition.dy,
+              ),
+              onPanEnd: (_) => notifier.endDrag(),
+            ),
+          ),
           Positioned(
             top: 0,
             left: 0,
