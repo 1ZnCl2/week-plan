@@ -11,9 +11,9 @@ _$ComprehensiveModelImpl _$$ComprehensiveModelImplFromJson(
     _$ComprehensiveModelImpl(
       id: json['id'] as String,
       uid: json['uid'] as String,
-      contentName: json['contentName'] as String,
-      date: DateTime.parse(json['date'] as String),
-      isCompleted: json['isCompleted'] as bool,
+      content_name: json['content_name'] as String,
+      date: const TimestampConverter().fromJson(json['date'] as Timestamp),
+      is_completed: json['is_completed'] as bool,
     );
 
 Map<String, dynamic> _$$ComprehensiveModelImplToJson(
@@ -21,7 +21,7 @@ Map<String, dynamic> _$$ComprehensiveModelImplToJson(
     <String, dynamic>{
       'id': instance.id,
       'uid': instance.uid,
-      'contentName': instance.contentName,
-      'date': instance.date.toIso8601String(),
-      'isCompleted': instance.isCompleted,
+      'content_name': instance.content_name,
+      'date': const TimestampConverter().toJson(instance.date),
+      'is_completed': instance.is_completed,
     };

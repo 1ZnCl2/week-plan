@@ -4,14 +4,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 part 'comprehensive_model.freezed.dart';
 part 'comprehensive_model.g.dart';
 
+class TimestampConverter implements JsonConverter<DateTime, Timestamp> {
+  const TimestampConverter();
+
+  @override
+  DateTime fromJson(Timestamp timestamp) => timestamp.toDate();
+
+  @override
+  Timestamp toJson(DateTime date) => Timestamp.fromDate(date);
+}
+
 @freezed
 class ComprehensiveModel with _$ComprehensiveModel {
   factory ComprehensiveModel({
     required String id,
     required String uid,
-    required String contentName,
-    required DateTime date,
-    required bool isCompleted,
+    required String content_name,
+    @TimestampConverter() required DateTime date,
+    required bool is_completed,
   }) = _ComprehensiveModel;
 
   factory ComprehensiveModel.fromJson(Map<String, dynamic> json) =>
@@ -21,9 +31,9 @@ class ComprehensiveModel with _$ComprehensiveModel {
     return ComprehensiveModel(
       id: doc['id'],
       uid: doc['uid'],
-      contentName: doc['content_name'],
+      content_name: doc['content_name'],
       date: (doc['date'] as Timestamp).toDate(),
-      isCompleted: doc['is_completed'] ?? false,
+      is_completed: doc['is_completed'] ?? false,
     );
   }
 }

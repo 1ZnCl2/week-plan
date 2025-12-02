@@ -45,18 +45,21 @@ class Instructor extends ConsumerWidget {
             child: IconText(
               iconPath: AppIcon.home,
               text: '홈',
+              id: '',
             ),
           ),
           GestureDetector(
             child: IconText(
               iconPath: AppIcon.inbox,
               text: '백로그',
+              id: '',
             ),
           ),
           GestureDetector(
             child: IconText(
               iconPath: AppIcon.server,
               text: '저장소',
+              id: '',
             ),
           ),
           Divider(

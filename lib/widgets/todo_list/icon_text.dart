@@ -8,25 +8,29 @@ class IconText extends StatelessWidget {
     super.key,
     required this.iconPath,
     required this.text,
+    required this.id,
     this.gap = 5,
   });
 
   final String iconPath;
   final String text;
   final double gap;
+  final String id;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SvgPicture.asset(
-          iconPath,
-          color: AppColors.grey(7),
+        GestureDetector(
+          child: SvgPicture.asset(
+            iconPath,
+            color: AppColors.grey(7),
+          ),
         ),
         SizedBox(width: gap),
         Text(
           text,
-          style: AppFonts.greyTitle(null),
+          style: AppFonts.greyTitle(AppColors.grey(7)),
         ),
       ],
     );
