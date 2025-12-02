@@ -20,11 +20,12 @@ class ComprehensiveListRepository {
             .toList());
   }
 
-  Future<void> addTodo(ComprehensiveModel todo) async {
+  Future<String?> addTodo(ComprehensiveModel todo) async {
     final docRef = firestore.collection('comprehensive_lists').doc();
     final newTodo = todo.copyWith(id: docRef.id);
 
     await docRef.set(newTodo.toJson());
+    return docRef.id;
   }
 
   Future<void> deleteTodo(String id) async {

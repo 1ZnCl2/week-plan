@@ -8,6 +8,7 @@ import 'package:week_plan/providers/comprehensive_list_provider/editing_text_pro
 import 'package:week_plan/providers/comprehensive_list_provider/hover_item_provider.dart';
 import 'package:week_plan/providers/comprehensive_list_provider/item_text_controller_provider.dart';
 import 'package:week_plan/providers/usecases/add_comprehensive_list_usecase_provider.dart';
+import 'package:week_plan/providers/usecases/complete_comprehensive_list_usecase_provider.dart';
 import 'package:week_plan/providers/usecases/delete_comprehensive_list_usecase_provider.dart';
 import 'package:week_plan/providers/usecases/update_comprehensive_list_usecase.dart';
 import 'package:week_plan/repository/comprehensive_list_repository.dart';
@@ -16,12 +17,14 @@ class EditableIconText extends ConsumerWidget {
   final String itemId;
   final String text;
   final String iconPath;
+  final bool isComplted;
 
   const EditableIconText({
     super.key,
     required this.itemId,
     required this.text,
     required this.iconPath,
+    required this.isComplted,
   });
 
   @override
@@ -30,6 +33,7 @@ class EditableIconText extends ConsumerWidget {
     final isEditing = editingId == itemId;
     final controller = ref.watch(itemTextControllerProvider);
     final isHovering = ref.watch(hoverItemProvider(itemId));
+    debugPrint("🔍 itemId=$itemId, editingId=$editingId, isEditing=$isEditing");
 
     if (isEditing) {
       controller.text = text;
@@ -48,17 +52,18 @@ class EditableIconText extends ConsumerWidget {
               onTapOutside: (_) {
                 ref.read(editingItemProvider.notifier).state = null;
               },
+              scrollPadding: EdgeInsets.all(0),
               decoration: InputDecoration(
                 hintText: '새 할 일',
                 hintStyle: AppFonts.greyTitle(AppColors.grey(7), size: 16),
                 border: InputBorder.none,
+                contentPadding: EdgeInsets.symmetric(vertical: 0),
               ),
               style: AppFonts.greyTitle(AppColors.grey(9), size: 16),
             ),
           ),
           GestureDetector(
             child: SvgPicture.asset(AppIcon.x03),
-            onTap: () {},
           ),
         ],
       );
@@ -81,7 +86,11 @@ class EditableIconText extends ConsumerWidget {
             child: Row(
               children: [
                 GestureDetector(
-                    onTap: () {}, child: SvgPicture.asset(iconPath)),
+                    onTap: () {
+                      ref.read(completeComprehensiveListUsecaseProvider)(
+                          itemId, isComplted);
+                    },
+                    child: SvgPicture.asset(iconPath)),
                 SizedBox(width: 7),
                 Expanded(
                   child: Text(

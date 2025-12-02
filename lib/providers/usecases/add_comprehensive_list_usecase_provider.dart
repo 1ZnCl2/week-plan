@@ -21,18 +21,15 @@ final addComprehensiveListUsecaseProvider =
 
       return;
     }
+    final newId = await service.addTodo(ComprehensiveModel(
+        id: '', uid: uid, content_name: '', date: date, is_completed: false));
 
-    final itemName = ref.read(itemTextControllerProvider).text;
+    if (newId == '') {
+      debugPrint('$newId');
+      return;
+    }
+    debugPrint('$newId');
 
-    service.addTodo(ComprehensiveModel(
-        id: '',
-        uid: uid,
-        content_name: itemName,
-        date: date,
-        is_completed: false));
-
-    // 초기화라는 것을 합니다.
-    ref.read(editingItemProvider.notifier).state = null;
-    ref.read(itemTextControllerProvider).clear();
+    ref.read(editingItemProvider.notifier).state = newId;
   };
 });

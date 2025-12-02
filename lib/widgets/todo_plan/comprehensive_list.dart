@@ -42,7 +42,7 @@ class ComprehensiveListWidget extends ConsumerWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
-            spacing: 4,
+            spacing: 3,
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -53,6 +53,7 @@ class ComprehensiveListWidget extends ConsumerWidget {
                   iconPath: isDone ? AppIcon.check02 : AppIcon.square,
                   text: item.content_name,
                   itemId: item.id,
+                  isComplted: item.is_completed,
                 );
               }),
               if (items.length < 3 && isHovering)
