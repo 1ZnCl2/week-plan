@@ -4,6 +4,7 @@ import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/providers/is_editing_schedule_tile_provider.dart';
 import 'package:week_plan/providers/schedule_provider/temp_schedule_tile_state_provider.dart';
+import 'package:week_plan/providers/what_is_this_week_provider.dart';
 import 'package:week_plan/widgets/todo_plan/current_divider.dart';
 import 'package:week_plan/widgets/todo_plan/day_timeline_column.dart';
 import 'package:week_plan/widgets/todo_plan/schedule_tile.dart';
@@ -68,6 +69,7 @@ class WeekCalendar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isAddingScheduleTile = ref.watch(isEditingScheduleTileProvider);
     final tempStartTime = ref.watch(tempTileProvider);
+    final weekBase = ref.watch(weekBaseDateProvider);
 
     return Column(
       spacing: 9,
@@ -75,20 +77,28 @@ class WeekCalendar extends ConsumerWidget {
         Padding(
           padding: EdgeInsets.only(left: 20),
           child: Row(
-            children: DayOfWeek.values.map((day) {
+            children: DayOfWeek.values.asMap().entries.map((entry) {
+              final index = entry.key;
+              final day = entry.value;
+
+              debugPrint('index / day : $index / $day');
+
+              final date = weekBase.add(Duration(days: index));
+              debugPrint('date : $date');
+
               return Container(
                 width: 180,
                 height: 44,
                 padding: EdgeInsets.symmetric(
                   vertical: 12,
-                  horizontal: 69,
+                  horizontal: 10,
                 ),
                 decoration: BoxDecoration(
                   color: AppColors.grey(3),
                 ),
                 child: Center(
                   child: Text(
-                    currentDayName(day),
+                    '${date.month}/${date.day} ${currentDayName(day)}',
                     style: AppFonts.blackTitle(
                       size: 14,
                     ),

@@ -5,10 +5,13 @@ import 'package:week_plan/widgets/todo_list/icon_text.dart';
 
 class ComprehensiveListWidget extends StatelessWidget {
   final bool isToday;
+  // final DateTime today;
   final String title;
+
   const ComprehensiveListWidget({
     super.key,
     required this.isToday,
+    //  required this.today,
     required this.title,
   });
 
