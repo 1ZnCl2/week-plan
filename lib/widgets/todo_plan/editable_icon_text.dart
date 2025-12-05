@@ -33,7 +33,6 @@ class EditableIconText extends ConsumerWidget {
     final isEditing = editingId == itemId;
     final controller = ref.watch(itemTextControllerProvider);
     final isHovering = ref.watch(hoverItemProvider(itemId));
-    debugPrint("🔍 itemId=$itemId, editingId=$editingId, isEditing=$isEditing");
 
     if (isEditing) {
       controller.text = text;

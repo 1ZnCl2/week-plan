@@ -12,8 +12,10 @@ _$ScheduleModelImpl _$$ScheduleModelImplFromJson(Map<String, dynamic> json) =>
       scheduleName: json['scheduleName'] as String,
       refId: json['refId'] as String,
       uid: json['uid'] as String,
-      startTime: DateTime.parse(json['startTime'] as String),
-      endTime: DateTime.parse(json['endTime'] as String),
+      startTime:
+          const TimestampConverter().fromJson(json['startTime'] as Timestamp),
+      endTime:
+          const TimestampConverter().fromJson(json['endTime'] as Timestamp),
       isAllDay: json['isAllDay'] as bool,
       isCompleted: json['isCompleted'] as bool,
     );
@@ -24,8 +26,8 @@ Map<String, dynamic> _$$ScheduleModelImplToJson(_$ScheduleModelImpl instance) =>
       'scheduleName': instance.scheduleName,
       'refId': instance.refId,
       'uid': instance.uid,
-      'startTime': instance.startTime.toIso8601String(),
-      'endTime': instance.endTime.toIso8601String(),
+      'startTime': const TimestampConverter().toJson(instance.startTime),
+      'endTime': const TimestampConverter().toJson(instance.endTime),
       'isAllDay': instance.isAllDay,
       'isCompleted': instance.isCompleted,
     };

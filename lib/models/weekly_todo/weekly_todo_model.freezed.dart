@@ -29,6 +29,7 @@ mixin _$WeeklyTodoModel {
   bool? get includingSubtask => throw _privateConstructorUsedError;
   String? get refId => throw _privateConstructorUsedError;
   int? get impact => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime? get deadline => throw _privateConstructorUsedError;
 
   /// Serializes this WeeklyTodoModel to a JSON map.
@@ -57,7 +58,7 @@ abstract class $WeeklyTodoModelCopyWith<$Res> {
       bool? includingSubtask,
       String? refId,
       int? impact,
-      DateTime? deadline});
+      @TimestampConverter() DateTime? deadline});
 }
 
 /// @nodoc
@@ -149,7 +150,7 @@ abstract class _$$WeeklyTodoModelImplCopyWith<$Res>
       bool? includingSubtask,
       String? refId,
       int? impact,
-      DateTime? deadline});
+      @TimestampConverter() DateTime? deadline});
 }
 
 /// @nodoc
@@ -234,7 +235,7 @@ class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
       this.includingSubtask,
       this.refId,
       this.impact,
-      this.deadline});
+      @TimestampConverter() this.deadline});
 
   factory _$WeeklyTodoModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$WeeklyTodoModelImplFromJson(json);
@@ -258,6 +259,7 @@ class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
   @override
   final int? impact;
   @override
+  @TimestampConverter()
   final DateTime? deadline;
 
   @override
@@ -321,7 +323,7 @@ abstract class _WeeklyTodoModel implements WeeklyTodoModel {
       final bool? includingSubtask,
       final String? refId,
       final int? impact,
-      final DateTime? deadline}) = _$WeeklyTodoModelImpl;
+      @TimestampConverter() final DateTime? deadline}) = _$WeeklyTodoModelImpl;
 
   factory _WeeklyTodoModel.fromJson(Map<String, dynamic> json) =
       _$WeeklyTodoModelImpl.fromJson;
@@ -345,6 +347,7 @@ abstract class _WeeklyTodoModel implements WeeklyTodoModel {
   @override
   int? get impact;
   @override
+  @TimestampConverter()
   DateTime? get deadline;
 
   /// Create a copy of WeeklyTodoModel

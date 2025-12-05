@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:week_plan/models/timestamp_converter_function.dart';
 
 part 'schedule_model.freezed.dart';
 part 'schedule_model.g.dart';
@@ -11,8 +12,8 @@ class ScheduleModel with _$ScheduleModel {
     required String scheduleName,
     required String refId,
     required String uid,
-    required DateTime startTime,
-    required DateTime endTime,
+    @TimestampConverter() required DateTime startTime,
+    @TimestampConverter() required DateTime endTime,
     required bool isAllDay,
     required bool isCompleted,
   }) = _ScheduleModel;
@@ -43,14 +44,14 @@ class ScheduleModel with _$ScheduleModel {
 
   factory ScheduleModel.fromDocumentSnapshot(DocumentSnapshot doc) {
     return ScheduleModel(
-      scheduleId: doc['schedule_id'],
-      scheduleName: doc['schedule_name'],
-      refId: doc['ref_id'],
+      scheduleId: doc['scheduleId'],
+      scheduleName: doc['scheduleName'],
+      refId: doc['refId'],
       uid: doc['uid'],
-      startTime: (doc['start_time'] as Timestamp).toDate(),
-      endTime: (doc['end_time'] as Timestamp).toDate(),
-      isAllDay: doc['is_all_day'],
-      isCompleted: doc['is_completed'] ?? false,
+      startTime: (doc['startTime'] as Timestamp).toDate(),
+      endTime: (doc['endTime'] as Timestamp).toDate(),
+      isAllDay: doc['isAllDay'],
+      isCompleted: doc['isCompleted'] ?? false,
     );
   }
 }

@@ -1,18 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:week_plan/models/timestamp_converter_function.dart';
 
 part 'comprehensive_model.freezed.dart';
 part 'comprehensive_model.g.dart';
-
-class TimestampConverter implements JsonConverter<DateTime, Timestamp> {
-  const TimestampConverter();
-
-  @override
-  DateTime fromJson(Timestamp timestamp) => timestamp.toDate();
-
-  @override
-  Timestamp toJson(DateTime date) => Timestamp.fromDate(date);
-}
 
 @freezed
 class ComprehensiveModel with _$ComprehensiveModel {

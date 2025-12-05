@@ -4,9 +4,12 @@ import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/providers/comprehensive_list_provider/comprehensive_list_provider.dart';
 import 'package:week_plan/providers/is_editing_schedule_tile_provider.dart';
+import 'package:week_plan/providers/schedule_provider/editing_schedule_id_provider.dart';
+import 'package:week_plan/providers/schedule_provider/schedule_provider.dart';
 import 'package:week_plan/providers/schedule_provider/temp_schedule_tile_state_provider.dart';
 import 'package:week_plan/providers/usecases/add_comprehensive_list_usecase_provider.dart';
 import 'package:week_plan/providers/usecases/add_schedule_usecase_provider.dart';
+import 'package:week_plan/providers/usecases/delete_schedule_usecase_provider.dart';
 import 'package:week_plan/providers/week_base_date_provider.dart';
 import 'package:week_plan/service/group_dates.dart';
 import 'package:week_plan/widgets/todo_plan/current_divider.dart';
@@ -71,10 +74,11 @@ class WeekCalendar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isAddingScheduleTile = ref.watch(isEditingScheduleTileProvider);
-    final tempStartTime = ref.watch(tempTileProvider);
     final weekBase = ref.watch(weekBaseDateProvider);
     final asyncList = ref.watch(comprehensiveListStreamProvider(weekBase));
+    final scheduleStreamed = ref.watch(streamScheduleProvider(weekBase));
+    final isEditingSchedule = ref.watch(isEditingScheduleTileProvider);
+    final editingId = ref.watch(editingScheduleIdProvider);
 
     return Column(
       spacing: 9,
@@ -146,21 +150,22 @@ class WeekCalendar extends ConsumerWidget {
                     children: [
                       GestureDetector(
                         behavior: HitTestBehavior.opaque,
+                        onTap: () {},
                         onTapDown: (details) {
+                          if (editingId != null) {
+                            debugPrint('present id is : $editingId');
+                            ref.read(deleteScheduleUsecaseProvider)(editingId);
+                          }
                           final localOffset =
                               details.localPosition; // Offset(dx, dy)
                           final dx = localOffset.dx;
                           final dy = localOffset.dy;
                           final day = weekdayFromDx(dx);
-                          final tempStartTime =
-                              dateFromDxDy(DateTime(2025, 12, 1), day, dy);
-
+                          final tempStartTime = dateFromDxDy(weekBase, day, dy);
                           ref
                               .read(tempTileProvider.notifier)
                               .create(tempStartTime);
-                          ref
-                              .read(isEditingScheduleTileProvider.notifier)
-                              .state = true;
+                          ref.read(addScheduleUsecaseProvider)();
                         },
                         child: Row(
                           children: [
@@ -175,12 +180,30 @@ class WeekCalendar extends ConsumerWidget {
                           ],
                         ),
                       ),
+                      ...scheduleStreamed.when(
+                        data: (list) {
+                          return list.map((item) {
+                            return TempScheduleTile(
+                              color: AppColors.cyan(3),
+                              textColor: const Color(0xFF407283),
+                              title: item.scheduleName,
+                              id: item.scheduleId ?? '',
+                              startTime: item.startTime,
+                              endTime: item.endTime,
+                              isCompleted: item.isCompleted,
+                            );
+                          }).toList();
+                        },
+                        loading: () => [const CircularProgressIndicator()],
+                        error: (e, st) => [Text('에러: $e')],
+                      ),
                       ScheduleTile(
                         startTime: DateTime(2025, 11, 10, 15, 0),
                         endTime: DateTime(2025, 11, 11, 18, 0),
                         color: AppColors.cyan(2),
                         textColor: Color(0xFF407283),
                         title: 'sample1',
+                        id: '',
                       ),
                       ScheduleTile(
                         startTime: DateTime(2025, 11, 11, 15, 0),
@@ -188,6 +211,7 @@ class WeekCalendar extends ConsumerWidget {
                         color: AppColors.cyan(3),
                         textColor: Color(0xFF407283),
                         title: '컴퓨터 구조',
+                        id: '',
                       ),
                       ScheduleTile(
                         startTime: DateTime(2025, 11, 10, 10, 0),
@@ -195,13 +219,9 @@ class WeekCalendar extends ConsumerWidget {
                         color: AppColors.cyan(3),
                         textColor: Color(0xFF407283),
                         title: '웹툰 기획과 스토리 개발',
+                        id: '',
                       ),
                       CurrentDivider(),
-                      if (tempStartTime != null && isAddingScheduleTile)
-                        TempScheduleTile(
-                            color: AppColors.grey(1),
-                            title: '새 일정 타일',
-                            textColor: AppColors.grey(8)),
                     ],
                   ),
                 ],

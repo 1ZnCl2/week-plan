@@ -27,22 +27,40 @@ class ScheduleRepository {
     return firestore
         .collection('schedules')
         .where('uid', isEqualTo: uid)
-        .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(start))
-        .where('date', isLessThan: Timestamp.fromDate(end))
+        .where('startTime', isLessThan: Timestamp.fromDate(end))
+        .where('startTime', isGreaterThanOrEqualTo: Timestamp.fromDate(start))
         .snapshots()
         .map((query) => query.docs
             .map((e) => ScheduleModel.fromDocumentSnapshot(e))
+            .where((event) => event.endTime.isAfter(start)) // 끝나는 시간으로 필터
             .toList());
   }
 
-  Future<void> addSchedule(ScheduleModel todo) async {
+  Future<String?> addSchedule(ScheduleModel todo) async {
     final docRef = firestore.collection('schedules').doc();
     final newTodo = todo.copyWith(scheduleId: docRef.id);
 
     await docRef.set(newTodo.toJson());
+
+    return docRef.id;
+  }
+
+  Future<void> updateSchedule(
+      String id, String text, DateTime startTime, DateTime endTime) async {
+    await firestore.collection('schedules').doc(id).update({
+      'scheduleName': text,
+      'startTime': Timestamp.fromDate(startTime),
+      'endTime': Timestamp.fromDate(endTime),
+    });
   }
 
   Future<void> deleteSchedule(String id) async {
     await firestore.collection('schedules').doc(id).delete();
+  }
+
+  Future<void> completeSchedule(String id, bool presentBool) async {
+    await firestore.collection('schedules').doc(id).update({
+      'isCompleted': !presentBool,
+    });
   }
 }

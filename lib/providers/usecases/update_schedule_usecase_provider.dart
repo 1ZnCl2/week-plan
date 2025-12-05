@@ -9,11 +9,11 @@ import 'package:week_plan/providers/user_provider/user_provider.dart';
 import 'package:week_plan/repository/schedule_repository.dart';
 import 'package:week_plan/service/add_schedule_tile_service.dart';
 
-final addScheduleUsecaseProvider = Provider<Future<void> Function()>((ref) {
+final updateScheduleUsecaseProvider = Provider<Future<void> Function()>((ref) {
   final db = ref.read(firestoreProvider);
 
   return () async {
-    final service = AddScheduleTileService(ScheduleRepository(db));
+    final repo = ScheduleRepository(db);
 
     final uid = ref.read(uidProvider);
 
@@ -22,18 +22,22 @@ final addScheduleUsecaseProvider = Provider<Future<void> Function()>((ref) {
 
       return;
     }
+    final scheduleName = ref.read(scheduleTileNameController).text;
     final scheduleState = ref.read(tempTileProvider);
 
+    final editingId = ref.read(editingScheduleIdProvider);
+
     if (scheduleState == null) {
-      debugPrint('schedule state is null');
       return;
     }
+    if (editingId != '' && editingId != null) {
+      await repo.updateSchedule(
+          editingId, scheduleName, scheduleState.start, scheduleState.end);
+    }
 
-    final newId = await service.addSchedule(uid, '', '', 'DFDFDF',
-        scheduleState.start, scheduleState.end, false, false);
-
-    debugPrint('$newId');
-
-    ref.read(editingScheduleIdProvider.notifier).state = newId;
+    // 초기화라는 것을 합니다.
+    ref.read(isEditingScheduleTileProvider.notifier).state = false;
+    ref.read(scheduleTileNameController).clear();
+    ref.read(tempTileProvider.notifier).clear();
   };
 });
