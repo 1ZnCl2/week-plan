@@ -6,13 +6,13 @@ class AddWeeklyTodoService {
 
   AddWeeklyTodoService(this.todoRepo);
 
-  void addWeeklyTodo(String uid, String todoName, String category,
-      DateTime deadline, int impact) {
+  Future<String> addWeeklyTodo(String uid, String todoName, String category,
+      DateTime deadline, int impact) async {
     if (uid == '') {
-      return;
+      return '';
     }
 
-    todoRepo.addTodo(WeeklyTodoModel(
+    final newId = await todoRepo.addTodo(WeeklyTodoModel(
         todoId: '',
         todoName: todoName,
         category: category,
@@ -21,5 +21,7 @@ class AddWeeklyTodoService {
         impact: impact,
         isCompleted: false,
         isSprint: false));
+
+    return newId;
   }
 }

@@ -22,11 +22,13 @@ class WeeklyTodoRepository {
     });
   }
 
-  Future<void> addTodo(WeeklyTodoModel todo) async {
+  Future<String> addTodo(WeeklyTodoModel todo) async {
     final docRef = firestore.collection('weekly_todos').doc();
     final newTodo = todo.copyWith(todoId: docRef.id);
 
     await docRef.set(newTodo.toJson());
+
+    return docRef.id;
   }
 
   Future<void> deleteTodo(String id) async {

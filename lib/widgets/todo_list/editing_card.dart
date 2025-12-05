@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
-import 'package:week_plan/providers/usecases/weekly_todo_add_usecase_provider.dart';
+import 'package:week_plan/providers/editing_todo_id_provider.dart';
+import 'package:week_plan/providers/usecases/add_weekly_todo_usecase_provider.dart';
+import 'package:week_plan/providers/usecases/delete_weekly_todo_usecase_provider.dart';
+import 'package:week_plan/providers/usecases/update_weekly_todo_usecase_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_name_controller_provider.dart';
 import 'package:week_plan/widgets/todo_list/add_category_tag.dart';
@@ -13,7 +16,10 @@ import 'package:week_plan/widgets/todo_list/date_picker_widget.dart';
 import 'package:week_plan/widgets/todo_list/sub_task.dart';
 
 class EditingCard extends ConsumerStatefulWidget {
-  const EditingCard({super.key});
+  const EditingCard({super.key, required this.id, required this.todoName});
+
+  final String id;
+  final String todoName;
 
   @override
   ConsumerState<EditingCard> createState() => _EditingCardState();
@@ -136,8 +142,8 @@ class _EditingCardState extends ConsumerState<EditingCard> {
                         color: AppColors.grey(7),
                       ),
                       onTap: () async {
-                        final addTodo = ref.read(addWeeklyTodoUsecaseProvider);
-                        await addTodo(todoNameController.text, '미정');
+                        ref.read(updateWeeklyTodoUsecaseProvider)(
+                            todoNameController.text, 'category');
                       },
                     ),
                     SizedBox(width: 14),
@@ -145,8 +151,7 @@ class _EditingCardState extends ConsumerState<EditingCard> {
                       child: SvgPicture.asset(AppIcon.trash),
                       onTap: () {
                         todoNameController.clear();
-                        ref.read(isEditingTodoCardProvider.notifier).state =
-                            false;
+                        ref.read(deleteWeeklyTodoUsecaseProvider)(widget.id);
                       },
                     ),
                   ],

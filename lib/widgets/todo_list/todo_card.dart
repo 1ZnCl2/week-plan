@@ -13,6 +13,7 @@ class TodoCard extends StatelessWidget {
 
   final String title;
   final String category;
+  final String id;
   final DateTime? deadline;
   final bool isCompleted;
 
@@ -20,6 +21,7 @@ class TodoCard extends StatelessWidget {
     super.key,
     required this.title,
     required this.category,
+    required this.id,
     this.deadline,
     this.isCompleted = false,
   });

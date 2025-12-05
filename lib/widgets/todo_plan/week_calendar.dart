@@ -77,7 +77,6 @@ class WeekCalendar extends ConsumerWidget {
     final weekBase = ref.watch(weekBaseDateProvider);
     final asyncList = ref.watch(comprehensiveListStreamProvider(weekBase));
     final scheduleStreamed = ref.watch(streamScheduleProvider(weekBase));
-    final isEditingSchedule = ref.watch(isEditingScheduleTileProvider);
     final editingId = ref.watch(editingScheduleIdProvider);
 
     return Column(

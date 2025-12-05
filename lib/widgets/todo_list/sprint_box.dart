@@ -21,9 +21,7 @@ class SprintBox extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         spacing: 15,
-        children: [
-          TodoCard(title: 'title', category: 'cate'),
-        ],
+        children: [],
       ),
     );
   }
