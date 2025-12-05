@@ -190,6 +190,7 @@ class WeekCalendar extends ConsumerWidget {
                               id: item.scheduleId ?? '',
                               startTime: item.startTime,
                               endTime: item.endTime,
+                              isCompleted: item.isCompleted,
                             );
                           }).toList();
                         },

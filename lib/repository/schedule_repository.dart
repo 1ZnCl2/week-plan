@@ -57,4 +57,10 @@ class ScheduleRepository {
   Future<void> deleteSchedule(String id) async {
     await firestore.collection('schedules').doc(id).delete();
   }
+
+  Future<void> completeSchedule(String id, bool presentBool) async {
+    await firestore.collection('schedules').doc(id).update({
+      'isCompleted': !presentBool,
+    });
+  }
 }

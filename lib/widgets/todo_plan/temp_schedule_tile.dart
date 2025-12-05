@@ -12,18 +12,21 @@ import 'package:week_plan/providers/schedule_provider/hover_schedule_provider.da
 import 'package:week_plan/providers/schedule_provider/schedule_tile_name_contorller.dart';
 import 'package:week_plan/providers/schedule_provider/temp_schedule_tile_state_provider.dart';
 import 'package:week_plan/providers/usecases/add_schedule_usecase_provider.dart';
+import 'package:week_plan/providers/usecases/complete_schedule_tile_usecase_provider.dart';
 import 'package:week_plan/providers/usecases/delete_schedule_usecase_provider.dart';
 import 'package:week_plan/providers/usecases/update_schedule_usecase_provider.dart';
 
 class TempScheduleTile extends ConsumerStatefulWidget {
-  const TempScheduleTile(
-      {super.key,
-      required this.color,
-      required this.textColor,
-      required this.title,
-      required this.id,
-      required this.startTime,
-      required this.endTime});
+  const TempScheduleTile({
+    super.key,
+    required this.color,
+    required this.textColor,
+    required this.title,
+    required this.id,
+    required this.startTime,
+    required this.endTime,
+    required this.isCompleted,
+  });
 
   final Color color;
   final String title;
@@ -31,6 +34,7 @@ class TempScheduleTile extends ConsumerStatefulWidget {
   final String id;
   final DateTime startTime;
   final DateTime endTime;
+  final bool isCompleted;
 
   @override
   ConsumerState<TempScheduleTile> createState() => _TempScheduleTileState();
@@ -148,8 +152,14 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
                           : Row(
                               children: [
                                 GestureDetector(
+                                  onTap: () {
+                                    ref.read(completeScheduleUsecaseProvider)(
+                                        widget.id, widget.isCompleted);
+                                  },
                                   child: SvgPicture.asset(
-                                    AppIcon.square,
+                                    widget.isCompleted
+                                        ? AppIcon.check02
+                                        : AppIcon.square,
                                   ),
                                 ),
                                 SizedBox(width: 7),
@@ -231,6 +241,7 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
                       opacity: 1,
                       duration: Duration(milliseconds: 150),
                       child: GestureDetector(
+                        behavior: HitTestBehavior.opaque,
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: SvgPicture.asset(AppIcon.trash),
