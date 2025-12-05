@@ -4,10 +4,12 @@ import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/providers/comprehensive_list_provider/comprehensive_list_provider.dart';
 import 'package:week_plan/providers/is_editing_schedule_tile_provider.dart';
+import 'package:week_plan/providers/schedule_provider/editing_schedule_id_provider.dart';
 import 'package:week_plan/providers/schedule_provider/schedule_provider.dart';
 import 'package:week_plan/providers/schedule_provider/temp_schedule_tile_state_provider.dart';
 import 'package:week_plan/providers/usecases/add_comprehensive_list_usecase_provider.dart';
 import 'package:week_plan/providers/usecases/add_schedule_usecase_provider.dart';
+import 'package:week_plan/providers/usecases/delete_schedule_usecase_provider.dart';
 import 'package:week_plan/providers/week_base_date_provider.dart';
 import 'package:week_plan/service/group_dates.dart';
 import 'package:week_plan/widgets/todo_plan/current_divider.dart';
@@ -75,6 +77,8 @@ class WeekCalendar extends ConsumerWidget {
     final weekBase = ref.watch(weekBaseDateProvider);
     final asyncList = ref.watch(comprehensiveListStreamProvider(weekBase));
     final scheduleStreamed = ref.watch(streamScheduleProvider(weekBase));
+    final isEditingSchedule = ref.watch(isEditingScheduleTileProvider);
+    final editingId = ref.watch(editingScheduleIdProvider);
 
     return Column(
       spacing: 9,
@@ -146,7 +150,12 @@ class WeekCalendar extends ConsumerWidget {
                     children: [
                       GestureDetector(
                         behavior: HitTestBehavior.opaque,
+                        onTap: () {},
                         onTapDown: (details) {
+                          if (editingId != null) {
+                            debugPrint('present id is : $editingId');
+                            ref.read(deleteScheduleUsecaseProvider)(editingId);
+                          }
                           final localOffset =
                               details.localPosition; // Offset(dx, dy)
                           final dx = localOffset.dx;

@@ -62,6 +62,10 @@ class TempTileNotifier extends StateNotifier<TempTileState?> {
     );
   }
 
+  void load(DateTime start, DateTime end) {
+    state = TempTileState(start: start, end: end);
+  }
+
   void clear() {
     state = null;
   }
