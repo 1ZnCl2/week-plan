@@ -24,7 +24,9 @@ mixin _$ScheduleModel {
   String get scheduleName => throw _privateConstructorUsedError;
   String get refId => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime get startTime => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime get endTime => throw _privateConstructorUsedError;
   bool get isAllDay => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
@@ -50,8 +52,8 @@ abstract class $ScheduleModelCopyWith<$Res> {
       String scheduleName,
       String refId,
       String uid,
-      DateTime startTime,
-      DateTime endTime,
+      @TimestampConverter() DateTime startTime,
+      @TimestampConverter() DateTime endTime,
       bool isAllDay,
       bool isCompleted});
 }
@@ -130,8 +132,8 @@ abstract class _$$ScheduleModelImplCopyWith<$Res>
       String scheduleName,
       String refId,
       String uid,
-      DateTime startTime,
-      DateTime endTime,
+      @TimestampConverter() DateTime startTime,
+      @TimestampConverter() DateTime endTime,
       bool isAllDay,
       bool isCompleted});
 }
@@ -203,8 +205,8 @@ class _$ScheduleModelImpl implements _ScheduleModel {
       required this.scheduleName,
       required this.refId,
       required this.uid,
-      required this.startTime,
-      required this.endTime,
+      @TimestampConverter() required this.startTime,
+      @TimestampConverter() required this.endTime,
       required this.isAllDay,
       required this.isCompleted});
 
@@ -220,8 +222,10 @@ class _$ScheduleModelImpl implements _ScheduleModel {
   @override
   final String uid;
   @override
+  @TimestampConverter()
   final DateTime startTime;
   @override
+  @TimestampConverter()
   final DateTime endTime;
   @override
   final bool isAllDay;
@@ -280,8 +284,8 @@ abstract class _ScheduleModel implements ScheduleModel {
       required final String scheduleName,
       required final String refId,
       required final String uid,
-      required final DateTime startTime,
-      required final DateTime endTime,
+      @TimestampConverter() required final DateTime startTime,
+      @TimestampConverter() required final DateTime endTime,
       required final bool isAllDay,
       required final bool isCompleted}) = _$ScheduleModelImpl;
 
@@ -297,8 +301,10 @@ abstract class _ScheduleModel implements ScheduleModel {
   @override
   String get uid;
   @override
+  @TimestampConverter()
   DateTime get startTime;
   @override
+  @TimestampConverter()
   DateTime get endTime;
   @override
   bool get isAllDay;

@@ -9,6 +9,7 @@ class ScheduleTile extends StatelessWidget {
   final Color color;
   final String title;
   final Color textColor;
+  final String id;
 
   const ScheduleTile({
     super.key,
@@ -17,6 +18,7 @@ class ScheduleTile extends StatelessWidget {
     required this.color,
     required this.title,
     required this.textColor,
+    required this.id,
   });
 
   @override

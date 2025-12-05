@@ -5,7 +5,7 @@ class AddScheduleTileService {
   final ScheduleRepository scheRepo;
 
   AddScheduleTileService(this.scheRepo);
-  void addSchedule(
+  Future<String?> addSchedule(
     String uid,
     String scheduleName,
     String refId,
@@ -15,11 +15,7 @@ class AddScheduleTileService {
     bool isAllTime,
     bool isCompleted,
   ) {
-    if (uid == '') {
-      return;
-    }
-
-    scheRepo.addSchedule(ScheduleModel.createWithoutId(
+    final newId = scheRepo.addSchedule(ScheduleModel.createWithoutId(
         scheduleName: scheduleName,
         startTime: startTime,
         uid: uid,
@@ -27,5 +23,7 @@ class AddScheduleTileService {
         endTime: endTime,
         isAllDay: isAllTime,
         isCompleted: isCompleted));
+
+    return newId;
   }
 }
