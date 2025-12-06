@@ -5,7 +5,9 @@ import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
 import 'package:week_plan/components/widgets/category_button.dart';
+import 'package:week_plan/providers/category_provider/category_color_provider.dart';
 import 'package:week_plan/providers/category_provider/category_list_stream_provider.dart';
+import 'package:week_plan/providers/category_provider/editing_category_id_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_editing_category_provider.dart';
 import 'package:week_plan/widgets/todo_list/add_category_button.dart';
 import 'package:week_plan/widgets/todo_list/editing_category_button.dart';
@@ -18,6 +20,7 @@ class Instructor extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isEditingCategory = ref.watch(isEditingCategoryProvider);
     final categoryStreamed = ref.watch(categoryListStreamProvider);
+    final editingId = ref.watch(editingCategoryIdProvider);
 
     return Container(
       height: 728,
@@ -88,19 +91,30 @@ class Instructor extends ConsumerWidget {
             ],
           ),
           categoryStreamed.when(
-            data: (categoryList) => Column(
-              spacing: 7,
-              children: [
-                ...categoryList.map((item) => CategoryButton(
-                    categoryName: item.categoryName,
-                    color: Color(int.parse('0xFF${item.colorHex}')))),
-              ],
-            ),
+            data: (categoryList) {
+              return Column(
+                spacing: 7,
+                children: [
+                  ...categoryList.map((item) => item.categoryId == editingId
+                      ? EditingCategoryButton(
+                          id: item.categoryId,
+                          name: item.categoryName,
+                          color: item.colorHex,
+                        )
+                      : CategoryButton(
+                          id: item.categoryId,
+                          categoryName: item.categoryName,
+                          color: Color(int.parse(
+                              CategoryColor.returnTagColorfromColorName(
+                                  item.colorHex))))),
+                  if (isEditingCategory != 0 && categoryList.length < 5)
+                    AddCategoryButton(),
+                ],
+              );
+            },
             loading: () => CircularProgressIndicator(),
             error: (e, _) => Text('$e'),
           ),
-          if (isEditingCategory == 1) AddCategoryButton(),
-          if (isEditingCategory == 2) EditingCategoryButton(),
         ],
       ),
     );

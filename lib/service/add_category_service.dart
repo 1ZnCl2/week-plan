@@ -5,17 +5,19 @@ class AddCategoryService {
   final CategoryRepository cateRepo;
 
   AddCategoryService(this.cateRepo);
-  void addCategory(
-      String uid, String categoryName, String icon, String colorHex) {
+  Future<String> addCategory(
+      String uid, String categoryName, String icon, String colorHex) async {
     if (uid == '') {
-      return;
+      return '';
     }
 
-    cateRepo.addCategory(CategoryModel(
+    final newId = await cateRepo.addCategory(CategoryModel(
         categoryId: '',
         categoryName: categoryName,
         uid: uid,
         colorHex: colorHex,
         icon: icon));
+
+    return newId;
   }
 }

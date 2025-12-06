@@ -152,7 +152,6 @@ class WeekCalendar extends ConsumerWidget {
                         onTap: () {},
                         onTapDown: (details) {
                           if (editingId != null) {
-                            debugPrint('present id is : $editingId');
                             ref.read(deleteScheduleUsecaseProvider)(editingId);
                           }
                           final localOffset =

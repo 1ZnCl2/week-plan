@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
+import 'package:week_plan/providers/category_provider/category_list_stream_provider.dart';
+import 'package:week_plan/providers/category_rotate_index_provider.dart';
 import 'package:week_plan/providers/editing_todo_id_provider.dart';
 import 'package:week_plan/providers/usecases/add_weekly_todo_usecase_provider.dart';
 import 'package:week_plan/providers/usecases/delete_weekly_todo_usecase_provider.dart';
@@ -59,6 +61,9 @@ class _EditingCardState extends ConsumerState<EditingCard> {
   Widget build(BuildContext context) {
     final todoNameController = ref.watch(todoNameControllerProvider);
     final currentImpact = ref.watch(impactProvider);
+    final categoryList = ref.watch(categoryListStreamProvider);
+    final categoryIndexNotifier =
+        ref.watch(categoryRotateIndexProvider.notifier);
 
     return Container(
       width: 488,

@@ -33,6 +33,7 @@ class TodoPlanerScreen extends ConsumerWidget {
                     spacing: 7,
                     children: [
                       ...categoryList.map((item) => CategoryButton(
+                          id: item.categoryId,
                           categoryName: item.categoryName,
                           color: Color(int.parse('0xFF${item.colorHex}')))),
                     ],

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:week_plan/components/font_manage.dart';
+import 'package:week_plan/providers/category_provider/category_color_provider.dart';
 
 class CategoryTag extends StatelessWidget {
   final String categoryName;
-  final Color color;
+  final String color;
 
   const CategoryTag({
     super.key,
@@ -22,7 +23,8 @@ class CategoryTag extends StatelessWidget {
         vertical: 5,
       ),
       decoration: BoxDecoration(
-        color: color,
+        color:
+            Color(int.parse(CategoryColor.returnTagColorfromColorName(color))),
         boxShadow: [
           BoxShadow(
             color: const Color.fromARGB(10, 0, 0, 0),

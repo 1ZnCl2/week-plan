@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:week_plan/models/category/category_model.dart';
 
 class CategoryRepository {
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore firestore;
+
+  CategoryRepository(this.firestore);
 
   Stream<List<CategoryModel>> streamCategories(String uid) {
     return firestore

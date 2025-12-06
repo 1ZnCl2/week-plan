@@ -106,7 +106,7 @@ class TodoCard extends ConsumerWidget {
                         ),
                         CategoryTag(
                           categoryName: category,
-                          color: AppColors.cyan(1),
+                          color: '',
                         ),
                         SizedBox(height: 6),
                         SubTaskAddButton(),

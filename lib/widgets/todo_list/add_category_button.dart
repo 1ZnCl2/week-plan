@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
+import 'package:week_plan/providers/usecases/add_category_usecase_provider.dart';
+import 'package:week_plan/providers/usecases/add_schedule_usecase_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_editing_category_provider.dart';
 
 class AddCategoryButton extends ConsumerWidget {
@@ -14,8 +16,7 @@ class AddCategoryButton extends ConsumerWidget {
     return GestureDetector(
         onTap: () {
           ref.read(isEditingCategoryProvider.notifier).state = 2;
-          debugPrint(
-              'current state is? ${ref.read(isEditingCategoryProvider)}');
+          ref.read(addCategoryUsecaseProvider)();
         },
         child: Row(
           mainAxisSize: MainAxisSize.min,

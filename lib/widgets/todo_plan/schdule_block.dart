@@ -42,8 +42,7 @@ class ScheduleBlock extends StatelessWidget {
                         AppColors.grey(9),
                       ),
               ),
-              CategoryTag(
-                  categoryName: 'categoryName', color: AppColors.cyan(1)),
+              CategoryTag(categoryName: 'categoryName', color: ''),
               SizedBox(
                 height: 16,
               ),
