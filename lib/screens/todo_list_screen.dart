@@ -22,7 +22,6 @@ class TodoListScreen extends ConsumerWidget {
     final todoStreamed = ref.watch(weeklyTodoStreamProvider);
     final categoryStreamed = ref.watch(categoryListStreamProvider);
     final editingId = ref.watch(editingTodoIdProvider);
-    final weekBase = ref.watch(weekBaseDateProvider);
 
     return Scaffold(
       body: Row(
