@@ -157,16 +157,6 @@ class _EditingCardState extends ConsumerState<EditingCard> {
 
                     final item = categoryList[safeIndex];
 
-                    if (index == 0) {
-                      return GestureDetector(
-                          onTap: () {
-                            ref
-                                .read(categoryRotateIndexProvider.notifier)
-                                .rotate(categoryList.length, categoryName);
-                          },
-                          child: AddCategoryTag());
-                    }
-
                     return GestureDetector(
                       onTap: () {
                         ref
