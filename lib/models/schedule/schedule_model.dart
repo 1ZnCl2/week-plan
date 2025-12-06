@@ -12,21 +12,22 @@ class ScheduleModel with _$ScheduleModel {
     required String scheduleName,
     required String refId,
     required String uid,
+    required String categoryId,
     @TimestampConverter() required DateTime startTime,
     @TimestampConverter() required DateTime endTime,
     required bool isAllDay,
     required bool isCompleted,
   }) = _ScheduleModel;
 
-  factory ScheduleModel.createWithoutId({
-    required String scheduleName,
-    required DateTime startTime,
-    required DateTime endTime,
-    required String uid,
-    required bool isAllDay,
-    required bool isCompleted,
-    String? refId,
-  }) {
+  factory ScheduleModel.createWithoutId(
+      {required String scheduleName,
+      required DateTime startTime,
+      required DateTime endTime,
+      required String uid,
+      required bool isAllDay,
+      required bool isCompleted,
+      required String? refId,
+      required String categoryId}) {
     return ScheduleModel(
       scheduleId: '', // Repository가 나중에 채움
       scheduleName: scheduleName,
@@ -36,6 +37,7 @@ class ScheduleModel with _$ScheduleModel {
       isAllDay: isAllDay,
       isCompleted: isCompleted,
       refId: refId ?? '',
+      categoryId: categoryId ?? '미정',
     );
   }
 
@@ -52,6 +54,7 @@ class ScheduleModel with _$ScheduleModel {
       endTime: (doc['endTime'] as Timestamp).toDate(),
       isAllDay: doc['isAllDay'],
       isCompleted: doc['isCompleted'] ?? false,
+      categoryId: doc['categoryId'] ?? '미정',
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:week_plan/providers/editing_todo_id_provider.dart';
 import 'package:week_plan/providers/firestore_provider.dart';
 import 'package:week_plan/providers/user_provider/user_provider.dart';
+import 'package:week_plan/providers/week_base_date_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/date_picker_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/impact_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
@@ -18,6 +19,7 @@ final updateWeeklyTodoUsecaseProvider =
 
     final uid = ref.read(uidProvider);
     final deadline = ref.read(dateTimePickerProvider);
+    final weekBase = ref.read(weekBaseDateProvider);
 
     if (uid == null) {
       debugPrint('uid is null');
@@ -26,14 +28,17 @@ final updateWeeklyTodoUsecaseProvider =
     }
 
     final id = ref.read(editingTodoIdProvider);
-
     final impact = ref.read(impactProvider).value;
+    bool isSprint = false;
 
+    if (deadline.isBefore(weekBase.add(const Duration(days: 7)))) {
+      isSprint = true;
+    }
     if (id == '' || id == null) {
       return;
     }
 
-    repo.updateTodo(id, todoName, category, deadline, impact);
+    repo.updateTodo(id, todoName, category, deadline, impact, isSprint);
 
     // 초기화라는 것을 합니다.
     ref.read(dateTimePickerProvider.notifier).initializeDate();

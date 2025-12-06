@@ -5,6 +5,7 @@ import 'package:week_plan/components/widgets/view_slider.dart';
 import 'package:week_plan/models/category/category_model.dart';
 import 'package:week_plan/providers/category_provider/category_list_stream_provider.dart';
 import 'package:week_plan/providers/editing_todo_id_provider.dart';
+import 'package:week_plan/providers/week_base_date_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_list_stream_provider.dart';
 import 'package:week_plan/widgets/todo_list/add_button.dart';
@@ -21,6 +22,7 @@ class TodoListScreen extends ConsumerWidget {
     final todoStreamed = ref.watch(weeklyTodoStreamProvider);
     final categoryStreamed = ref.watch(categoryListStreamProvider);
     final editingId = ref.watch(editingTodoIdProvider);
+    final weekBase = ref.watch(weekBaseDateProvider);
 
     return Scaffold(
       body: Row(
@@ -53,9 +55,9 @@ class TodoListScreen extends ConsumerWidget {
                                   (c) => c.categoryName == item.category,
                                   orElse: () => CategoryModel(
                                     categoryId: 'none',
-                                    categoryName: 'none',
+                                    categoryName: '미정',
                                     uid: '',
-                                    colorHex: '0xFFBBBBBB',
+                                    colorHex: 'black',
                                     icon: '',
                                   ),
                                 );

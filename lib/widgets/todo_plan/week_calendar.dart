@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
+import 'package:week_plan/providers/category_provider/category_color_provider.dart';
 import 'package:week_plan/providers/comprehensive_list_provider/comprehensive_list_provider.dart';
 import 'package:week_plan/providers/is_editing_schedule_tile_provider.dart';
 import 'package:week_plan/providers/schedule_provider/editing_schedule_id_provider.dart';
@@ -182,8 +183,7 @@ class WeekCalendar extends ConsumerWidget {
                         data: (list) {
                           return list.map((item) {
                             return TempScheduleTile(
-                              color: AppColors.cyan(3),
-                              textColor: const Color(0xFF407283),
+                              categoryName: item.categoryId,
                               title: item.scheduleName,
                               id: item.scheduleId ?? '',
                               startTime: item.startTime,

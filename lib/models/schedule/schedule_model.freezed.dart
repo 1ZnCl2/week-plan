@@ -24,6 +24,7 @@ mixin _$ScheduleModel {
   String get scheduleName => throw _privateConstructorUsedError;
   String get refId => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
+  String get categoryId => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get startTime => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -52,6 +53,7 @@ abstract class $ScheduleModelCopyWith<$Res> {
       String scheduleName,
       String refId,
       String uid,
+      String categoryId,
       @TimestampConverter() DateTime startTime,
       @TimestampConverter() DateTime endTime,
       bool isAllDay,
@@ -77,6 +79,7 @@ class _$ScheduleModelCopyWithImpl<$Res, $Val extends ScheduleModel>
     Object? scheduleName = null,
     Object? refId = null,
     Object? uid = null,
+    Object? categoryId = null,
     Object? startTime = null,
     Object? endTime = null,
     Object? isAllDay = null,
@@ -98,6 +101,10 @@ class _$ScheduleModelCopyWithImpl<$Res, $Val extends ScheduleModel>
       uid: null == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
+              as String,
+      categoryId: null == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
               as String,
       startTime: null == startTime
           ? _value.startTime
@@ -132,6 +139,7 @@ abstract class _$$ScheduleModelImplCopyWith<$Res>
       String scheduleName,
       String refId,
       String uid,
+      String categoryId,
       @TimestampConverter() DateTime startTime,
       @TimestampConverter() DateTime endTime,
       bool isAllDay,
@@ -155,6 +163,7 @@ class __$$ScheduleModelImplCopyWithImpl<$Res>
     Object? scheduleName = null,
     Object? refId = null,
     Object? uid = null,
+    Object? categoryId = null,
     Object? startTime = null,
     Object? endTime = null,
     Object? isAllDay = null,
@@ -176,6 +185,10 @@ class __$$ScheduleModelImplCopyWithImpl<$Res>
       uid: null == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
+              as String,
+      categoryId: null == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
               as String,
       startTime: null == startTime
           ? _value.startTime
@@ -205,6 +218,7 @@ class _$ScheduleModelImpl implements _ScheduleModel {
       required this.scheduleName,
       required this.refId,
       required this.uid,
+      required this.categoryId,
       @TimestampConverter() required this.startTime,
       @TimestampConverter() required this.endTime,
       required this.isAllDay,
@@ -222,6 +236,8 @@ class _$ScheduleModelImpl implements _ScheduleModel {
   @override
   final String uid;
   @override
+  final String categoryId;
+  @override
   @TimestampConverter()
   final DateTime startTime;
   @override
@@ -234,7 +250,7 @@ class _$ScheduleModelImpl implements _ScheduleModel {
 
   @override
   String toString() {
-    return 'ScheduleModel(scheduleId: $scheduleId, scheduleName: $scheduleName, refId: $refId, uid: $uid, startTime: $startTime, endTime: $endTime, isAllDay: $isAllDay, isCompleted: $isCompleted)';
+    return 'ScheduleModel(scheduleId: $scheduleId, scheduleName: $scheduleName, refId: $refId, uid: $uid, categoryId: $categoryId, startTime: $startTime, endTime: $endTime, isAllDay: $isAllDay, isCompleted: $isCompleted)';
   }
 
   @override
@@ -248,6 +264,8 @@ class _$ScheduleModelImpl implements _ScheduleModel {
                 other.scheduleName == scheduleName) &&
             (identical(other.refId, refId) || other.refId == refId) &&
             (identical(other.uid, uid) || other.uid == uid) &&
+            (identical(other.categoryId, categoryId) ||
+                other.categoryId == categoryId) &&
             (identical(other.startTime, startTime) ||
                 other.startTime == startTime) &&
             (identical(other.endTime, endTime) || other.endTime == endTime) &&
@@ -260,7 +278,7 @@ class _$ScheduleModelImpl implements _ScheduleModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, scheduleId, scheduleName, refId,
-      uid, startTime, endTime, isAllDay, isCompleted);
+      uid, categoryId, startTime, endTime, isAllDay, isCompleted);
 
   /// Create a copy of ScheduleModel
   /// with the given fields replaced by the non-null parameter values.
@@ -284,6 +302,7 @@ abstract class _ScheduleModel implements ScheduleModel {
       required final String scheduleName,
       required final String refId,
       required final String uid,
+      required final String categoryId,
       @TimestampConverter() required final DateTime startTime,
       @TimestampConverter() required final DateTime endTime,
       required final bool isAllDay,
@@ -300,6 +319,8 @@ abstract class _ScheduleModel implements ScheduleModel {
   String get refId;
   @override
   String get uid;
+  @override
+  String get categoryId;
   @override
   @TimestampConverter()
   DateTime get startTime;

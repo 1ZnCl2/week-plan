@@ -45,12 +45,13 @@ class ScheduleRepository {
     return docRef.id;
   }
 
-  Future<void> updateSchedule(
-      String id, String text, DateTime startTime, DateTime endTime) async {
+  Future<void> updateSchedule(String id, String text, DateTime startTime,
+      DateTime endTime, String categoryName) async {
     await firestore.collection('schedules').doc(id).update({
       'scheduleName': text,
       'startTime': Timestamp.fromDate(startTime),
       'endTime': Timestamp.fromDate(endTime),
+      'categoryId': categoryName,
     });
   }
 
