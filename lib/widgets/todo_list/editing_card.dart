@@ -6,7 +6,7 @@ import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
 import 'package:week_plan/providers/category_provider/category_list_stream_provider.dart';
-import 'package:week_plan/providers/category_rotate_index_provider.dart';
+import 'package:week_plan/providers/category_provider/category_rotate_index_provider.dart';
 import 'package:week_plan/providers/editing_todo_id_provider.dart';
 import 'package:week_plan/providers/usecases/add_weekly_todo_usecase_provider.dart';
 import 'package:week_plan/providers/usecases/delete_weekly_todo_usecase_provider.dart';
