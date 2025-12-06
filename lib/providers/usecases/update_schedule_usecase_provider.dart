@@ -7,7 +7,6 @@ import 'package:week_plan/providers/schedule_provider/schedule_tile_name_contorl
 import 'package:week_plan/providers/schedule_provider/temp_schedule_tile_state_provider.dart';
 import 'package:week_plan/providers/user_provider/user_provider.dart';
 import 'package:week_plan/repository/schedule_repository.dart';
-import 'package:week_plan/service/add_schedule_tile_service.dart';
 
 final updateScheduleUsecaseProvider = Provider<Future<void> Function()>((ref) {
   final db = ref.read(firestoreProvider);
@@ -22,6 +21,7 @@ final updateScheduleUsecaseProvider = Provider<Future<void> Function()>((ref) {
 
       return;
     }
+
     final scheduleName = ref.read(scheduleTileNameController).text;
     final scheduleState = ref.read(tempTileProvider);
 

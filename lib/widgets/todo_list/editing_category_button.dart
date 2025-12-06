@@ -4,19 +4,20 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
-import 'package:week_plan/providers/usecases/category_add_usecase_provider.dart';
+import 'package:week_plan/providers/usecases/add_category_usecase_provider.dart';
 import 'package:week_plan/providers/category_provider/category_name_contoller_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_editing_category_provider.dart';
 
-class EditingCategoryTag extends ConsumerStatefulWidget {
+class EditingCategoryButton extends ConsumerStatefulWidget {
   final String colorHex;
-  const EditingCategoryTag({super.key, this.colorHex = 'FFFFFF'});
+  const EditingCategoryButton({super.key, this.colorHex = 'FFFFFF'});
 
   @override
-  ConsumerState<EditingCategoryTag> createState() => _EditingCategoryTagState();
+  ConsumerState<EditingCategoryButton> createState() =>
+      _EditingCategoryTagState();
 }
 
-class _EditingCategoryTagState extends ConsumerState<EditingCategoryTag> {
+class _EditingCategoryTagState extends ConsumerState<EditingCategoryButton> {
   late FocusNode _textFieldFocus;
 
   @override

@@ -46,6 +46,8 @@ class TodoListScreen extends ConsumerWidget {
                             ? EditingCard(
                                 id: item.todoId,
                                 todoName: item.todoName,
+                                impact: item.impact ?? 0,
+                                deadline: item.deadline ?? DateTime.now(),
                               )
                             : TodoCard(
                                 id: item.todoId,
@@ -53,6 +55,7 @@ class TodoListScreen extends ConsumerWidget {
                                 category: item.category,
                                 deadline: item.deadline,
                                 isCompleted: item.isCompleted,
+                                impact: item.impact ?? 0,
                               ),
                       ),
                     ],

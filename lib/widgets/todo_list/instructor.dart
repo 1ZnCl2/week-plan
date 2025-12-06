@@ -7,8 +7,8 @@ import 'package:week_plan/components/icon_manage.dart';
 import 'package:week_plan/components/widgets/category_button.dart';
 import 'package:week_plan/providers/category_provider/category_list_stream_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_editing_category_provider.dart';
-import 'package:week_plan/widgets/todo_list/add_category_tag.dart';
-import 'package:week_plan/widgets/todo_list/editing_category_tag.dart';
+import 'package:week_plan/widgets/todo_list/add_category_button.dart';
+import 'package:week_plan/widgets/todo_list/editing_category_button.dart';
 import 'package:week_plan/widgets/todo_list/icon_text.dart';
 
 class Instructor extends ConsumerWidget {
@@ -99,8 +99,8 @@ class Instructor extends ConsumerWidget {
             loading: () => CircularProgressIndicator(),
             error: (e, _) => Text('$e'),
           ),
-          if (isEditingCategory == 1) AddCategoryTag(),
-          if (isEditingCategory == 2) EditingCategoryTag(),
+          if (isEditingCategory == 1) AddCategoryButton(),
+          if (isEditingCategory == 2) EditingCategoryButton(),
         ],
       ),
     );

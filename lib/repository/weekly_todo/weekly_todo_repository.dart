@@ -31,6 +31,22 @@ class WeeklyTodoRepository {
     return docRef.id;
   }
 
+  Future<void> updateTodo(String id, String todoName, String category,
+      DateTime deadline, int impact) async {
+    await firestore.collection('weekly_todos').doc(id).update({
+      'todoName': todoName,
+      'deadline': Timestamp.fromDate(deadline),
+      'category': category,
+      'impact': impact,
+    });
+  }
+
+  Future<void> completeTodo(String id, bool isCompleted) async {
+    await firestore.collection('weekly_todos').doc(id).update({
+      'isCompleted': !isCompleted,
+    });
+  }
+
   Future<void> deleteTodo(String id) async {
     await firestore.collection('weekly_todos').doc(id).delete();
   }

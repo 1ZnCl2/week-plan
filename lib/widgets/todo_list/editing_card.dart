@@ -9,17 +9,26 @@ import 'package:week_plan/providers/editing_todo_id_provider.dart';
 import 'package:week_plan/providers/usecases/add_weekly_todo_usecase_provider.dart';
 import 'package:week_plan/providers/usecases/delete_weekly_todo_usecase_provider.dart';
 import 'package:week_plan/providers/usecases/update_weekly_todo_usecase_provider.dart';
+import 'package:week_plan/providers/weekly_todo_screen/date_picker_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_name_controller_provider.dart';
+import 'package:week_plan/widgets/todo_list/add_category_button.dart';
 import 'package:week_plan/widgets/todo_list/add_category_tag.dart';
 import 'package:week_plan/widgets/todo_list/date_picker_widget.dart';
 import 'package:week_plan/widgets/todo_list/sub_task.dart';
 
 class EditingCard extends ConsumerStatefulWidget {
-  const EditingCard({super.key, required this.id, required this.todoName});
+  const EditingCard(
+      {super.key,
+      required this.id,
+      required this.todoName,
+      required this.impact,
+      required this.deadline});
 
   final String id;
   final String todoName;
+  final int impact;
+  final DateTime deadline;
 
   @override
   ConsumerState<EditingCard> createState() => _EditingCardState();
@@ -32,6 +41,11 @@ class _EditingCardState extends ConsumerState<EditingCard> {
   void initState() {
     super.initState();
     _textFieldFocus = FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(todoNameControllerProvider).text = widget.todoName;
+      ref.read(dateTimePickerProvider.notifier).selectDate(widget.deadline);
+    });
   }
 
   @override
@@ -150,7 +164,6 @@ class _EditingCardState extends ConsumerState<EditingCard> {
                     GestureDetector(
                       child: SvgPicture.asset(AppIcon.trash),
                       onTap: () {
-                        todoNameController.clear();
                         ref.read(deleteWeeklyTodoUsecaseProvider)(widget.id);
                       },
                     ),
