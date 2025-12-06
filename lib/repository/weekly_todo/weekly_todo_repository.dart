@@ -22,11 +22,29 @@ class WeeklyTodoRepository {
     });
   }
 
-  Future<void> addTodo(WeeklyTodoModel todo) async {
+  Future<String> addTodo(WeeklyTodoModel todo) async {
     final docRef = firestore.collection('weekly_todos').doc();
     final newTodo = todo.copyWith(todoId: docRef.id);
 
     await docRef.set(newTodo.toJson());
+
+    return docRef.id;
+  }
+
+  Future<void> updateTodo(String id, String todoName, String category,
+      DateTime deadline, int impact) async {
+    await firestore.collection('weekly_todos').doc(id).update({
+      'todoName': todoName,
+      'deadline': Timestamp.fromDate(deadline),
+      'category': category,
+      'impact': impact,
+    });
+  }
+
+  Future<void> completeTodo(String id, bool isCompleted) async {
+    await firestore.collection('weekly_todos').doc(id).update({
+      'isCompleted': !isCompleted,
+    });
   }
 
   Future<void> deleteTodo(String id) async {

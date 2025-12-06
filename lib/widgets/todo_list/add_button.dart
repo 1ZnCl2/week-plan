@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:week_plan/components/color_manage.dart';
+import 'package:week_plan/providers/usecases/add_weekly_todo_usecase_provider.dart';
+import 'package:week_plan/providers/usecases/update_weekly_todo_usecase_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
 
 class AddButton extends ConsumerWidget {
@@ -12,7 +14,7 @@ class AddButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: () {
-        ref.read(isEditingTodoCardProvider.notifier).state = true;
+        ref.read(addWeeklyTodoUsecaseProvider)();
       },
       child: Container(
         width: 488,

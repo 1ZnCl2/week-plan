@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -5,27 +6,37 @@ import 'package:intl/intl.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
+import 'package:week_plan/providers/category_provider/category_color_provider.dart';
+import 'package:week_plan/providers/editing_todo_id_provider.dart';
+import 'package:week_plan/providers/usecases/complete_weekly_todo_usecase_provider.dart';
+import 'package:week_plan/providers/usecases/update_weekly_todo_usecase_provider.dart';
+import 'package:week_plan/providers/weekly_todo_screen/impact_provider.dart';
 import 'package:week_plan/widgets/todo_list/category_tag.dart';
 import 'package:week_plan/widgets/todo_list/sub_task.dart';
 
-class TodoCard extends StatelessWidget {
+class TodoCard extends ConsumerWidget {
   static final defaultDeadline = DateTime(2999, 12, 31, 23, 59);
 
   final String title;
   final String category;
+  final String categoryColor;
+  final String id;
   final DateTime? deadline;
   final bool isCompleted;
+  final int impact;
 
-  const TodoCard({
-    super.key,
-    required this.title,
-    required this.category,
-    this.deadline,
-    this.isCompleted = false,
-  });
+  const TodoCard(
+      {super.key,
+      required this.title,
+      required this.category,
+      this.categoryColor = 'black',
+      required this.id,
+      this.deadline,
+      required this.isCompleted,
+      required this.impact});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
       child: Container(
@@ -50,7 +61,7 @@ class TodoCard extends StatelessWidget {
               width: 11,
               height: 165,
               decoration: BoxDecoration(
-                color: AppColors.grey(7),
+                color: Color(int.parse(ImpactSelection.returnColorHex(impact))),
               ),
             ),
             Padding(
@@ -67,8 +78,12 @@ class TodoCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
-                        child: SvgPicture.asset(AppIcon.square),
-                        onTap: () {},
+                        child: SvgPicture.asset(
+                            isCompleted ? AppIcon.check02 : AppIcon.square),
+                        onTap: () {
+                          ref.read(completeTodoUsecaseProvider)(
+                              id, isCompleted);
+                        },
                       ),
                       SizedBox(height: 88),
                     ],
@@ -93,9 +108,7 @@ class TodoCard extends StatelessWidget {
                           ),
                         ),
                         CategoryTag(
-                          categoryName: category,
-                          color: AppColors.cyan(1),
-                        ),
+                            categoryName: category, color: categoryColor),
                         SizedBox(height: 6),
                         SubTaskAddButton(),
                       ],
@@ -115,7 +128,12 @@ class TodoCard extends StatelessWidget {
                             onTap: () {},
                           ),
                           SizedBox(width: 14),
-                          SvgPicture.asset(AppIcon.pencil),
+                          GestureDetector(
+                              onTap: () {
+                                ref.read(editingTodoIdProvider.notifier).state =
+                                    id;
+                              },
+                              child: SvgPicture.asset(AppIcon.pencil)),
                         ],
                       ),
                       SizedBox(height: 63),

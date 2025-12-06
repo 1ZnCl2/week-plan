@@ -5,15 +5,34 @@ import 'package:flutter/material.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
-import 'package:week_plan/providers/usecases/weekly_todo_add_usecase_provider.dart';
+import 'package:week_plan/providers/category_provider/category_list_stream_provider.dart';
+import 'package:week_plan/providers/category_provider/category_rotate_index_provider.dart';
+import 'package:week_plan/providers/editing_todo_id_provider.dart';
+import 'package:week_plan/providers/usecases/add_weekly_todo_usecase_provider.dart';
+import 'package:week_plan/providers/usecases/delete_weekly_todo_usecase_provider.dart';
+import 'package:week_plan/providers/usecases/update_weekly_todo_usecase_provider.dart';
+import 'package:week_plan/providers/weekly_todo_screen/date_picker_provider.dart';
+import 'package:week_plan/providers/weekly_todo_screen/impact_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_name_controller_provider.dart';
+import 'package:week_plan/widgets/todo_list/add_category_button.dart';
 import 'package:week_plan/widgets/todo_list/add_category_tag.dart';
+import 'package:week_plan/widgets/todo_list/category_tag.dart';
 import 'package:week_plan/widgets/todo_list/date_picker_widget.dart';
 import 'package:week_plan/widgets/todo_list/sub_task.dart';
 
 class EditingCard extends ConsumerStatefulWidget {
-  const EditingCard({super.key});
+  const EditingCard(
+      {super.key,
+      required this.id,
+      required this.todoName,
+      required this.impact,
+      required this.deadline});
+
+  final String id;
+  final String todoName;
+  final int impact;
+  final DateTime deadline;
 
   @override
   ConsumerState<EditingCard> createState() => _EditingCardState();
@@ -26,6 +45,11 @@ class _EditingCardState extends ConsumerState<EditingCard> {
   void initState() {
     super.initState();
     _textFieldFocus = FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(todoNameControllerProvider).text = widget.todoName;
+      ref.read(dateTimePickerProvider.notifier).selectDate(widget.deadline);
+    });
   }
 
   @override
@@ -37,6 +61,9 @@ class _EditingCardState extends ConsumerState<EditingCard> {
   @override
   Widget build(BuildContext context) {
     final todoNameController = ref.watch(todoNameControllerProvider);
+    final currentImpact = ref.watch(impactProvider);
+    final categoryList = ref.watch(categoryListStreamProvider);
+    final categoryName = ref.watch(categoryRotateIndexProvider).name;
 
     return Container(
       width: 488,
@@ -82,10 +109,14 @@ class _EditingCardState extends ConsumerState<EditingCard> {
                 GestureDetector(
                   child: SvgPicture.asset(
                     AppIcon.star,
+                    color: Color(int.parse(currentImpact.colorHex)),
                     width: 24,
                     height: 24,
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    ref.read(impactProvider.notifier).state =
+                        currentImpact.next();
+                  },
                 ),
                 SizedBox(height: 88),
               ],
@@ -116,7 +147,31 @@ class _EditingCardState extends ConsumerState<EditingCard> {
                     contentPadding: EdgeInsets.symmetric(vertical: 3),
                   ),
                 ),
-                AddCategoryTag(),
+                categoryList.when(
+                  data: (categoryList) {
+                    final index = ref.watch(categoryRotateIndexProvider);
+
+                    // 범위 초과 방지
+                    final safeIndex =
+                        index.index.clamp(0, categoryList.length - 1);
+
+                    final item = categoryList[safeIndex];
+
+                    return GestureDetector(
+                      onTap: () {
+                        ref
+                            .read(categoryRotateIndexProvider.notifier)
+                            .rotate(categoryList.length, item.categoryName);
+                      },
+                      child: CategoryTag(
+                        categoryName: item.categoryName,
+                        color: item.colorHex,
+                      ),
+                    );
+                  },
+                  loading: () => CircularProgressIndicator(),
+                  error: (e, _) => Text('$e'),
+                ),
                 SizedBox(height: 6),
                 SubTaskAddButton(),
               ],
@@ -136,17 +191,15 @@ class _EditingCardState extends ConsumerState<EditingCard> {
                         color: AppColors.grey(7),
                       ),
                       onTap: () async {
-                        final addTodo = ref.read(addWeeklyTodoUsecaseProvider);
-                        await addTodo(todoNameController.text, '미정');
+                        ref.read(updateWeeklyTodoUsecaseProvider)(
+                            todoNameController.text, categoryName);
                       },
                     ),
                     SizedBox(width: 14),
                     GestureDetector(
                       child: SvgPicture.asset(AppIcon.trash),
                       onTap: () {
-                        todoNameController.clear();
-                        ref.read(isEditingTodoCardProvider.notifier).state =
-                            false;
+                        ref.read(deleteWeeklyTodoUsecaseProvider)(widget.id);
                       },
                     ),
                   ],
