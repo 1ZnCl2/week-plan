@@ -77,6 +77,7 @@ class TodoListScreen extends ConsumerWidget {
                                         deadline: item.deadline,
                                         isCompleted: item.isCompleted,
                                         impact: item.impact ?? 0,
+                                        doesQuit: item.doesQuit,
                                       );
                               },
                             ),

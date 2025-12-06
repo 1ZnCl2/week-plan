@@ -20,7 +20,8 @@ class AddWeeklyTodoService {
         deadline: deadline,
         impact: impact,
         isCompleted: false,
-        isSprint: false));
+        isSprint: false,
+        doesQuit: false));
 
     return newId;
   }

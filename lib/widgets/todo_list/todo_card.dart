@@ -9,6 +9,7 @@ import 'package:week_plan/components/icon_manage.dart';
 import 'package:week_plan/providers/category_provider/category_color_provider.dart';
 import 'package:week_plan/providers/editing_todo_id_provider.dart';
 import 'package:week_plan/providers/usecases/complete_weekly_todo_usecase_provider.dart';
+import 'package:week_plan/providers/usecases/quit_weekly_todo_usecase_provider.dart';
 import 'package:week_plan/providers/usecases/update_weekly_todo_usecase_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/impact_provider.dart';
 import 'package:week_plan/widgets/todo_list/category_tag.dart';
@@ -23,6 +24,7 @@ class TodoCard extends ConsumerWidget {
   final String id;
   final DateTime? deadline;
   final bool isCompleted;
+  final bool doesQuit;
   final int impact;
 
   const TodoCard(
@@ -33,6 +35,7 @@ class TodoCard extends ConsumerWidget {
       required this.id,
       this.deadline,
       required this.isCompleted,
+      required this.doesQuit,
       required this.impact});
 
   @override
@@ -78,8 +81,10 @@ class TodoCard extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GestureDetector(
-                        child: SvgPicture.asset(
-                            isCompleted ? AppIcon.check02 : AppIcon.square),
+                        child: doesQuit
+                            ? SvgPicture.asset(AppIcon.xBox01)
+                            : SvgPicture.asset(
+                                isCompleted ? AppIcon.check02 : AppIcon.square),
                         onTap: () {
                           ref.read(completeTodoUsecaseProvider)(
                               id, isCompleted);
@@ -125,13 +130,15 @@ class TodoCard extends ConsumerWidget {
                               AppIcon.stopCircle,
                               color: AppColors.grey(7),
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              ref.read(quitTodoUsecaseProvider)(id, doesQuit);
+                            },
                           ),
                           SizedBox(width: 14),
                           GestureDetector(
                               onTap: () {
-                                ref.read(editingTodoIdProvider.notifier).state =
-                                    id;
+                                ref.read(updateWeeklyTodoUsecaseProvider)(
+                                    title, category);
                               },
                               child: SvgPicture.asset(AppIcon.pencil)),
                         ],

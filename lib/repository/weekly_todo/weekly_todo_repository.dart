@@ -49,6 +49,13 @@ class WeeklyTodoRepository {
     });
   }
 
+  Future<void> quitTodo(String id, bool willQuit) async {
+    await firestore.collection('weekly_todos').doc(id).update({
+      'doesQuit': !willQuit,
+      'isSprint': false,
+    });
+  }
+
   Future<void> deleteTodo(String id) async {
     await firestore.collection('weekly_todos').doc(id).delete();
   }
