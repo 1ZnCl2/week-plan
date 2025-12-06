@@ -4,6 +4,7 @@ import 'package:week_plan/providers/editing_todo_id_provider.dart';
 import 'package:week_plan/providers/firestore_provider.dart';
 import 'package:week_plan/providers/user_provider/user_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/date_picker_provider.dart';
+import 'package:week_plan/providers/weekly_todo_screen/impact_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_name_controller_provider.dart';
 import 'package:week_plan/repository/weekly_todo/weekly_todo_repository.dart';
@@ -26,7 +27,7 @@ final updateWeeklyTodoUsecaseProvider =
 
     final id = ref.read(editingTodoIdProvider);
 
-    final impact = 3;
+    final impact = ref.read(impactProvider).value;
 
     if (id == '' || id == null) {
       return;

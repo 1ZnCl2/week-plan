@@ -9,6 +9,7 @@ import 'package:week_plan/components/icon_manage.dart';
 import 'package:week_plan/providers/editing_todo_id_provider.dart';
 import 'package:week_plan/providers/usecases/complete_weekly_todo_usecase_provider.dart';
 import 'package:week_plan/providers/usecases/update_weekly_todo_usecase_provider.dart';
+import 'package:week_plan/providers/weekly_todo_screen/impact_provider.dart';
 import 'package:week_plan/widgets/todo_list/category_tag.dart';
 import 'package:week_plan/widgets/todo_list/sub_task.dart';
 
@@ -57,7 +58,7 @@ class TodoCard extends ConsumerWidget {
               width: 11,
               height: 165,
               decoration: BoxDecoration(
-                color: AppColors.grey(7),
+                color: Color(int.parse(ImpactSelection.returnColorHex(impact))),
               ),
             ),
             Padding(

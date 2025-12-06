@@ -10,6 +10,7 @@ import 'package:week_plan/providers/usecases/add_weekly_todo_usecase_provider.da
 import 'package:week_plan/providers/usecases/delete_weekly_todo_usecase_provider.dart';
 import 'package:week_plan/providers/usecases/update_weekly_todo_usecase_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/date_picker_provider.dart';
+import 'package:week_plan/providers/weekly_todo_screen/impact_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_name_controller_provider.dart';
 import 'package:week_plan/widgets/todo_list/add_category_button.dart';
@@ -57,6 +58,7 @@ class _EditingCardState extends ConsumerState<EditingCard> {
   @override
   Widget build(BuildContext context) {
     final todoNameController = ref.watch(todoNameControllerProvider);
+    final currentImpact = ref.watch(impactProvider);
 
     return Container(
       width: 488,
@@ -102,10 +104,14 @@ class _EditingCardState extends ConsumerState<EditingCard> {
                 GestureDetector(
                   child: SvgPicture.asset(
                     AppIcon.star,
+                    color: Color(int.parse(currentImpact.colorHex)),
                     width: 24,
                     height: 24,
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    ref.read(impactProvider.notifier).state =
+                        currentImpact.next();
+                  },
                 ),
                 SizedBox(height: 88),
               ],
