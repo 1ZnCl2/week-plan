@@ -1,19 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
+import 'package:week_plan/providers/weekly_todo_screen/impact_provider.dart';
 import 'package:week_plan/widgets/todo_list/category_tag.dart';
 
-class ScheduleBlock extends StatelessWidget {
+class ScheduleBlock extends ConsumerWidget {
   final bool isNull;
-  const ScheduleBlock({
-    super.key,
-    required this.isNull,
-  });
+  final String title;
+  final String category;
+  final String categoryColor;
+  final DateTime deadline;
+  final int impact;
+
+  const ScheduleBlock(
+      {super.key,
+      required this.isNull,
+      required this.title,
+      required this.category,
+      required this.categoryColor,
+      required this.deadline,
+      required this.impact});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final impact = ref.watch(impactProvider).value;
+
     return Column(
       spacing: 12,
       children: [
@@ -31,10 +45,12 @@ class ScheduleBlock extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              SvgPicture.asset(AppIcon.star),
+              SvgPicture.asset(AppIcon.star,
+                  color:
+                      Color(int.parse(ImpactSelection.returnColorHex(impact)))),
               SizedBox(height: 8),
               Text(
-                '웹툰 시나리오 작성',
+                title,
                 style: isNull
                     ? AppFonts.colormediumTitle(size: 16, Color(0xFFA0A0A0))
                     : AppFonts.colormediumTitle(
@@ -42,7 +58,7 @@ class ScheduleBlock extends StatelessWidget {
                         AppColors.grey(9),
                       ),
               ),
-              CategoryTag(categoryName: 'categoryName', color: ''),
+              CategoryTag(categoryName: category, color: categoryColor),
               SizedBox(
                 height: 16,
               ),

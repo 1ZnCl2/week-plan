@@ -25,10 +25,7 @@ class TodoContainer extends StatelessWidget {
           ),
           Row(
             spacing: 45,
-            children: [
-              ScheduleBlock(isNull: false),
-              ScheduleBlock(isNull: true)
-            ],
+            children: [],
           ),
         ],
       ),
