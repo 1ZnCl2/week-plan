@@ -7,6 +7,7 @@ part 'weekly_todo_model.g.dart';
 
 @freezed
 class WeeklyTodoModel with _$WeeklyTodoModel {
+  // 이후에 categoryId만 참조하도록 바꾸기
   factory WeeklyTodoModel({
     required String todoId,
     required String todoName,
@@ -14,6 +15,7 @@ class WeeklyTodoModel with _$WeeklyTodoModel {
     required String uid,
     required bool isCompleted,
     required bool isSprint,
+    required bool doesQuit,
     bool? includingSubtask,
     String? refId,
     int? impact,
@@ -26,6 +28,7 @@ class WeeklyTodoModel with _$WeeklyTodoModel {
     required String uid,
     required bool isCompleted,
     required bool isSprint,
+    required bool doesQuit,
     bool? includingSubtask,
     String? refId,
     int? impact,
@@ -37,6 +40,7 @@ class WeeklyTodoModel with _$WeeklyTodoModel {
       uid: uid,
       isCompleted: isCompleted,
       isSprint: isSprint,
+      doesQuit: doesQuit,
       impact: impact,
       todoName: todoName,
     );
@@ -55,6 +59,7 @@ class WeeklyTodoModel with _$WeeklyTodoModel {
       deadline: (doc['deadline'] as Timestamp).toDate(),
       isCompleted: doc['is_completed'],
       isSprint: doc['is_sprint'] ?? false,
+      doesQuit: doc['does_quit'] ?? false,
       includingSubtask: doc['including_subtask'] ?? false,
       refId: doc['ref_id'] ?? '',
     );

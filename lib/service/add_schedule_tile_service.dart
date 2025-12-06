@@ -10,6 +10,7 @@ class AddScheduleTileService {
     String scheduleName,
     String refId,
     String colorHex,
+    String categoryId,
     DateTime startTime,
     DateTime endTime,
     bool isAllTime,
@@ -22,7 +23,8 @@ class AddScheduleTileService {
         refId: refId,
         endTime: endTime,
         isAllDay: isAllTime,
-        isCompleted: isCompleted));
+        isCompleted: isCompleted,
+        categoryId: categoryId));
 
     return newId;
   }

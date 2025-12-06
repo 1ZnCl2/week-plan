@@ -32,18 +32,27 @@ class WeeklyTodoRepository {
   }
 
   Future<void> updateTodo(String id, String todoName, String category,
-      DateTime deadline, int impact) async {
+      DateTime deadline, int impact, bool isSprint) async {
     await firestore.collection('weekly_todos').doc(id).update({
       'todoName': todoName,
       'deadline': Timestamp.fromDate(deadline),
       'category': category,
       'impact': impact,
+      'isSprint': isSprint,
     });
   }
 
   Future<void> completeTodo(String id, bool isCompleted) async {
     await firestore.collection('weekly_todos').doc(id).update({
       'isCompleted': !isCompleted,
+      'isSprint': false,
+    });
+  }
+
+  Future<void> quitTodo(String id, bool willQuit) async {
+    await firestore.collection('weekly_todos').doc(id).update({
+      'doesQuit': !willQuit,
+      'isSprint': false,
     });
   }
 

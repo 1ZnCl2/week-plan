@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
+import 'package:week_plan/providers/category_provider/category_color_provider.dart';
 import 'package:week_plan/providers/schedule_provider/editing_schedule_id_provider.dart';
 import 'package:week_plan/providers/schedule_provider/hover_schedule_provider.dart';
 import 'package:week_plan/providers/schedule_provider/schedule_tile_name_contorller.dart';
@@ -17,8 +18,7 @@ import 'package:week_plan/providers/usecases/update_schedule_usecase_provider.da
 class TempScheduleTile extends ConsumerStatefulWidget {
   const TempScheduleTile({
     super.key,
-    required this.color,
-    required this.textColor,
+    required this.categoryName,
     required this.title,
     required this.id,
     required this.startTime,
@@ -26,9 +26,8 @@ class TempScheduleTile extends ConsumerStatefulWidget {
     required this.isCompleted,
   });
 
-  final Color color;
   final String title;
-  final Color textColor;
+  final String categoryName;
   final String id;
   final DateTime startTime;
   final DateTime endTime;
@@ -97,7 +96,9 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
                                   start.minute / 60)
                               .toDouble()),
                   decoration: BoxDecoration(
-                    color: widget.color,
+                    color: Color(int.parse(
+                        CategoryColor.returnBackgroundColorfromColorName(
+                            widget.categoryName))),
                     border: Border.all(color: AppColors.grey(4), width: 1),
                   ),
                   child: Column(
@@ -139,7 +140,8 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    ref.read(updateScheduleUsecaseProvider)();
+                                    ref.read(updateScheduleUsecaseProvider)(
+                                        widget.categoryName);
                                   },
                                   child: SvgPicture.asset(
                                     AppIcon.check02,
@@ -167,7 +169,9 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
                                     widget.title,
                                     style: AppFonts.colormediumTitle(
                                       size: 16,
-                                      widget.textColor,
+                                      Color(int.parse(CategoryColor
+                                          .returnTextColorfromColorName(
+                                              widget.categoryName))),
                                     ),
                                   ),
                                 ),

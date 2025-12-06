@@ -26,6 +26,7 @@ mixin _$WeeklyTodoModel {
   String get uid => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
   bool get isSprint => throw _privateConstructorUsedError;
+  bool get doesQuit => throw _privateConstructorUsedError;
   bool? get includingSubtask => throw _privateConstructorUsedError;
   String? get refId => throw _privateConstructorUsedError;
   int? get impact => throw _privateConstructorUsedError;
@@ -55,6 +56,7 @@ abstract class $WeeklyTodoModelCopyWith<$Res> {
       String uid,
       bool isCompleted,
       bool isSprint,
+      bool doesQuit,
       bool? includingSubtask,
       String? refId,
       int? impact,
@@ -82,6 +84,7 @@ class _$WeeklyTodoModelCopyWithImpl<$Res, $Val extends WeeklyTodoModel>
     Object? uid = null,
     Object? isCompleted = null,
     Object? isSprint = null,
+    Object? doesQuit = null,
     Object? includingSubtask = freezed,
     Object? refId = freezed,
     Object? impact = freezed,
@@ -111,6 +114,10 @@ class _$WeeklyTodoModelCopyWithImpl<$Res, $Val extends WeeklyTodoModel>
       isSprint: null == isSprint
           ? _value.isSprint
           : isSprint // ignore: cast_nullable_to_non_nullable
+              as bool,
+      doesQuit: null == doesQuit
+          ? _value.doesQuit
+          : doesQuit // ignore: cast_nullable_to_non_nullable
               as bool,
       includingSubtask: freezed == includingSubtask
           ? _value.includingSubtask
@@ -147,6 +154,7 @@ abstract class _$$WeeklyTodoModelImplCopyWith<$Res>
       String uid,
       bool isCompleted,
       bool isSprint,
+      bool doesQuit,
       bool? includingSubtask,
       String? refId,
       int? impact,
@@ -172,6 +180,7 @@ class __$$WeeklyTodoModelImplCopyWithImpl<$Res>
     Object? uid = null,
     Object? isCompleted = null,
     Object? isSprint = null,
+    Object? doesQuit = null,
     Object? includingSubtask = freezed,
     Object? refId = freezed,
     Object? impact = freezed,
@@ -201,6 +210,10 @@ class __$$WeeklyTodoModelImplCopyWithImpl<$Res>
       isSprint: null == isSprint
           ? _value.isSprint
           : isSprint // ignore: cast_nullable_to_non_nullable
+              as bool,
+      doesQuit: null == doesQuit
+          ? _value.doesQuit
+          : doesQuit // ignore: cast_nullable_to_non_nullable
               as bool,
       includingSubtask: freezed == includingSubtask
           ? _value.includingSubtask
@@ -232,6 +245,7 @@ class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
       required this.uid,
       required this.isCompleted,
       required this.isSprint,
+      required this.doesQuit,
       this.includingSubtask,
       this.refId,
       this.impact,
@@ -253,6 +267,8 @@ class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
   @override
   final bool isSprint;
   @override
+  final bool doesQuit;
+  @override
   final bool? includingSubtask;
   @override
   final String? refId;
@@ -264,7 +280,7 @@ class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
 
   @override
   String toString() {
-    return 'WeeklyTodoModel(todoId: $todoId, todoName: $todoName, category: $category, uid: $uid, isCompleted: $isCompleted, isSprint: $isSprint, includingSubtask: $includingSubtask, refId: $refId, impact: $impact, deadline: $deadline)';
+    return 'WeeklyTodoModel(todoId: $todoId, todoName: $todoName, category: $category, uid: $uid, isCompleted: $isCompleted, isSprint: $isSprint, doesQuit: $doesQuit, includingSubtask: $includingSubtask, refId: $refId, impact: $impact, deadline: $deadline)';
   }
 
   @override
@@ -282,6 +298,8 @@ class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
                 other.isCompleted == isCompleted) &&
             (identical(other.isSprint, isSprint) ||
                 other.isSprint == isSprint) &&
+            (identical(other.doesQuit, doesQuit) ||
+                other.doesQuit == doesQuit) &&
             (identical(other.includingSubtask, includingSubtask) ||
                 other.includingSubtask == includingSubtask) &&
             (identical(other.refId, refId) || other.refId == refId) &&
@@ -292,8 +310,19 @@ class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, todoId, todoName, category, uid,
-      isCompleted, isSprint, includingSubtask, refId, impact, deadline);
+  int get hashCode => Object.hash(
+      runtimeType,
+      todoId,
+      todoName,
+      category,
+      uid,
+      isCompleted,
+      isSprint,
+      doesQuit,
+      includingSubtask,
+      refId,
+      impact,
+      deadline);
 
   /// Create a copy of WeeklyTodoModel
   /// with the given fields replaced by the non-null parameter values.
@@ -320,6 +349,7 @@ abstract class _WeeklyTodoModel implements WeeklyTodoModel {
       required final String uid,
       required final bool isCompleted,
       required final bool isSprint,
+      required final bool doesQuit,
       final bool? includingSubtask,
       final String? refId,
       final int? impact,
@@ -340,6 +370,8 @@ abstract class _WeeklyTodoModel implements WeeklyTodoModel {
   bool get isCompleted;
   @override
   bool get isSprint;
+  @override
+  bool get doesQuit;
   @override
   bool? get includingSubtask;
   @override

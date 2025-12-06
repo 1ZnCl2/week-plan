@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:week_plan/providers/category_provider/category_color_provider.dart';
 import 'package:week_plan/providers/firestore_provider.dart';
 import 'package:week_plan/providers/is_editing_schedule_tile_provider.dart';
 import 'package:week_plan/providers/schedule_provider/editing_schedule_id_provider.dart';
@@ -29,7 +30,7 @@ final addScheduleUsecaseProvider = Provider<Future<void> Function()>((ref) {
       return;
     }
 
-    final newId = await service.addSchedule(uid, '', '', 'DFDFDF',
+    final newId = await service.addSchedule(uid, '', '', 'black', '미정',
         scheduleState.start, scheduleState.end, false, false);
 
     debugPrint('$newId');
