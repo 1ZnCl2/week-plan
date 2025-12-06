@@ -35,7 +35,7 @@ class TodoPlanerScreen extends ConsumerWidget {
                       ...categoryList.map((item) => CategoryButton(
                           id: item.categoryId,
                           categoryName: item.categoryName,
-                          color: Color(int.parse('0xFF${item.colorHex}')))),
+                          color: item.colorHex)),
                     ],
                   ),
                   loading: () => CircularProgressIndicator(),

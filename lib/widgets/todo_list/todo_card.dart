@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
+import 'package:week_plan/providers/category_provider/category_color_provider.dart';
 import 'package:week_plan/providers/editing_todo_id_provider.dart';
 import 'package:week_plan/providers/usecases/complete_weekly_todo_usecase_provider.dart';
 import 'package:week_plan/providers/usecases/update_weekly_todo_usecase_provider.dart';
@@ -18,6 +19,7 @@ class TodoCard extends ConsumerWidget {
 
   final String title;
   final String category;
+  final String categoryColor;
   final String id;
   final DateTime? deadline;
   final bool isCompleted;
@@ -27,6 +29,7 @@ class TodoCard extends ConsumerWidget {
       {super.key,
       required this.title,
       required this.category,
+      this.categoryColor = 'black',
       required this.id,
       this.deadline,
       required this.isCompleted,
@@ -105,9 +108,7 @@ class TodoCard extends ConsumerWidget {
                           ),
                         ),
                         CategoryTag(
-                          categoryName: category,
-                          color: '',
-                        ),
+                            categoryName: category, color: categoryColor),
                         SizedBox(height: 6),
                         SubTaskAddButton(),
                       ],

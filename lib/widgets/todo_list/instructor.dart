@@ -104,9 +104,7 @@ class Instructor extends ConsumerWidget {
                       : CategoryButton(
                           id: item.categoryId,
                           categoryName: item.categoryName,
-                          color: Color(int.parse(
-                              CategoryColor.returnTagColorfromColorName(
-                                  item.colorHex))))),
+                          color: item.colorHex)),
                   if (isEditingCategory != 0 && categoryList.length < 5)
                     AddCategoryButton(),
                 ],

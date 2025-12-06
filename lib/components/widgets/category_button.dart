@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
+import 'package:week_plan/providers/category_provider/category_color_provider.dart';
 import 'package:week_plan/providers/category_provider/editing_category_id_provider.dart';
 
 class CategoryButton extends ConsumerWidget {
   final String categoryName;
-  final Color color;
+  final String color;
   final String id;
 
   const CategoryButton({
@@ -46,7 +47,8 @@ class CategoryButton extends ConsumerWidget {
               width: 5,
               height: 5,
               decoration: BoxDecoration(
-                color: color,
+                color: Color(int.parse(
+                    CategoryColor.returnTagColorfromColorName(color))),
                 shape: BoxShape.circle,
               ),
             ),

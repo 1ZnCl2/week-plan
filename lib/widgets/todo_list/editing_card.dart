@@ -17,6 +17,7 @@ import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider
 import 'package:week_plan/providers/weekly_todo_screen/todo_name_controller_provider.dart';
 import 'package:week_plan/widgets/todo_list/add_category_button.dart';
 import 'package:week_plan/widgets/todo_list/add_category_tag.dart';
+import 'package:week_plan/widgets/todo_list/category_tag.dart';
 import 'package:week_plan/widgets/todo_list/date_picker_widget.dart';
 import 'package:week_plan/widgets/todo_list/sub_task.dart';
 
@@ -62,8 +63,7 @@ class _EditingCardState extends ConsumerState<EditingCard> {
     final todoNameController = ref.watch(todoNameControllerProvider);
     final currentImpact = ref.watch(impactProvider);
     final categoryList = ref.watch(categoryListStreamProvider);
-    final categoryIndexNotifier =
-        ref.watch(categoryRotateIndexProvider.notifier);
+    final categoryName = ref.watch(categoryRotateIndexProvider).name;
 
     return Container(
       width: 488,
@@ -147,7 +147,41 @@ class _EditingCardState extends ConsumerState<EditingCard> {
                     contentPadding: EdgeInsets.symmetric(vertical: 3),
                   ),
                 ),
-                AddCategoryTag(),
+                categoryList.when(
+                  data: (categoryList) {
+                    final index = ref.watch(categoryRotateIndexProvider);
+
+                    // 범위 초과 방지
+                    final safeIndex =
+                        index.index.clamp(0, categoryList.length - 1);
+
+                    final item = categoryList[safeIndex];
+
+                    if (index == 0) {
+                      return GestureDetector(
+                          onTap: () {
+                            ref
+                                .read(categoryRotateIndexProvider.notifier)
+                                .rotate(categoryList.length, categoryName);
+                          },
+                          child: AddCategoryTag());
+                    }
+
+                    return GestureDetector(
+                      onTap: () {
+                        ref
+                            .read(categoryRotateIndexProvider.notifier)
+                            .rotate(categoryList.length, item.categoryName);
+                      },
+                      child: CategoryTag(
+                        categoryName: item.categoryName,
+                        color: item.colorHex,
+                      ),
+                    );
+                  },
+                  loading: () => CircularProgressIndicator(),
+                  error: (e, _) => Text('$e'),
+                ),
                 SizedBox(height: 6),
                 SubTaskAddButton(),
               ],
@@ -168,7 +202,7 @@ class _EditingCardState extends ConsumerState<EditingCard> {
                       ),
                       onTap: () async {
                         ref.read(updateWeeklyTodoUsecaseProvider)(
-                            todoNameController.text, 'category');
+                            todoNameController.text, categoryName);
                       },
                     ),
                     SizedBox(width: 14),
