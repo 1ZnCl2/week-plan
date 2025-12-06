@@ -10,7 +10,7 @@ enum CategoryColor {
   orange('0xFFFF9E75', '0xFFFFE7DD', '0xFFA16E52'),
   yellow('0xFFFFFF24', '0xFFFFFF9C', '0xFF837C40'),
   violet('0xFFD290EE', '0xFFEBDEF7', '0xFFA862C6'),
-  black('0xFF000000', '0xFFF0F0F0', '0xFF757575');
+  black('0xFFF0F0F0', '0xFF757575', '0xFFF0F0F0');
 
   final String hex;
   final String backgroundHex;
