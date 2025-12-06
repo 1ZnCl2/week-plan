@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:week_plan/providers/category_provider/category_color_provider.dart';
-import 'package:week_plan/providers/category_provider/category_list_stream_provider.dart';
 import 'package:week_plan/providers/user_provider/user_provider.dart';
 import 'package:week_plan/providers/category_provider/category_name_contoller_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_editing_category_provider.dart';
 import 'package:week_plan/repository/category/category_repository.dart';
 import 'package:week_plan/service/add_category_service.dart';
 
-final categoryAddUsecaseProvider =
-    Provider<Future<void> Function(String, String)>((ref) {
+final updateCategoryUsecaseProvider =
+    Provider<Future<void> Function(String)>((ref) {
   debugPrint('add todo usecase is excuted');
 
-  return (categoryName, color) async {
-    final service = AddCategoryService(CategoryRepository());
+  return (id) async {
+    final repo = CategoryRepository();
 
     final uid = ref.read(uidProvider);
 
@@ -22,14 +21,18 @@ final categoryAddUsecaseProvider =
 
       return;
     }
-    final existing = ref.read(categoryListStreamProvider).value ?? [];
-    final color = pickUnusedColor(existing);
 
-    service.addCategory(
-      uid,
+    final categoryName = ref.read(categoryNameControllerProvider).text;
+    final categoryColor = ref.read(categoryColorProvider).name;
+
+    repo.updateCategory(
+      id,
       categoryName,
       'icon',
-      color.name,
     );
+
+    // 초기화라는 것을 합니다.
+    ref.read(categoryNameControllerProvider).clear();
+    ref.read(isEditingCategoryProvider.notifier).state = 1;
   };
 });
