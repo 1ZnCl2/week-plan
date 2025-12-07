@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:week_plan/providers/sprint_auto_detector_provider.dart';
 import 'package:week_plan/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'google_auth/firebase_options.dart';
@@ -32,6 +33,8 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     final router = ref.watch(routerProvider);
+    ref.watch(sprintAutoCreatorProvider); // 부수효과 실행 트리거
+
     return MaterialApp.router(
       title: 'Week Plan',
       routerConfig: router,

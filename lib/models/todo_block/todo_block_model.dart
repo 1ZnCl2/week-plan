@@ -16,6 +16,7 @@ class TodoBlockModel with _$TodoBlockModel {
     @TimestampConverter() required DateTime deadline,
     required bool isAssigned,
     final String? assignedScheduleId,
+    required final int impact,
   }) = _TodoBlockModel;
 
   factory TodoBlockModel.fromJson(Map<String, dynamic> json) =>
@@ -30,6 +31,8 @@ class TodoBlockModel with _$TodoBlockModel {
       deadline: (doc['deadline'] as Timestamp).toDate(),
       isAssigned: doc['isAssigned'],
       categoryId: doc['categoryId'] ?? '미정',
+      impact: doc['impact'] ?? 0,
+      assignedScheduleId: doc['assignedScheduleId'],
     );
   }
 }

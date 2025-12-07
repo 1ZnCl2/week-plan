@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/models/category/category_model.dart';
+import 'package:week_plan/providers/category_provider/category_color_provider.dart';
 import 'package:week_plan/providers/category_provider/category_list_stream_provider.dart';
+import 'package:week_plan/providers/todo_block_provider/todo_block_stream_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_list_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_list_stream_provider.dart';
 import 'package:week_plan/widgets/todo_plan/add_schedule_block.dart';
@@ -16,6 +18,7 @@ class TodoContainer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final todoStreamed = ref.watch(weeklyTodoStreamProvider);
     final categoryStreamed = ref.watch(categoryListStreamProvider);
+    final todoblockStreamed = ref.watch(todoBlocksStreamProvider);
 
     return Container(
       height: 275,
@@ -32,14 +35,31 @@ class TodoContainer extends ConsumerWidget {
           SizedBox(
             height: 8,
           ),
-          todoStreamed.when(
+          todoblockStreamed.when(
+            data: (blockList) => Row(
+              children: blockList.map((item) {
+                return ScheduleBlock(
+                    isNull: false,
+                    title: item.todoBlockName,
+                    category: item.categoryId,
+                    categoryColor: 'black',
+                    deadline: item.deadline,
+                    impact: item.impact);
+              }).toList(),
+            ),
+            loading: () => CircularProgressIndicator(),
+            error: (e, _) => Text('$e'),
+          ),
+          /*     todoStreamed.when(
             data: (todoList) {
+              final sprintList = todoList.where((t) => t.isSprint).toList();
+
               return categoryStreamed.when(
                 data: (categoryList) {
                   return Row(
                     spacing: 45,
                     children: [
-                      ...todoList.map(
+                      ...sprintList.map(
                         (item) {
                           final category = categoryList.firstWhere(
                             (c) => c.categoryName == item.category,
@@ -70,7 +90,7 @@ class TodoContainer extends ConsumerWidget {
             },
             loading: () => CircularProgressIndicator(),
             error: (e, _) => Text('$e'),
-          ),
+          ),*/
         ],
       ),
     );

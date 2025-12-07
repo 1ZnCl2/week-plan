@@ -29,6 +29,7 @@ mixin _$TodoBlockModel {
   DateTime get deadline => throw _privateConstructorUsedError;
   bool get isAssigned => throw _privateConstructorUsedError;
   String? get assignedScheduleId => throw _privateConstructorUsedError;
+  int get impact => throw _privateConstructorUsedError;
 
   /// Serializes this TodoBlockModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -54,7 +55,8 @@ abstract class $TodoBlockModelCopyWith<$Res> {
       String categoryId,
       @TimestampConverter() DateTime deadline,
       bool isAssigned,
-      String? assignedScheduleId});
+      String? assignedScheduleId,
+      int impact});
 }
 
 /// @nodoc
@@ -80,6 +82,7 @@ class _$TodoBlockModelCopyWithImpl<$Res, $Val extends TodoBlockModel>
     Object? deadline = null,
     Object? isAssigned = null,
     Object? assignedScheduleId = freezed,
+    Object? impact = null,
   }) {
     return _then(_value.copyWith(
       todoBlockId: null == todoBlockId
@@ -114,6 +117,10 @@ class _$TodoBlockModelCopyWithImpl<$Res, $Val extends TodoBlockModel>
           ? _value.assignedScheduleId
           : assignedScheduleId // ignore: cast_nullable_to_non_nullable
               as String?,
+      impact: null == impact
+          ? _value.impact
+          : impact // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -134,7 +141,8 @@ abstract class _$$TodoBlockModelImplCopyWith<$Res>
       String categoryId,
       @TimestampConverter() DateTime deadline,
       bool isAssigned,
-      String? assignedScheduleId});
+      String? assignedScheduleId,
+      int impact});
 }
 
 /// @nodoc
@@ -158,6 +166,7 @@ class __$$TodoBlockModelImplCopyWithImpl<$Res>
     Object? deadline = null,
     Object? isAssigned = null,
     Object? assignedScheduleId = freezed,
+    Object? impact = null,
   }) {
     return _then(_$TodoBlockModelImpl(
       todoBlockId: null == todoBlockId
@@ -192,6 +201,10 @@ class __$$TodoBlockModelImplCopyWithImpl<$Res>
           ? _value.assignedScheduleId
           : assignedScheduleId // ignore: cast_nullable_to_non_nullable
               as String?,
+      impact: null == impact
+          ? _value.impact
+          : impact // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -207,7 +220,8 @@ class _$TodoBlockModelImpl implements _TodoBlockModel {
       required this.categoryId,
       @TimestampConverter() required this.deadline,
       required this.isAssigned,
-      this.assignedScheduleId});
+      this.assignedScheduleId,
+      required this.impact});
 
   factory _$TodoBlockModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$TodoBlockModelImplFromJson(json);
@@ -229,10 +243,12 @@ class _$TodoBlockModelImpl implements _TodoBlockModel {
   final bool isAssigned;
   @override
   final String? assignedScheduleId;
+  @override
+  final int impact;
 
   @override
   String toString() {
-    return 'TodoBlockModel(todoBlockId: $todoBlockId, todoBlockName: $todoBlockName, todoId: $todoId, uid: $uid, categoryId: $categoryId, deadline: $deadline, isAssigned: $isAssigned, assignedScheduleId: $assignedScheduleId)';
+    return 'TodoBlockModel(todoBlockId: $todoBlockId, todoBlockName: $todoBlockName, todoId: $todoId, uid: $uid, categoryId: $categoryId, deadline: $deadline, isAssigned: $isAssigned, assignedScheduleId: $assignedScheduleId, impact: $impact)';
   }
 
   @override
@@ -253,13 +269,23 @@ class _$TodoBlockModelImpl implements _TodoBlockModel {
             (identical(other.isAssigned, isAssigned) ||
                 other.isAssigned == isAssigned) &&
             (identical(other.assignedScheduleId, assignedScheduleId) ||
-                other.assignedScheduleId == assignedScheduleId));
+                other.assignedScheduleId == assignedScheduleId) &&
+            (identical(other.impact, impact) || other.impact == impact));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, todoBlockId, todoBlockName,
-      todoId, uid, categoryId, deadline, isAssigned, assignedScheduleId);
+  int get hashCode => Object.hash(
+      runtimeType,
+      todoBlockId,
+      todoBlockName,
+      todoId,
+      uid,
+      categoryId,
+      deadline,
+      isAssigned,
+      assignedScheduleId,
+      impact);
 
   /// Create a copy of TodoBlockModel
   /// with the given fields replaced by the non-null parameter values.
@@ -287,7 +313,8 @@ abstract class _TodoBlockModel implements TodoBlockModel {
       required final String categoryId,
       @TimestampConverter() required final DateTime deadline,
       required final bool isAssigned,
-      final String? assignedScheduleId}) = _$TodoBlockModelImpl;
+      final String? assignedScheduleId,
+      required final int impact}) = _$TodoBlockModelImpl;
 
   factory _TodoBlockModel.fromJson(Map<String, dynamic> json) =
       _$TodoBlockModelImpl.fromJson;
@@ -309,6 +336,8 @@ abstract class _TodoBlockModel implements TodoBlockModel {
   bool get isAssigned;
   @override
   String? get assignedScheduleId;
+  @override
+  int get impact;
 
   /// Create a copy of TodoBlockModel
   /// with the given fields replaced by the non-null parameter values.

@@ -17,6 +17,7 @@ _$TodoBlockModelImpl _$$TodoBlockModelImplFromJson(Map<String, dynamic> json) =>
           const TimestampConverter().fromJson(json['deadline'] as Timestamp),
       isAssigned: json['isAssigned'] as bool,
       assignedScheduleId: json['assignedScheduleId'] as String?,
+      impact: (json['impact'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$TodoBlockModelImplToJson(
@@ -30,4 +31,5 @@ Map<String, dynamic> _$$TodoBlockModelImplToJson(
       'deadline': const TimestampConverter().toJson(instance.deadline),
       'isAssigned': instance.isAssigned,
       'assignedScheduleId': instance.assignedScheduleId,
+      'impact': instance.impact,
     };
