@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
@@ -26,8 +27,6 @@ class ScheduleBlock extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final impact = ref.watch(impactProvider).value;
-
     return Column(
       spacing: 12,
       children: [
@@ -63,7 +62,7 @@ class ScheduleBlock extends ConsumerWidget {
                 height: 16,
               ),
               Text(
-                '11/30 23:59',
+                DateFormat('MM/dd HH:mm').format(deadline).toString(),
                 style: isNull
                     ? AppFonts.colormediumTitle(size: 14, Color(0xFFA0A0A0))
                     : AppFonts.colormediumTitle(

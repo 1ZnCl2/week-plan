@@ -22,6 +22,15 @@ class WeekBaseDateNotifier extends StateNotifier<DateTime> {
   void setBaseDate(DateTime date) {
     state = _getThisWeekStart(date);
   }
+
+  bool isDateInWeek(DateTime date, DateTime baseWeekStart) {
+    final start = _getThisWeekStart(baseWeekStart);
+    final end = start.add(const Duration(days: 6));
+    // 약간 지저분한데 나중에 고치든지 하자.
+    final d = DateTime(date.year, date.month, date.day);
+
+    return !d.isBefore(start) && !d.isAfter(end);
+  }
 }
 
 final weekBaseDateProvider =

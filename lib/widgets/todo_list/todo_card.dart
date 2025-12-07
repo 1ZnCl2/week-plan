@@ -137,8 +137,8 @@ class TodoCard extends ConsumerWidget {
                           SizedBox(width: 14),
                           GestureDetector(
                               onTap: () {
-                                ref.read(updateWeeklyTodoUsecaseProvider)(
-                                    title, category);
+                                ref.read(editingTodoIdProvider.notifier).state =
+                                    id;
                               },
                               child: SvgPicture.asset(AppIcon.pencil)),
                         ],
