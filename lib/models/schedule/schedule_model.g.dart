@@ -13,6 +13,7 @@ _$ScheduleModelImpl _$$ScheduleModelImplFromJson(Map<String, dynamic> json) =>
       refId: json['refId'] as String,
       uid: json['uid'] as String,
       categoryId: json['categoryId'] as String,
+      categoryColor: json['categoryColor'] as String,
       startTime:
           const TimestampConverter().fromJson(json['startTime'] as Timestamp),
       endTime:
@@ -28,6 +29,7 @@ Map<String, dynamic> _$$ScheduleModelImplToJson(_$ScheduleModelImpl instance) =>
       'refId': instance.refId,
       'uid': instance.uid,
       'categoryId': instance.categoryId,
+      'categoryColor': instance.categoryColor,
       'startTime': const TimestampConverter().toJson(instance.startTime),
       'endTime': const TimestampConverter().toJson(instance.endTime),
       'isAllDay': instance.isAllDay,

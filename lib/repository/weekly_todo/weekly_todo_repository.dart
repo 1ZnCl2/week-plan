@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:week_plan/models/weekly_todo/weekly_todo_model.dart';
+import 'package:week_plan/providers/category_provider/category_color_provider.dart';
 
 class WeeklyTodoRepository {
   final FirebaseFirestore firestore;
@@ -31,14 +32,21 @@ class WeeklyTodoRepository {
     return docRef.id;
   }
 
-  Future<void> updateTodo(String id, String todoName, String category,
-      DateTime deadline, int impact, bool isSprint) async {
+  Future<void> updateTodo(
+      String id,
+      String todoName,
+      String category,
+      DateTime deadline,
+      int impact,
+      bool isSprint,
+      String categoryColor) async {
     await firestore.collection('weekly_todos').doc(id).update({
       'todoName': todoName,
       'deadline': Timestamp.fromDate(deadline),
       'category': category,
       'impact': impact,
       'isSprint': isSprint,
+      'categoryColor': categoryColor
     });
   }
 
@@ -54,6 +62,17 @@ class WeeklyTodoRepository {
       'doesQuit': !willQuit,
       'isSprint': false,
     });
+  }
+
+  Future<void> assignTodo(String id) async {
+    final doc = await firestore.collection('weekly_todos').doc(id).get();
+    final current = doc.data()?['blockCount'] ?? 0;
+
+    if (current > 0) {
+      await doc.reference.update({
+        'blockCount': FieldValue.increment(-1),
+      });
+    }
   }
 
   Future<void> deleteTodo(String id) async {

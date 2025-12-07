@@ -12,10 +12,10 @@ import 'package:week_plan/providers/weekly_todo_screen/todo_name_controller_prov
 import 'package:week_plan/repository/weekly_todo/weekly_todo_repository.dart';
 
 final updateWeeklyTodoUsecaseProvider =
-    Provider<Future<void> Function(String, String)>((ref) {
+    Provider<Future<void> Function(String, String, String)>((ref) {
   final db = ref.read(firestoreProvider);
 
-  return (todoName, category) async {
+  return (todoName, category, categoryColor) async {
     final repo = WeeklyTodoRepository(db);
 
     final uid = ref.read(uidProvider);
@@ -36,7 +36,8 @@ final updateWeeklyTodoUsecaseProvider =
       return;
     }
 
-    repo.updateTodo(id, todoName, category, deadline, impact, isSprint);
+    repo.updateTodo(
+        id, todoName, category, deadline, impact, isSprint, categoryColor);
 
     // 초기화라는 것을 합니다.
     ref.read(dateTimePickerProvider.notifier).initializeDate();

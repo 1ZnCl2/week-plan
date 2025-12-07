@@ -16,18 +16,19 @@ import 'package:week_plan/providers/usecases/delete_schedule_usecase_provider.da
 import 'package:week_plan/providers/usecases/update_schedule_usecase_provider.dart';
 
 class TempScheduleTile extends ConsumerStatefulWidget {
-  const TempScheduleTile({
-    super.key,
-    required this.categoryName,
-    required this.title,
-    required this.id,
-    required this.startTime,
-    required this.endTime,
-    required this.isCompleted,
-  });
+  const TempScheduleTile(
+      {super.key,
+      required this.categoryName,
+      required this.title,
+      required this.id,
+      required this.startTime,
+      required this.endTime,
+      required this.isCompleted,
+      required this.color});
 
   final String title;
   final String categoryName;
+  final String color;
   final String id;
   final DateTime startTime;
   final DateTime endTime;
@@ -98,7 +99,7 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
                   decoration: BoxDecoration(
                     color: Color(int.parse(
                         CategoryColor.returnBackgroundColorfromColorName(
-                            widget.categoryName))),
+                            widget.color))),
                     border: Border.all(color: AppColors.grey(4), width: 1),
                   ),
                   child: Column(
@@ -171,7 +172,7 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
                                       size: 16,
                                       Color(int.parse(CategoryColor
                                           .returnTextColorfromColorName(
-                                              widget.categoryName))),
+                                              widget.color))),
                                     ),
                                   ),
                                 ),

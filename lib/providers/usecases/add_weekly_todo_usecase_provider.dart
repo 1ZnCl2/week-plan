@@ -32,7 +32,7 @@ final addWeeklyTodoUsecaseProvider = Provider<Future<void> Function()>((ref) {
     final impact = 3;
 
     final newId = await service.addWeeklyTodo(
-        uid, '', '미정', DateTime(2099, 12, 31, 23, 59), impact);
+        uid, '', '미정', DateTime(2099, 12, 31, 23, 59), impact, 'black');
 
     ref.read(editingTodoIdProvider.notifier).state = newId;
   };

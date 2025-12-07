@@ -8,6 +8,7 @@ import 'package:week_plan/providers/category_provider/category_list_stream_provi
 import 'package:week_plan/providers/todo_block_provider/todo_block_stream_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_list_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_list_stream_provider.dart';
+import 'package:week_plan/service/block_drag_controller.dart';
 import 'package:week_plan/widgets/todo_plan/add_schedule_block.dart';
 import 'package:week_plan/widgets/todo_plan/schdule_block.dart';
 
@@ -37,12 +38,14 @@ class TodoContainer extends ConsumerWidget {
           ),
           todoblockStreamed.when(
             data: (blockList) => Row(
+              spacing: 45,
               children: blockList.map((item) {
                 return ScheduleBlock(
                     isNull: false,
+                    todoId: item.todoId,
                     title: item.todoBlockName,
                     category: item.categoryId,
-                    categoryColor: 'black',
+                    categoryColor: item.categoryColor,
                     deadline: item.deadline,
                     impact: item.impact);
               }).toList(),

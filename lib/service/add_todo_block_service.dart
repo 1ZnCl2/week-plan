@@ -9,8 +9,14 @@ class AddTodoBlockService {
 
   AddTodoBlockService(this.blockRepo);
 
-  Future<String> addTodoBlock(String uid, String todoId, DateTime deadline,
-      String categoryId, String todoBlockName, int impact) async {
+  Future<String> addTodoBlock(
+      String uid,
+      String todoId,
+      DateTime deadline,
+      String categoryId,
+      String todoBlockName,
+      int impact,
+      String categoryColor) async {
     if (uid == '') {
       return '';
     }
@@ -23,7 +29,8 @@ class AddTodoBlockService {
         todoBlockId: '',
         categoryId: categoryId,
         isAssigned: false,
-        impact: impact));
+        impact: impact,
+        categoryColor: categoryColor));
 
     return newId;
   }

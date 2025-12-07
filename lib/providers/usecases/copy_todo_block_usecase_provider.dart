@@ -12,7 +12,7 @@ import 'package:week_plan/repository/todo_block_repository.dart';
 import 'package:week_plan/service/add_schedule_tile_service.dart';
 import 'package:week_plan/service/add_todo_block_service.dart';
 
-final addTodoBlockUsecaseProvider = Provider<
+final copyTodoBlockUsecaseProvider = Provider<
     Future<void> Function(String todoId, DateTime deadline, String categoryName,
         String todoName, int impact, String categoryColor)>((ref) {
   final db = ref.read(firestoreProvider);

@@ -13,6 +13,7 @@ class TodoBlockModel with _$TodoBlockModel {
     required String todoId,
     required String uid,
     required String categoryId,
+    required String categoryColor,
     @TimestampConverter() required DateTime deadline,
     required bool isAssigned,
     final String? assignedScheduleId,
@@ -30,9 +31,10 @@ class TodoBlockModel with _$TodoBlockModel {
       uid: doc['uid'],
       deadline: (doc['deadline'] as Timestamp).toDate(),
       isAssigned: doc['isAssigned'],
+      categoryColor: doc['categoryColor'],
       categoryId: doc['categoryId'] ?? '미정',
       impact: doc['impact'] ?? 0,
-      assignedScheduleId: doc['assignedScheduleId'],
+      assignedScheduleId: doc['assignedScheduleId'] ?? '',
     );
   }
 }

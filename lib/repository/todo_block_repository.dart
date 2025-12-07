@@ -52,6 +52,43 @@ class TodoBlockRepository {
     });
   }
 
+  Future<void> assignTodoBlock(String id) async {
+    await firestore
+        .collection('todo_blocks')
+        .doc(id)
+        .update({'isAssigned': true});
+  }
+
+  Future<List<TodoBlockModel>> getBlocksByTodoId(String todoId) async {
+    final snapshot = await firestore
+        .collection('todo_blocks')
+        .where('todoId', isEqualTo: todoId)
+        .get();
+
+    return snapshot.docs
+        .map((doc) => TodoBlockModel.fromDocumentSnapshot(doc))
+        .toList();
+  }
+
+  Future<int> countBlocksByTodoId(String todoId) async {
+    final snapshot = await firestore
+        .collection('todo_blocks')
+        .where('todoId', isEqualTo: todoId)
+        .get();
+
+    return snapshot.size;
+  }
+
+  Future<TodoBlockModel?> getRandomUnassignedBlock(String todoId) async {
+    final blocks = await getBlocksByTodoId(todoId);
+
+    final unassigned = blocks.where((b) => !b.isAssigned).toList();
+    if (unassigned.isEmpty) return null;
+
+    unassigned.shuffle();
+    return unassigned.first;
+  }
+
   Future<void> deleteSchedule(String id) async {
     await firestore.collection('schedules').doc(id).delete();
   }

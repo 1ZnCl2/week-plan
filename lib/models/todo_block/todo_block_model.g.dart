@@ -13,6 +13,7 @@ _$TodoBlockModelImpl _$$TodoBlockModelImplFromJson(Map<String, dynamic> json) =>
       todoId: json['todoId'] as String,
       uid: json['uid'] as String,
       categoryId: json['categoryId'] as String,
+      categoryColor: json['categoryColor'] as String,
       deadline:
           const TimestampConverter().fromJson(json['deadline'] as Timestamp),
       isAssigned: json['isAssigned'] as bool,
@@ -28,6 +29,7 @@ Map<String, dynamic> _$$TodoBlockModelImplToJson(
       'todoId': instance.todoId,
       'uid': instance.uid,
       'categoryId': instance.categoryId,
+      'categoryColor': instance.categoryColor,
       'deadline': const TimestampConverter().toJson(instance.deadline),
       'isAssigned': instance.isAssigned,
       'assignedScheduleId': instance.assignedScheduleId,

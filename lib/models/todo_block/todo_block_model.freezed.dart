@@ -25,6 +25,7 @@ mixin _$TodoBlockModel {
   String get todoId => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
   String get categoryId => throw _privateConstructorUsedError;
+  String get categoryColor => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get deadline => throw _privateConstructorUsedError;
   bool get isAssigned => throw _privateConstructorUsedError;
@@ -53,6 +54,7 @@ abstract class $TodoBlockModelCopyWith<$Res> {
       String todoId,
       String uid,
       String categoryId,
+      String categoryColor,
       @TimestampConverter() DateTime deadline,
       bool isAssigned,
       String? assignedScheduleId,
@@ -79,6 +81,7 @@ class _$TodoBlockModelCopyWithImpl<$Res, $Val extends TodoBlockModel>
     Object? todoId = null,
     Object? uid = null,
     Object? categoryId = null,
+    Object? categoryColor = null,
     Object? deadline = null,
     Object? isAssigned = null,
     Object? assignedScheduleId = freezed,
@@ -104,6 +107,10 @@ class _$TodoBlockModelCopyWithImpl<$Res, $Val extends TodoBlockModel>
       categoryId: null == categoryId
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
+              as String,
+      categoryColor: null == categoryColor
+          ? _value.categoryColor
+          : categoryColor // ignore: cast_nullable_to_non_nullable
               as String,
       deadline: null == deadline
           ? _value.deadline
@@ -139,6 +146,7 @@ abstract class _$$TodoBlockModelImplCopyWith<$Res>
       String todoId,
       String uid,
       String categoryId,
+      String categoryColor,
       @TimestampConverter() DateTime deadline,
       bool isAssigned,
       String? assignedScheduleId,
@@ -163,6 +171,7 @@ class __$$TodoBlockModelImplCopyWithImpl<$Res>
     Object? todoId = null,
     Object? uid = null,
     Object? categoryId = null,
+    Object? categoryColor = null,
     Object? deadline = null,
     Object? isAssigned = null,
     Object? assignedScheduleId = freezed,
@@ -188,6 +197,10 @@ class __$$TodoBlockModelImplCopyWithImpl<$Res>
       categoryId: null == categoryId
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
+              as String,
+      categoryColor: null == categoryColor
+          ? _value.categoryColor
+          : categoryColor // ignore: cast_nullable_to_non_nullable
               as String,
       deadline: null == deadline
           ? _value.deadline
@@ -218,6 +231,7 @@ class _$TodoBlockModelImpl implements _TodoBlockModel {
       required this.todoId,
       required this.uid,
       required this.categoryId,
+      required this.categoryColor,
       @TimestampConverter() required this.deadline,
       required this.isAssigned,
       this.assignedScheduleId,
@@ -237,6 +251,8 @@ class _$TodoBlockModelImpl implements _TodoBlockModel {
   @override
   final String categoryId;
   @override
+  final String categoryColor;
+  @override
   @TimestampConverter()
   final DateTime deadline;
   @override
@@ -248,7 +264,7 @@ class _$TodoBlockModelImpl implements _TodoBlockModel {
 
   @override
   String toString() {
-    return 'TodoBlockModel(todoBlockId: $todoBlockId, todoBlockName: $todoBlockName, todoId: $todoId, uid: $uid, categoryId: $categoryId, deadline: $deadline, isAssigned: $isAssigned, assignedScheduleId: $assignedScheduleId, impact: $impact)';
+    return 'TodoBlockModel(todoBlockId: $todoBlockId, todoBlockName: $todoBlockName, todoId: $todoId, uid: $uid, categoryId: $categoryId, categoryColor: $categoryColor, deadline: $deadline, isAssigned: $isAssigned, assignedScheduleId: $assignedScheduleId, impact: $impact)';
   }
 
   @override
@@ -264,6 +280,8 @@ class _$TodoBlockModelImpl implements _TodoBlockModel {
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.categoryId, categoryId) ||
                 other.categoryId == categoryId) &&
+            (identical(other.categoryColor, categoryColor) ||
+                other.categoryColor == categoryColor) &&
             (identical(other.deadline, deadline) ||
                 other.deadline == deadline) &&
             (identical(other.isAssigned, isAssigned) ||
@@ -282,6 +300,7 @@ class _$TodoBlockModelImpl implements _TodoBlockModel {
       todoId,
       uid,
       categoryId,
+      categoryColor,
       deadline,
       isAssigned,
       assignedScheduleId,
@@ -311,6 +330,7 @@ abstract class _TodoBlockModel implements TodoBlockModel {
       required final String todoId,
       required final String uid,
       required final String categoryId,
+      required final String categoryColor,
       @TimestampConverter() required final DateTime deadline,
       required final bool isAssigned,
       final String? assignedScheduleId,
@@ -329,6 +349,8 @@ abstract class _TodoBlockModel implements TodoBlockModel {
   String get uid;
   @override
   String get categoryId;
+  @override
+  String get categoryColor;
   @override
   @TimestampConverter()
   DateTime get deadline;
