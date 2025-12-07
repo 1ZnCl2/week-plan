@@ -2,6 +2,8 @@
 
 A new Flutter project.
 
+https://painted-homburg-079.notion.site/WeekPlan-26715256baff80e38070c57c043b1611?source=copy_link
+
 # 기획 개요
 
 ## 기획 배경
