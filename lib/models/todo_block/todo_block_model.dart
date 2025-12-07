@@ -6,7 +6,7 @@ part 'todo_block_model.freezed.dart';
 part 'todo_block_model.g.dart';
 
 @freezed
-class TodoBlockModel with _$ScheduleModel {
+class TodoBlockModel with _$TodoBlockModel {
   factory TodoBlockModel({
     required String todoBlockId,
     required String todoBlockName,
