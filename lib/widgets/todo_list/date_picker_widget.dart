@@ -30,7 +30,9 @@ class _DatePickerWidgetState extends ConsumerState<DatePickerWidget> {
               onTap: () async {
                 final DateTime? dateTime = await showDatePicker(
                   context: context,
-                  initialDate: selectedDate,
+                  initialDate: (selectedDate == DateTime(2099, 12, 31, 23, 59))
+                      ? DateTime.now()
+                      : selectedDate,
                   firstDate: DateTime(2020),
                   lastDate: DateTime(2100),
                 );
