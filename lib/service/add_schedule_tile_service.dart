@@ -24,7 +24,8 @@ class AddScheduleTileService {
         endTime: endTime,
         isAllDay: isAllTime,
         isCompleted: isCompleted,
-        categoryId: categoryId));
+        categoryId: categoryId,
+        categoryColor: colorHex));
 
     return newId;
   }

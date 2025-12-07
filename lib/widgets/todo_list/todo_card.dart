@@ -137,15 +137,16 @@ class TodoCard extends ConsumerWidget {
                           SizedBox(width: 14),
                           GestureDetector(
                               onTap: () {
-                                ref.read(updateWeeklyTodoUsecaseProvider)(
-                                    title, category);
+                                ref.read(editingTodoIdProvider.notifier).state =
+                                    id;
                               },
                               child: SvgPicture.asset(AppIcon.pencil)),
                         ],
                       ),
                       SizedBox(height: 63),
                       Text(
-                        deadline != null
+                        deadline != null &&
+                                deadline != DateTime(2099, 12, 31, 23, 59)
                             ? DateFormat('MM/dd HH:mm')
                                 .format(deadline!)
                                 .toString()

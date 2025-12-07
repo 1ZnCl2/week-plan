@@ -7,14 +7,15 @@ import 'package:week_plan/providers/week_base_date_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/date_picker_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/impact_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
+import 'package:week_plan/providers/weekly_todo_screen/sprint_stream_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_name_controller_provider.dart';
 import 'package:week_plan/repository/weekly_todo/weekly_todo_repository.dart';
 
 final updateWeeklyTodoUsecaseProvider =
-    Provider<Future<void> Function(String, String)>((ref) {
+    Provider<Future<void> Function(String, String, String)>((ref) {
   final db = ref.read(firestoreProvider);
 
-  return (todoName, category) async {
+  return (todoName, category, categoryColor) async {
     final repo = WeeklyTodoRepository(db);
 
     final uid = ref.read(uidProvider);
@@ -29,16 +30,14 @@ final updateWeeklyTodoUsecaseProvider =
 
     final id = ref.read(editingTodoIdProvider);
     final impact = ref.read(impactProvider).value;
-    bool isSprint = false;
+    final isSprint = isDateInWeek(deadline, weekBase);
 
-    if (deadline.isBefore(weekBase.add(const Duration(days: 7)))) {
-      isSprint = true;
-    }
     if (id == '' || id == null) {
       return;
     }
 
-    repo.updateTodo(id, todoName, category, deadline, impact, isSprint);
+    repo.updateTodo(
+        id, todoName, category, deadline, impact, isSprint, categoryColor);
 
     // 초기화라는 것을 합니다.
     ref.read(dateTimePickerProvider.notifier).initializeDate();

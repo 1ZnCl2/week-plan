@@ -23,10 +23,12 @@ mixin _$WeeklyTodoModel {
   String get todoId => throw _privateConstructorUsedError;
   String get todoName => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
+  String get categoryColor => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
   bool get isSprint => throw _privateConstructorUsedError;
   bool get doesQuit => throw _privateConstructorUsedError;
+  int get blockCount => throw _privateConstructorUsedError;
   bool? get includingSubtask => throw _privateConstructorUsedError;
   String? get refId => throw _privateConstructorUsedError;
   int? get impact => throw _privateConstructorUsedError;
@@ -53,10 +55,12 @@ abstract class $WeeklyTodoModelCopyWith<$Res> {
       {String todoId,
       String todoName,
       String category,
+      String categoryColor,
       String uid,
       bool isCompleted,
       bool isSprint,
       bool doesQuit,
+      int blockCount,
       bool? includingSubtask,
       String? refId,
       int? impact,
@@ -81,10 +85,12 @@ class _$WeeklyTodoModelCopyWithImpl<$Res, $Val extends WeeklyTodoModel>
     Object? todoId = null,
     Object? todoName = null,
     Object? category = null,
+    Object? categoryColor = null,
     Object? uid = null,
     Object? isCompleted = null,
     Object? isSprint = null,
     Object? doesQuit = null,
+    Object? blockCount = null,
     Object? includingSubtask = freezed,
     Object? refId = freezed,
     Object? impact = freezed,
@@ -103,6 +109,10 @@ class _$WeeklyTodoModelCopyWithImpl<$Res, $Val extends WeeklyTodoModel>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
+      categoryColor: null == categoryColor
+          ? _value.categoryColor
+          : categoryColor // ignore: cast_nullable_to_non_nullable
+              as String,
       uid: null == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
@@ -119,6 +129,10 @@ class _$WeeklyTodoModelCopyWithImpl<$Res, $Val extends WeeklyTodoModel>
           ? _value.doesQuit
           : doesQuit // ignore: cast_nullable_to_non_nullable
               as bool,
+      blockCount: null == blockCount
+          ? _value.blockCount
+          : blockCount // ignore: cast_nullable_to_non_nullable
+              as int,
       includingSubtask: freezed == includingSubtask
           ? _value.includingSubtask
           : includingSubtask // ignore: cast_nullable_to_non_nullable
@@ -151,10 +165,12 @@ abstract class _$$WeeklyTodoModelImplCopyWith<$Res>
       {String todoId,
       String todoName,
       String category,
+      String categoryColor,
       String uid,
       bool isCompleted,
       bool isSprint,
       bool doesQuit,
+      int blockCount,
       bool? includingSubtask,
       String? refId,
       int? impact,
@@ -177,10 +193,12 @@ class __$$WeeklyTodoModelImplCopyWithImpl<$Res>
     Object? todoId = null,
     Object? todoName = null,
     Object? category = null,
+    Object? categoryColor = null,
     Object? uid = null,
     Object? isCompleted = null,
     Object? isSprint = null,
     Object? doesQuit = null,
+    Object? blockCount = null,
     Object? includingSubtask = freezed,
     Object? refId = freezed,
     Object? impact = freezed,
@@ -199,6 +217,10 @@ class __$$WeeklyTodoModelImplCopyWithImpl<$Res>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
+      categoryColor: null == categoryColor
+          ? _value.categoryColor
+          : categoryColor // ignore: cast_nullable_to_non_nullable
+              as String,
       uid: null == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
@@ -215,6 +237,10 @@ class __$$WeeklyTodoModelImplCopyWithImpl<$Res>
           ? _value.doesQuit
           : doesQuit // ignore: cast_nullable_to_non_nullable
               as bool,
+      blockCount: null == blockCount
+          ? _value.blockCount
+          : blockCount // ignore: cast_nullable_to_non_nullable
+              as int,
       includingSubtask: freezed == includingSubtask
           ? _value.includingSubtask
           : includingSubtask // ignore: cast_nullable_to_non_nullable
@@ -242,10 +268,12 @@ class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
       {required this.todoId,
       required this.todoName,
       required this.category,
+      required this.categoryColor,
       required this.uid,
       required this.isCompleted,
       required this.isSprint,
       required this.doesQuit,
+      required this.blockCount,
       this.includingSubtask,
       this.refId,
       this.impact,
@@ -261,6 +289,8 @@ class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
   @override
   final String category;
   @override
+  final String categoryColor;
+  @override
   final String uid;
   @override
   final bool isCompleted;
@@ -268,6 +298,8 @@ class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
   final bool isSprint;
   @override
   final bool doesQuit;
+  @override
+  final int blockCount;
   @override
   final bool? includingSubtask;
   @override
@@ -280,7 +312,7 @@ class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
 
   @override
   String toString() {
-    return 'WeeklyTodoModel(todoId: $todoId, todoName: $todoName, category: $category, uid: $uid, isCompleted: $isCompleted, isSprint: $isSprint, doesQuit: $doesQuit, includingSubtask: $includingSubtask, refId: $refId, impact: $impact, deadline: $deadline)';
+    return 'WeeklyTodoModel(todoId: $todoId, todoName: $todoName, category: $category, categoryColor: $categoryColor, uid: $uid, isCompleted: $isCompleted, isSprint: $isSprint, doesQuit: $doesQuit, blockCount: $blockCount, includingSubtask: $includingSubtask, refId: $refId, impact: $impact, deadline: $deadline)';
   }
 
   @override
@@ -293,6 +325,8 @@ class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
                 other.todoName == todoName) &&
             (identical(other.category, category) ||
                 other.category == category) &&
+            (identical(other.categoryColor, categoryColor) ||
+                other.categoryColor == categoryColor) &&
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.isCompleted, isCompleted) ||
                 other.isCompleted == isCompleted) &&
@@ -300,6 +334,8 @@ class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
                 other.isSprint == isSprint) &&
             (identical(other.doesQuit, doesQuit) ||
                 other.doesQuit == doesQuit) &&
+            (identical(other.blockCount, blockCount) ||
+                other.blockCount == blockCount) &&
             (identical(other.includingSubtask, includingSubtask) ||
                 other.includingSubtask == includingSubtask) &&
             (identical(other.refId, refId) || other.refId == refId) &&
@@ -315,10 +351,12 @@ class _$WeeklyTodoModelImpl implements _WeeklyTodoModel {
       todoId,
       todoName,
       category,
+      categoryColor,
       uid,
       isCompleted,
       isSprint,
       doesQuit,
+      blockCount,
       includingSubtask,
       refId,
       impact,
@@ -346,10 +384,12 @@ abstract class _WeeklyTodoModel implements WeeklyTodoModel {
       {required final String todoId,
       required final String todoName,
       required final String category,
+      required final String categoryColor,
       required final String uid,
       required final bool isCompleted,
       required final bool isSprint,
       required final bool doesQuit,
+      required final int blockCount,
       final bool? includingSubtask,
       final String? refId,
       final int? impact,
@@ -365,6 +405,8 @@ abstract class _WeeklyTodoModel implements WeeklyTodoModel {
   @override
   String get category;
   @override
+  String get categoryColor;
+  @override
   String get uid;
   @override
   bool get isCompleted;
@@ -372,6 +414,8 @@ abstract class _WeeklyTodoModel implements WeeklyTodoModel {
   bool get isSprint;
   @override
   bool get doesQuit;
+  @override
+  int get blockCount;
   @override
   bool? get includingSubtask;
   @override

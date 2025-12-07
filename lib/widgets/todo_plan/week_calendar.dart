@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
-import 'package:week_plan/providers/category_provider/category_color_provider.dart';
 import 'package:week_plan/providers/comprehensive_list_provider/comprehensive_list_provider.dart';
-import 'package:week_plan/providers/is_editing_schedule_tile_provider.dart';
 import 'package:week_plan/providers/schedule_provider/editing_schedule_id_provider.dart';
 import 'package:week_plan/providers/schedule_provider/schedule_provider.dart';
 import 'package:week_plan/providers/schedule_provider/temp_schedule_tile_state_provider.dart';
-import 'package:week_plan/providers/usecases/add_comprehensive_list_usecase_provider.dart';
+import 'package:week_plan/providers/usecases/add_schedule_from_block_provider.dart';
 import 'package:week_plan/providers/usecases/add_schedule_usecase_provider.dart';
 import 'package:week_plan/providers/usecases/delete_schedule_usecase_provider.dart';
 import 'package:week_plan/providers/week_base_date_provider.dart';
+import 'package:week_plan/service/block_drag_controller.dart';
 import 'package:week_plan/service/group_dates.dart';
 import 'package:week_plan/widgets/todo_plan/current_divider.dart';
 import 'package:week_plan/widgets/todo_plan/day_timeline_column.dart';
-import 'package:week_plan/widgets/todo_plan/schedule_tile.dart';
+import 'package:week_plan/widgets/todo_plan/drag_overlay_layer.dart';
 import 'package:week_plan/widgets/todo_plan/comprehensive_list.dart';
 import 'package:week_plan/widgets/todo_plan/temp_schedule_tile.dart';
 import 'package:week_plan/widgets/todo_plan/timeline_column.dart';
@@ -70,11 +69,17 @@ String currentDayName(DayOfWeek day) {
   }
 }
 
-class WeekCalendar extends ConsumerWidget {
-  const WeekCalendar({super.key});
-
+class WeekCalendar extends ConsumerStatefulWidget {
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<WeekCalendar> createState() => _WeekCalendarState();
+}
+
+class _WeekCalendarState extends ConsumerState<WeekCalendar> {
+  final _dragController = BlockDragController.instance;
+  @override
+  Widget build(
+    BuildContext context,
+  ) {
     final weekBase = ref.watch(weekBaseDateProvider);
     final asyncList = ref.watch(comprehensiveListStreamProvider(weekBase));
     final scheduleStreamed = ref.watch(streamScheduleProvider(weekBase));
@@ -151,6 +156,17 @@ class WeekCalendar extends ConsumerWidget {
                       GestureDetector(
                         behavior: HitTestBehavior.opaque,
                         onTap: () {},
+                        onPanUpdate: (details) {
+                          _dragController.updateDrag(details.globalPosition);
+                        },
+                        onPanEnd: (details) {
+                          final todoId = _dragController.draggingTodoId;
+                          final dropPos = _dragController.position;
+
+                          ref.read(addScheduleFromBlockUsecaseProvider)(
+                              todoId ?? '', dropPos);
+                          _dragController.endDrag();
+                        },
                         onTapDown: (details) {
                           if (editingId != null) {
                             ref.read(deleteScheduleUsecaseProvider)(editingId);
@@ -189,37 +205,15 @@ class WeekCalendar extends ConsumerWidget {
                               startTime: item.startTime,
                               endTime: item.endTime,
                               isCompleted: item.isCompleted,
+                              color: item.categoryColor,
                             );
                           }).toList();
                         },
                         loading: () => [const CircularProgressIndicator()],
                         error: (e, st) => [Text('에러: $e')],
                       ),
-                      ScheduleTile(
-                        startTime: DateTime(2025, 11, 10, 15, 0),
-                        endTime: DateTime(2025, 11, 11, 18, 0),
-                        color: AppColors.cyan(2),
-                        textColor: Color(0xFF407283),
-                        title: 'sample1',
-                        id: '',
-                      ),
-                      ScheduleTile(
-                        startTime: DateTime(2025, 11, 11, 15, 0),
-                        endTime: DateTime(2025, 11, 11, 18, 0),
-                        color: AppColors.cyan(3),
-                        textColor: Color(0xFF407283),
-                        title: '컴퓨터 구조',
-                        id: '',
-                      ),
-                      ScheduleTile(
-                        startTime: DateTime(2025, 11, 10, 10, 0),
-                        endTime: DateTime(2025, 11, 10, 13, 0),
-                        color: AppColors.cyan(3),
-                        textColor: Color(0xFF407283),
-                        title: '웹툰 기획과 스토리 개발',
-                        id: '',
-                      ),
                       CurrentDivider(),
+                      DragOverlayLayer(controller: _dragController),
                     ],
                   ),
                 ],

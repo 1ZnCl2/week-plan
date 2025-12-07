@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
+import 'package:week_plan/providers/category_provider/category_color_provider.dart';
 import 'package:week_plan/providers/category_provider/category_list_stream_provider.dart';
 import 'package:week_plan/providers/category_provider/category_rotate_index_provider.dart';
 import 'package:week_plan/providers/editing_todo_id_provider.dart';
@@ -64,6 +65,7 @@ class _EditingCardState extends ConsumerState<EditingCard> {
     final currentImpact = ref.watch(impactProvider);
     final categoryList = ref.watch(categoryListStreamProvider);
     final categoryName = ref.watch(categoryRotateIndexProvider).name;
+    final categoryColor = ref.watch(categoryRotateIndexProvider).color;
 
     return Container(
       width: 488,
@@ -159,9 +161,10 @@ class _EditingCardState extends ConsumerState<EditingCard> {
 
                     return GestureDetector(
                       onTap: () {
-                        ref
-                            .read(categoryRotateIndexProvider.notifier)
-                            .rotate(categoryList.length, item.categoryName);
+                        ref.read(categoryRotateIndexProvider.notifier).rotate(
+                            categoryList.length,
+                            item.categoryName,
+                            item.colorHex);
                       },
                       child: CategoryTag(
                         categoryName: item.categoryName,
@@ -192,7 +195,9 @@ class _EditingCardState extends ConsumerState<EditingCard> {
                       ),
                       onTap: () async {
                         ref.read(updateWeeklyTodoUsecaseProvider)(
-                            todoNameController.text, categoryName);
+                            todoNameController.text,
+                            categoryName,
+                            categoryColor);
                       },
                     ),
                     SizedBox(width: 14),

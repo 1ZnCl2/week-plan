@@ -7,6 +7,7 @@ import 'package:week_plan/providers/category_provider/category_list_stream_provi
 import 'package:week_plan/providers/editing_todo_id_provider.dart';
 import 'package:week_plan/providers/week_base_date_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';
+import 'package:week_plan/providers/weekly_todo_screen/sprint_stream_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/todo_list_stream_provider.dart';
 import 'package:week_plan/widgets/todo_list/add_button.dart';
 import 'package:week_plan/widgets/todo_list/editing_card.dart';
@@ -20,9 +21,9 @@ class TodoListScreen extends ConsumerWidget {
   @override
   Scaffold build(BuildContext context, WidgetRef ref) {
     final todoStreamed = ref.watch(weeklyTodoStreamProvider);
+    final sprintStreamed = ref.watch(sprintTodoProvider);
     final categoryStreamed = ref.watch(categoryListStreamProvider);
     final editingId = ref.watch(editingTodoIdProvider);
-    final weekBase = ref.watch(weekBaseDateProvider);
 
     return Scaffold(
       body: Row(
@@ -42,14 +43,19 @@ class TodoListScreen extends ConsumerWidget {
             child: Column(
               children: [
                 AddButton(),
-                SprintBox(),
+                SprintBox(
+                  sprintList: sprintStreamed,
+                ),
                 todoStreamed.when(
                   data: (todoList) {
+                    final nonSprintList =
+                        todoList.where((t) => !t.isSprint).toList();
+
                     return categoryStreamed.when(
                       data: (categoryList) {
                         return Column(
                           children: [
-                            ...todoList.map(
+                            ...nonSprintList.map(
                               (item) {
                                 final category = categoryList.firstWhere(
                                   (c) => c.categoryName == item.category,

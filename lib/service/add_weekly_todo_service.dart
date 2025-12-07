@@ -7,7 +7,7 @@ class AddWeeklyTodoService {
   AddWeeklyTodoService(this.todoRepo);
 
   Future<String> addWeeklyTodo(String uid, String todoName, String category,
-      DateTime deadline, int impact) async {
+      DateTime deadline, int impact, String categoryColor) async {
     if (uid == '') {
       return '';
     }
@@ -21,7 +21,9 @@ class AddWeeklyTodoService {
         impact: impact,
         isCompleted: false,
         isSprint: false,
-        doesQuit: false));
+        doesQuit: false,
+        blockCount: 1,
+        categoryColor: categoryColor));
 
     return newId;
   }

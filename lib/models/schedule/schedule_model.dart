@@ -13,6 +13,7 @@ class ScheduleModel with _$ScheduleModel {
     required String refId,
     required String uid,
     required String categoryId,
+    required String categoryColor,
     @TimestampConverter() required DateTime startTime,
     @TimestampConverter() required DateTime endTime,
     required bool isAllDay,
@@ -26,6 +27,7 @@ class ScheduleModel with _$ScheduleModel {
       required String uid,
       required bool isAllDay,
       required bool isCompleted,
+      required String categoryColor,
       required String? refId,
       required String categoryId}) {
     return ScheduleModel(
@@ -36,6 +38,7 @@ class ScheduleModel with _$ScheduleModel {
       uid: uid,
       isAllDay: isAllDay,
       isCompleted: isCompleted,
+      categoryColor: categoryColor,
       refId: refId ?? '',
       categoryId: categoryId ?? '미정',
     );
@@ -53,6 +56,7 @@ class ScheduleModel with _$ScheduleModel {
       startTime: (doc['startTime'] as Timestamp).toDate(),
       endTime: (doc['endTime'] as Timestamp).toDate(),
       isAllDay: doc['isAllDay'],
+      categoryColor: doc['categoryColor'] ?? 'black',
       isCompleted: doc['isCompleted'] ?? false,
       categoryId: doc['categoryId'] ?? '미정',
     );
