@@ -145,7 +145,8 @@ class TodoCard extends ConsumerWidget {
                       ),
                       SizedBox(height: 63),
                       Text(
-                        deadline != null
+                        deadline != null &&
+                                deadline != DateTime(2099, 12, 31, 23, 59)
                             ? DateFormat('MM/dd HH:mm')
                                 .format(deadline!)
                                 .toString()
