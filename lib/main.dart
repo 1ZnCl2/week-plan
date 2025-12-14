@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:week_plan/providers/sprint_auto_detector_provider.dart';
 import 'package:week_plan/router.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'google_auth/firebase_options.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
