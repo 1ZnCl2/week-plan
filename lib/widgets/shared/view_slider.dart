@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
-import 'package:week_plan/providers/slider_provider.dart';
 import 'package:week_plan/router.dart';
 
-class MyCustomSlider extends ConsumerStatefulWidget {
+class MyCustomSlider extends StatelessWidget {
   const MyCustomSlider({super.key});
 
   @override
-  MyCustomSliderState createState() => MyCustomSliderState();
-}
-
-class MyCustomSliderState extends ConsumerState<MyCustomSlider> {
-  @override
   Widget build(BuildContext context) {
-    bool isPagePlan = ref.watch(sliderProvider);
+    final isPagePlan = GoRouterState.of(context).matchedLocation ==
+        RouterRoots.todoPlanner;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -51,9 +45,6 @@ class MyCustomSliderState extends ConsumerState<MyCustomSlider> {
             children: [
               GestureDetector(
                 onTap: () {
-                  if (isPagePlan) {
-                    ref.read(sliderProvider.notifier).toggleSlider();
-                  }
                   context.go(RouterRoots.todoList);
                 },
                 child: SizedBox(
@@ -78,10 +69,6 @@ class MyCustomSliderState extends ConsumerState<MyCustomSlider> {
               ),
               GestureDetector(
                 onTap: () {
-                  if (!isPagePlan) {
-                    ref.read(sliderProvider.notifier).toggleSlider();
-                  }
-
                   context.go(RouterRoots.todoPlanner);
                 },
                 child: SizedBox(

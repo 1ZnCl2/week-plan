@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
-import 'package:week_plan/components/widgets/category_button.dart';
+import 'package:week_plan/widgets/shared/category_button.dart';
 import 'package:week_plan/providers/category_provider/category_color_provider.dart';
 import 'package:week_plan/providers/category_provider/category_list_stream_provider.dart';
 import 'package:week_plan/providers/category_provider/editing_category_id_provider.dart';

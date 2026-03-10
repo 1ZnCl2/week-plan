@@ -8,7 +8,7 @@ import 'package:week_plan/components/icon_manage.dart';
 import 'package:week_plan/providers/usecases/add_schedule_from_block_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/impact_provider.dart';
 import 'package:week_plan/service/block_drag_controller.dart';
-import 'package:week_plan/widgets/todo_list/category_tag.dart';
+import 'package:week_plan/widgets/shared/category_tag.dart';
 import 'package:week_plan/widgets/todo_plan/drag_overlay_layer.dart';
 import 'package:week_plan/widgets/todo_plan/schedule_tile.dart';
 

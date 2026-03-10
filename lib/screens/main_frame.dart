@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:week_plan/components/widgets/customed_appbar.dart';
+import 'package:week_plan/widgets/shared/customed_appbar.dart';
+import 'package:week_plan/widgets/shared/view_slider.dart';
 
 class MainFrame extends StatelessWidget {
   final Widget child;
@@ -9,9 +10,20 @@ class MainFrame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomedAppBar(), // 불변하는 상단 컴포넌트
-
-      body: child, // 라우트가 바뀔 때 교체되는 부분
+      backgroundColor: Colors.white,
+      appBar: CustomedAppBar(),
+      body: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 12),
+            const MyCustomSlider(),
+            const SizedBox(height: 12),
+            child,
+          ],
+        ),
+      ),
     );
   }
 }

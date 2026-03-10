@@ -6,7 +6,7 @@ import 'package:week_plan/providers/google_auth/google_auth_state_provider.dart'
 import 'package:week_plan/components/icon_manage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:week_plan/google_auth/google_auth.dart';
+import 'package:week_plan/repository/google_auth.dart';
 import 'package:week_plan/repository/user/user_repository.dart';
 
 class CustomedAppBar extends ConsumerWidget implements PreferredSizeWidget {

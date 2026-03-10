@@ -12,7 +12,7 @@ import 'package:week_plan/providers/usecases/complete_weekly_todo_usecase_provid
 import 'package:week_plan/providers/usecases/quit_weekly_todo_usecase_provider.dart';
 import 'package:week_plan/providers/usecases/update_weekly_todo_usecase_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/impact_provider.dart';
-import 'package:week_plan/widgets/todo_list/category_tag.dart';
+import 'package:week_plan/widgets/shared/category_tag.dart';
 import 'package:week_plan/widgets/todo_list/sub_task.dart';
 
 class TodoCard extends ConsumerWidget {
