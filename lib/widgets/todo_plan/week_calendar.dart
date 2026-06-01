@@ -10,6 +10,7 @@ import 'package:week_plan/providers/schedule_provider/editing_schedule_id_provid
 import 'package:week_plan/providers/schedule_provider/schedule_provider.dart';
 import 'package:week_plan/providers/schedule_provider/temp_schedule_tile_state_provider.dart';
 import 'package:week_plan/providers/week_base_date_provider.dart';
+import 'package:week_plan/service/calendar_layout_service.dart';
 
 import 'package:week_plan/usecases/add_schedule_from_block_provider.dart';
 import 'package:week_plan/usecases/add_schedule_usecase_provider.dart';
@@ -69,7 +70,7 @@ class _WeekCalendarState extends ConsumerState<WeekCalendar> {
                     ),
                     child: Center(
                       child: Text(
-                        '${date.month}/${date.day} ${currentDayName(day)}',
+                        '${date.month}/${date.day} ${CalendarLayoutService().currentDayName(day)}',
                         style: AppFonts.blackTitle(
                           size: 14,
                         ),
@@ -148,8 +149,9 @@ class _WeekCalendarState extends ConsumerState<WeekCalendar> {
                               details.localPosition; // Offset(dx, dy)
                           final dx = localOffset.dx;
                           final dy = localOffset.dy;
-                          final day = weekdayFromDx(dx);
-                          final tempStartTime = dateFromDxDy(weekBase, day, dy);
+                          final day = CalendarLayoutService().weekdayFromDx(dx);
+                          final tempStartTime = CalendarLayoutService()
+                              .dateFromDxDy(weekBase, day, dy);
                           ref
                               .read(tempTileProvider.notifier)
                               .create(tempStartTime);

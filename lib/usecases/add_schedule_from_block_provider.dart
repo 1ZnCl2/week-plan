@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:week_plan/providers/category_provider/category_color_provider.dart';
 import 'package:week_plan/providers/firestore_provider.dart';
 import 'package:week_plan/providers/is_editing_schedule_tile_provider.dart';
@@ -9,10 +10,14 @@ import 'package:week_plan/providers/schedule_provider/schedule_tile_name_contorl
 import 'package:week_plan/providers/schedule_provider/temp_schedule_tile_state_provider.dart';
 import 'package:week_plan/providers/user_provider/user_provider.dart';
 import 'package:week_plan/providers/week_base_date_provider.dart';
+
 import 'package:week_plan/repository/schedule_repository.dart';
 import 'package:week_plan/repository/todo_block_repository.dart';
 import 'package:week_plan/repository/weekly_todo/weekly_todo_repository.dart';
+
 import 'package:week_plan/service/add_schedule_tile_service.dart';
+import 'package:week_plan/service/calendar_layout_service.dart';
+
 import 'package:week_plan/widgets/todo_plan/week_calendar.dart';
 
 final addScheduleFromBlockUsecaseProvider =
@@ -34,8 +39,9 @@ final addScheduleFromBlockUsecaseProvider =
 
       return;
     }
-    final today = weekdayFromDx(position.dx);
-    final startTime = dateFromDxDy(weekBase, today, position.dy);
+    final today = CalendarLayoutService().weekdayFromDx(position.dx);
+    final startTime =
+        CalendarLayoutService().dateFromDxDy(weekBase, today, position.dy);
 
     debugPrint('this is $today / $startTime');
 
