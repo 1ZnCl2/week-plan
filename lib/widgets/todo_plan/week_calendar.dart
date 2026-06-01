@@ -33,6 +33,8 @@ class WeekCalendar extends ConsumerStatefulWidget {
 
 class _WeekCalendarState extends ConsumerState<WeekCalendar> {
   final _dragController = BlockDragController.instance;
+  static const double dayColumnWidth = 180;
+
   @override
   Widget build(
     BuildContext context,
@@ -55,11 +57,10 @@ class _WeekCalendarState extends ConsumerState<WeekCalendar> {
                 children: DayOfWeek.values.asMap().entries.map((entry) {
                   final index = entry.key;
                   final day = entry.value;
-
                   final date = weekBase.add(Duration(days: index));
 
                   return Container(
-                    width: 180,
+                    width: dayColumnWidth,
                     height: 44,
                     padding: EdgeInsets.symmetric(
                       vertical: 12,

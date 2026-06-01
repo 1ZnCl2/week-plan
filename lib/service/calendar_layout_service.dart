@@ -9,14 +9,18 @@ enum DayOfWeek {
 }
 
 class CalendarLayoutService {
+  static const double dayColumnWidth = 180;
+  static const double timeRowHeight = 40;
+  static const double calendarBodyHeight = 622;
+
   int weekdayFromDx(double dx) {
-    const double colWidth = 180;
+    const double colWidth = dayColumnWidth;
     return (dx / colWidth).toInt() + 1; // Monday = 1
   }
 
   DateTime dateFromDxDy(DateTime startDateOfWeek, int weekDay, double dy) {
-    int hour = (dy / 90).toInt();
-    int minute = ((dy / 90 - hour) * 60).toInt();
+    int hour = (dy / timeRowHeight).toInt();
+    int minute = ((dy / timeRowHeight - hour) * 60).toInt();
     int day = startDateOfWeek.day + weekDay - 1;
 
     final startDateForTile = DateTime(
