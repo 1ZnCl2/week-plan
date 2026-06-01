@@ -9,9 +9,9 @@ import 'package:week_plan/providers/category_provider/category_color_provider.da
 import 'package:week_plan/providers/category_provider/category_list_stream_provider.dart';
 import 'package:week_plan/providers/category_provider/category_rotate_index_provider.dart';
 import 'package:week_plan/providers/editing_todo_id_provider.dart';
-import 'package:week_plan/providers/usecases/add_weekly_todo_usecase_provider.dart';
-import 'package:week_plan/providers/usecases/delete_weekly_todo_usecase_provider.dart';
-import 'package:week_plan/providers/usecases/update_weekly_todo_usecase_provider.dart';
+import 'package:week_plan/usecases/add_weekly_todo_usecase_provider.dart';
+import 'package:week_plan/usecases/delete_weekly_todo_usecase_provider.dart';
+import 'package:week_plan/usecases/update_weekly_todo_usecase_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/date_picker_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/impact_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/is_todo_editting_provider.dart';

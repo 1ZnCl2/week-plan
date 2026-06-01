@@ -11,9 +11,9 @@ import 'package:week_plan/providers/schedule_provider/editing_schedule_id_provid
 import 'package:week_plan/providers/schedule_provider/hover_schedule_provider.dart';
 import 'package:week_plan/providers/schedule_provider/schedule_tile_name_contorller.dart';
 import 'package:week_plan/providers/schedule_provider/temp_schedule_tile_state_provider.dart';
-import 'package:week_plan/providers/usecases/complete_schedule_tile_usecase_provider.dart';
-import 'package:week_plan/providers/usecases/delete_schedule_usecase_provider.dart';
-import 'package:week_plan/providers/usecases/update_schedule_usecase_provider.dart';
+import 'package:week_plan/usecases/complete_schedule_tile_usecase_provider.dart';
+import 'package:week_plan/usecases/delete_schedule_usecase_provider.dart';
+import 'package:week_plan/usecases/update_schedule_usecase_provider.dart';
 
 class TempScheduleTile extends ConsumerStatefulWidget {
   const TempScheduleTile(

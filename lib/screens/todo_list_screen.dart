@@ -102,7 +102,7 @@ class TodoListScreen extends ConsumerWidget {
                         height: 120,
                         child: Center(
                           child: Text(
-                            '기능을 이용하기 위해\n로그인해 주세요.',
+                            '기능을 이용하기 위해서\n우측 상단 아이콘을 눌러 로그인해 주세요.',
                             style: AppFonts.greyTitle(AppColors.grey(7)),
                             textAlign: TextAlign.center,
                           ),

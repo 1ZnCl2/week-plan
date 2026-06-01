@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
-import 'package:week_plan/providers/usecases/add_schedule_from_block_provider.dart';
+import 'package:week_plan/usecases/add_schedule_from_block_provider.dart';
 import 'package:week_plan/providers/weekly_todo_screen/impact_provider.dart';
 import 'package:week_plan/service/block_drag_controller.dart';
 import 'package:week_plan/widgets/shared/category_tag.dart';

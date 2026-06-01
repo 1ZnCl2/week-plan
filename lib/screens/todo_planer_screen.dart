@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:week_plan/components/color_manage.dart';
+import 'package:week_plan/providers/google_auth/google_auth_state_provider.dart';
 import 'package:week_plan/widgets/shared/category_button.dart';
 import 'package:week_plan/providers/category_provider/category_list_stream_provider.dart';
 import 'package:week_plan/widgets/todo_plan/week_calendar.dart';
@@ -14,6 +15,8 @@ class TodoPlanerScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isOpen = ref.watch(todoContainerHandleProvider);
+    final user = ref.watch(authStateProvider).value;
+    final isLoggedIn = user != null;
     final categoryStreamed = ref.watch(categoryListStreamProvider);
 
     return Column(
@@ -24,20 +27,21 @@ class TodoPlanerScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              categoryStreamed.when(
-                data: (categoryList) => Row(
-                  mainAxisSize: MainAxisSize.min,
-                  spacing: 7,
-                  children: [
-                    ...categoryList.map((item) => CategoryButton(
-                        id: item.categoryId,
-                        categoryName: item.categoryName,
-                        color: item.colorHex)),
-                  ],
+              if (isLoggedIn)
+                categoryStreamed.when(
+                  data: (categoryList) => Row(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 7,
+                    children: [
+                      ...categoryList.map((item) => CategoryButton(
+                          id: item.categoryId,
+                          categoryName: item.categoryName,
+                          color: item.colorHex)),
+                    ],
+                  ),
+                  loading: () => CircularProgressIndicator(),
+                  error: (e, _) => Text('$e'),
                 ),
-                loading: () => CircularProgressIndicator(),
-                error: (e, _) => Text('$e'),
-              ),
               WeekHandler(),
             ],
           ),

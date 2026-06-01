@@ -7,10 +7,10 @@ import 'package:week_plan/components/icon_manage.dart';
 import 'package:week_plan/providers/comprehensive_list_provider/editing_text_provider.dart';
 import 'package:week_plan/providers/comprehensive_list_provider/hover_item_provider.dart';
 import 'package:week_plan/providers/comprehensive_list_provider/item_text_controller_provider.dart';
-import 'package:week_plan/providers/usecases/add_comprehensive_list_usecase_provider.dart';
-import 'package:week_plan/providers/usecases/complete_comprehensive_list_usecase_provider.dart';
-import 'package:week_plan/providers/usecases/delete_comprehensive_list_usecase_provider.dart';
-import 'package:week_plan/providers/usecases/update_comprehensive_list_usecase.dart';
+import 'package:week_plan/usecases/add_comprehensive_list_usecase_provider.dart';
+import 'package:week_plan/usecases/complete_comprehensive_list_usecase_provider.dart';
+import 'package:week_plan/usecases/delete_comprehensive_list_usecase_provider.dart';
+import 'package:week_plan/usecases/update_comprehensive_list_usecase.dart';
 import 'package:week_plan/repository/comprehensive_list_repository.dart';
 
 class EditableIconText extends ConsumerWidget {

@@ -6,20 +6,20 @@ import 'package:week_plan/components/icon_manage.dart';
 import 'package:week_plan/models/comprehensive_model/comprehensive_model.dart';
 import 'package:week_plan/providers/comprehensive_list_provider/hover_list_block_provider.dart';
 import 'package:week_plan/providers/comprehensive_list_provider/is_adding_list_text_provider.dart';
-import 'package:week_plan/providers/usecases/add_comprehensive_list_usecase_provider.dart';
+import 'package:week_plan/usecases/add_comprehensive_list_usecase_provider.dart';
 import 'package:week_plan/widgets/todo_list/icon_text.dart';
 import 'package:week_plan/widgets/todo_plan/editable_icon_text.dart';
 
 class ComprehensiveListWidget extends ConsumerWidget {
   final bool isToday;
-  final DateTime today;
-  final List<ComprehensiveModel> items;
+  final DateTime? today;
+  final List<ComprehensiveModel>? items;
 
   const ComprehensiveListWidget({
     super.key,
     required this.isToday,
-    required this.today,
-    required this.items,
+    this.today,
+    this.items,
   });
 
   @override
@@ -46,7 +46,7 @@ class ComprehensiveListWidget extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              ...items.map((item) {
+              ...?items?.map((item) {
                 final isDone = item.is_completed;
 
                 return EditableIconText(
@@ -56,22 +56,22 @@ class ComprehensiveListWidget extends ConsumerWidget {
                   isComplted: item.is_completed,
                 );
               }),
-              if (items.length < 3 && isHovering)
+              if ((items?.length ?? 0) < 3 && isHovering && today != null)
                 GestureDetector(
                   onTap: () {
-                    ref.read(addComprehensiveListUsecaseProvider)(today);
+                    ref.read(addComprehensiveListUsecaseProvider)(today!);
                   },
                   child: Container(
                     height: 24,
                     width: 160,
+                    decoration: BoxDecoration(
+                      color: AppColors.grey(4).withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                     child: Icon(
                       Icons.add,
                       size: 24,
                       color: AppColors.grey(7),
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.grey(4).withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                 )

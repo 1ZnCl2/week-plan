@@ -1,73 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
+
 import 'package:week_plan/providers/comprehensive_list_provider/comprehensive_list_provider.dart';
+import 'package:week_plan/providers/google_auth/google_auth_state_provider.dart';
 import 'package:week_plan/providers/schedule_provider/editing_schedule_id_provider.dart';
 import 'package:week_plan/providers/schedule_provider/schedule_provider.dart';
 import 'package:week_plan/providers/schedule_provider/temp_schedule_tile_state_provider.dart';
-import 'package:week_plan/providers/usecases/add_schedule_from_block_provider.dart';
-import 'package:week_plan/providers/usecases/add_schedule_usecase_provider.dart';
-import 'package:week_plan/providers/usecases/delete_schedule_usecase_provider.dart';
 import 'package:week_plan/providers/week_base_date_provider.dart';
+
+import 'package:week_plan/usecases/add_schedule_from_block_provider.dart';
+import 'package:week_plan/usecases/add_schedule_usecase_provider.dart';
+import 'package:week_plan/usecases/delete_schedule_usecase_provider.dart';
+
 import 'package:week_plan/service/block_drag_controller.dart';
 import 'package:week_plan/service/group_dates.dart';
+
 import 'package:week_plan/widgets/todo_plan/current_divider.dart';
 import 'package:week_plan/widgets/todo_plan/day_timeline_column.dart';
 import 'package:week_plan/widgets/todo_plan/drag_overlay_layer.dart';
 import 'package:week_plan/widgets/todo_plan/comprehensive_list.dart';
 import 'package:week_plan/widgets/todo_plan/temp_schedule_tile.dart';
 import 'package:week_plan/widgets/todo_plan/timeline_column.dart';
-
-enum DayOfWeek {
-  monday,
-  tuesday,
-  wednesday,
-  thursday,
-  friday,
-  saturday,
-  sunday,
-}
-
-int weekdayFromDx(double dx) {
-  const double colWidth = 180;
-  return (dx / colWidth).toInt() + 1; // Monday = 1
-}
-
-DateTime dateFromDxDy(DateTime startDateOfWeek, int weekDay, double dy) {
-  int hour = (dy / 90).toInt();
-  int minute = ((dy / 90 - hour) * 60).toInt();
-  int day = startDateOfWeek.day + weekDay - 1;
-
-  final startDateForTile = DateTime(
-    startDateOfWeek.year,
-    startDateOfWeek.month,
-    day,
-    hour,
-    minute,
-  );
-
-  return startDateForTile;
-}
-
-String currentDayName(DayOfWeek day) {
-  switch (day) {
-    case DayOfWeek.sunday:
-      return '일요일';
-    case DayOfWeek.monday:
-      return '월요일';
-    case DayOfWeek.tuesday:
-      return '화요일';
-    case DayOfWeek.wednesday:
-      return '수요일';
-    case DayOfWeek.thursday:
-      return '목요일';
-    case DayOfWeek.friday:
-      return '금요일';
-    case DayOfWeek.saturday:
-      return '토요일';
-  }
-}
 
 class WeekCalendar extends ConsumerStatefulWidget {
   @override
@@ -80,6 +36,7 @@ class _WeekCalendarState extends ConsumerState<WeekCalendar> {
   Widget build(
     BuildContext context,
   ) {
+    final isLoggedIn = ref.watch(authStateProvider).value != null;
     final weekBase = ref.watch(weekBaseDateProvider);
     final asyncList = ref.watch(comprehensiveListStreamProvider(weekBase));
     final scheduleStreamed = ref.watch(streamScheduleProvider(weekBase));
@@ -124,12 +81,28 @@ class _WeekCalendarState extends ConsumerState<WeekCalendar> {
               asyncList.when(
                 data: (list) {
                   final grouped = groupByDate(list);
+                  if (isLoggedIn) {
+                    return Row(
+                      children: List.generate(7, (index) {
+                        return ComprehensiveListWidget(
+                          isToday: false,
+                        );
+                      }),
+                    );
+                  }
 
                   return Row(
                     children: List.generate(7, (index) {
                       final date = weekBase.add(Duration(days: index));
                       final key = DateTime(date.year, date.month, date.day);
                       final itemsForThisDay = grouped[key] ?? [];
+                      if (date == DateTime.now()) {
+                        return ComprehensiveListWidget(
+                          isToday: true,
+                          today: date,
+                          items: itemsForThisDay,
+                        );
+                      }
 
                       return ComprehensiveListWidget(
                         isToday: false,
