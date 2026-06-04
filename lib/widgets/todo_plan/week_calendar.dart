@@ -6,15 +6,9 @@ import 'package:week_plan/components/font_manage.dart';
 
 import 'package:week_plan/providers/comprehensive_list_provider/comprehensive_list_provider.dart';
 import 'package:week_plan/providers/google_auth/google_auth_state_provider.dart';
-import 'package:week_plan/providers/schedule_provider/editing_schedule_id_provider.dart';
 import 'package:week_plan/providers/schedule_provider/schedule_provider.dart';
-import 'package:week_plan/providers/schedule_provider/temp_schedule_tile_state_provider.dart';
 import 'package:week_plan/providers/week_base_date_provider.dart';
 import 'package:week_plan/providers/calendar_interaction_provider.dart';
-
-import 'package:week_plan/usecases/add_schedule_from_block_provider.dart';
-import 'package:week_plan/usecases/add_schedule_usecase_provider.dart';
-import 'package:week_plan/usecases/delete_schedule_usecase_provider.dart';
 
 import 'package:week_plan/service/block_drag_controller.dart';
 import 'package:week_plan/service/group_dates.dart';
@@ -47,7 +41,6 @@ class _WeekCalendarState extends ConsumerState<WeekCalendar> {
     final weekBase = ref.watch(weekBaseDateProvider);
     final asyncList = ref.watch(comprehensiveListStreamProvider(weekBase));
     final scheduleStreamed = ref.watch(streamScheduleProvider(weekBase));
-    final editingId = ref.watch(editingScheduleIdProvider);
     final _interactionController =
         ref.watch(calendarInteractionControllerProvider);
 
