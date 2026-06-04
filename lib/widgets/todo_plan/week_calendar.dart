@@ -146,13 +146,14 @@ class _WeekCalendarState extends ConsumerState<WeekCalendar> {
                           _dragController.updateDrag(details.globalPosition);
                         },
                         onPanEnd: (_) {
-                          final todoId = _dragController.draggingTodoId;
                           final dropPos = _localCalendarOffset(
                             _dragController.position,
                           );
 
-                          ref.read(addScheduleFromBlockUsecaseProvider)(
-                              todoId ?? '', dropPos);
+                          _interactionController.handleBlockDrop(
+                            _dragController.draggingTodoId,
+                            dropPos,
+                          );
                           _dragController.endDrag();
                         },
                         onTapDown: (details) {
