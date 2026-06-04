@@ -15,7 +15,6 @@ class MainFrame extends StatelessWidget {
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(height: 12),
             const MyCustomSlider(),
