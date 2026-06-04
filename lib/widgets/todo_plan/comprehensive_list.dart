@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
 import 'package:week_plan/models/comprehensive_model/comprehensive_model.dart';
 import 'package:week_plan/providers/comprehensive_list_provider/hover_list_block_provider.dart';
-import 'package:week_plan/providers/comprehensive_list_provider/is_adding_list_text_provider.dart';
+import 'package:week_plan/service/calendar_layout_service.dart';
 import 'package:week_plan/usecases/add_comprehensive_list_usecase_provider.dart';
-import 'package:week_plan/widgets/todo_list/icon_text.dart';
 import 'package:week_plan/widgets/todo_plan/editable_icon_text.dart';
 
 class ComprehensiveListWidget extends ConsumerWidget {
@@ -34,8 +32,8 @@ class ComprehensiveListWidget extends ConsumerWidget {
         ref.read(hoverListBlockProvider(today).notifier).state = false;
       },
       child: Container(
-        width: 180,
-        height: 122,
+        width: CalendarLayoutService.dayColumnWidth,
+        height: CalendarLayoutService.comprehensiveListHeight,
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 20),
         decoration: BoxDecoration(
           color: isToday ? Color(0xFF91BFF6) : AppColors.grey(3),
@@ -65,7 +63,7 @@ class ComprehensiveListWidget extends ConsumerWidget {
                     height: 24,
                     width: 160,
                     decoration: BoxDecoration(
-                      color: AppColors.grey(4).withOpacity(0.5),
+                      color: AppColors.grey(4).withValues(alpha: 0.5),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(

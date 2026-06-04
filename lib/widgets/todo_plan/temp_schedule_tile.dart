@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,6 +9,7 @@ import 'package:week_plan/providers/schedule_provider/editing_schedule_id_provid
 import 'package:week_plan/providers/schedule_provider/hover_schedule_provider.dart';
 import 'package:week_plan/providers/schedule_provider/schedule_tile_name_contorller.dart';
 import 'package:week_plan/providers/schedule_provider/temp_schedule_tile_state_provider.dart';
+import 'package:week_plan/service/calendar_layout_service.dart';
 import 'package:week_plan/usecases/complete_schedule_tile_usecase_provider.dart';
 import 'package:week_plan/usecases/delete_schedule_usecase_provider.dart';
 import 'package:week_plan/usecases/update_schedule_usecase_provider.dart';
@@ -65,10 +64,12 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
 
     final start = isEditing ? tempTileState.start : widget.startTime;
     final end = isEditing ? tempTileState.end : widget.endTime;
+    const layout = CalendarLayoutService();
+    final tileOffset = layout.offsetFromDateTime(start);
 
     return Positioned(
-      top: start.hour.toDouble() * 90 + start.minute.toDouble() * 90 / 60,
-      left: (start.weekday.toDouble() - 1) * 180 + 20,
+      top: tileOffset.dy,
+      left: tileOffset.dx,
       child: MouseRegion(
         onEnter: (_) {
           ref.read(hoverScheduleProvider(widget.id).notifier).state = true;
@@ -87,15 +88,8 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
             children: [
               Container(
                   padding: EdgeInsets.only(left: 14, top: 12),
-                  width: 180,
-                  height: max(
-                      30,
-                      90 *
-                          (end.hour +
-                                  end.minute / 60 -
-                                  start.hour -
-                                  start.minute / 60)
-                              .toDouble()),
+                  width: CalendarLayoutService.dayColumnWidth,
+                  height: layout.heightFromDuration(start, end),
                   decoration: BoxDecoration(
                     color: Color(int.parse(
                         CategoryColor.returnBackgroundColorfromColorName(
@@ -114,10 +108,8 @@ class _TempScheduleTileState extends ConsumerState<TempScheduleTile> {
                                     child: TextField(
                                       focusNode: _textFieldFocus,
                                       readOnly: isEditing &&
-                                                  tempTileState!.isDragging ||
-                                              tempTileState!.isResizing
-                                          ? true
-                                          : false,
+                                          (tempTileState.isDragging ||
+                                              tempTileState.isResizing),
                                       style: AppFonts.colormediumTitle(
                                           AppColors.grey(8),
                                           size: 16),

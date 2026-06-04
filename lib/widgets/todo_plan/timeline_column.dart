@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:week_plan/components/color_manage.dart';
 import 'package:week_plan/components/font_manage.dart';
+import 'package:week_plan/service/calendar_layout_service.dart';
 
 class TimelineColumn extends StatelessWidget {
   const TimelineColumn({super.key});
@@ -9,10 +10,10 @@ class TimelineColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: List.generate(24, (hour) {
+      children: List.generate(CalendarLayoutService.hoursPerDay, (hour) {
         return Container(
-          width: 20,
-          height: 90,
+          width: CalendarLayoutService.timeColumnWidth,
+          height: CalendarLayoutService.hourRowHeight,
           decoration: BoxDecoration(
             border: Border.symmetric(
                 vertical: BorderSide(

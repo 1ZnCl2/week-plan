@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:week_plan/components/color_manage.dart';
+import 'package:week_plan/service/calendar_layout_service.dart';
 
 class CurrentDivider extends StatelessWidget {
   const CurrentDivider({super.key});
@@ -7,13 +8,12 @@ class CurrentDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: DateTime.now().hour.toDouble() * 90 +
-          DateTime.now().minute.toDouble() * 1.5,
+      top: CalendarLayoutService().offsetFromDateTime(DateTime.now()).dy,
       child: Stack(
         alignment: Alignment.centerLeft,
         children: [
           Container(
-            width: 1280,
+            width: CalendarLayoutService.weekContentWidth,
             height: 2,
             color: AppColors.cyan(2),
           ),

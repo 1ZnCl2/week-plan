@@ -1,15 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:week_plan/components/font_manage.dart';
 import 'package:week_plan/components/icon_manage.dart';
 import 'package:week_plan/providers/category_provider/category_color_provider.dart';
-import 'package:week_plan/providers/schedule_provider/editing_schedule_id_provider.dart';
-import 'package:week_plan/providers/schedule_provider/schedule_tile_name_contorller.dart';
-import 'package:week_plan/providers/schedule_provider/temp_schedule_tile_state_provider.dart';
+import 'package:week_plan/service/calendar_layout_service.dart';
 
-class ScheduleTile extends ConsumerWidget {
+class ScheduleTile extends StatelessWidget {
   final String color;
   final String title;
   final String categoryName;
@@ -24,18 +20,15 @@ class ScheduleTile extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final tempTileState = ref.watch(tempTileProvider);
-    final editingId = ref.watch(editingScheduleIdProvider);
-
+  Widget build(BuildContext context) {
     // final isHovering = ref.watch(hoverScheduleProvider(id));
 
     return Stack(
       children: [
         Container(
           padding: EdgeInsets.only(left: 12, top: 29),
-          width: 180,
-          height: 90,
+          width: CalendarLayoutService.dayColumnWidth,
+          height: CalendarLayoutService.hourRowHeight,
           decoration: BoxDecoration(
             color: Color(int.parse(
                 CategoryColor.returnBackgroundColorfromColorName(color))),

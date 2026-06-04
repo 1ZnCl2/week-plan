@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:week_plan/service/calendar_layout_service.dart';
 
 class TempTileState {
   final DateTime start;
@@ -54,6 +55,8 @@ final tempTileProvider =
 class TempTileNotifier extends StateNotifier<TempTileState?> {
   TempTileNotifier() : super(null);
 
+  static const _layout = CalendarLayoutService();
+
   void create(DateTime start) {
     state = TempTileState(
       start: start,
@@ -90,13 +93,13 @@ class TempTileNotifier extends StateNotifier<TempTileState?> {
   }
 
   void updateDrag(double dx, double dy) {
-    final s = state!;
+    final s = state;
     if (s == null || !s.isDragging) return;
     if (s.originalStart == null || s.originalEnd == null) return;
     if (s.dragStartX == null) return;
 
-    final offsetMinutes = ((dy - s.dragStartY) / 90 * 60).round();
-    final offsetDays = ((dx - s.dragStartX!) / 180).round();
+    final offsetMinutes = _layout.minutesFromVerticalDelta(dy - s.dragStartY);
+    final offsetDays = _layout.daysFromHorizontalDelta(dx - s.dragStartX!);
 
     final newStart = s.originalStart!.add(
       Duration(days: offsetDays, minutes: offsetMinutes),
@@ -141,7 +144,7 @@ class TempTileNotifier extends StateNotifier<TempTileState?> {
   void updateStart(double dy) {
     if (state == null) return;
     final double deltaY = dy - state!.dragStartY;
-    final deltaMinutes = (deltaY / 90 * 60).round();
+    final deltaMinutes = _layout.minutesFromVerticalDelta(deltaY);
 
     final newStart = state!.originalStart!.add(Duration(minutes: deltaMinutes));
 
@@ -151,7 +154,7 @@ class TempTileNotifier extends StateNotifier<TempTileState?> {
   void updateEnd(double dy) {
     if (state == null) return;
     final double deltaY = dy - state!.dragStartY;
-    final deltaMinutes = (deltaY / 90 * 60).round();
+    final deltaMinutes = _layout.minutesFromVerticalDelta(deltaY);
 
     final newEnd = state!.originalEnd!.add(Duration(minutes: deltaMinutes));
 

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 enum DayOfWeek {
   monday,
   tuesday,
@@ -9,47 +11,86 @@ enum DayOfWeek {
 }
 
 class CalendarLayoutService {
+  const CalendarLayoutService();
+
+  static const int daysPerWeek = 7;
+  static const int hoursPerDay = 24;
   static const double dayColumnWidth = 180;
-  static const double timeRowHeight = 40;
+  static const double timeColumnWidth = 20;
+  static const double hourRowHeight = 90;
+  static const double timeRowHeight = hourRowHeight;
   static const double calendarBodyHeight = 622;
+  static const double comprehensiveListHeight = 122;
+  static const double minScheduleTileHeight = 30;
+
+  static double get calendarContentHeight => hourRowHeight * hoursPerDay;
+  static double get weekContentWidth =>
+      timeColumnWidth + dayColumnWidth * daysPerWeek;
 
   int weekdayFromDx(double dx) {
-    const double colWidth = dayColumnWidth;
-    return (dx / colWidth).toInt() + 1; // Monday = 1
+    final dayIndex = ((dx - timeColumnWidth) / dayColumnWidth).floor();
+    return dayIndex.clamp(0, daysPerWeek - 1).toInt() + 1; // Monday = 1
   }
 
   DateTime dateFromDxDy(DateTime startDateOfWeek, int weekDay, double dy) {
-    int hour = (dy / timeRowHeight).toInt();
-    int minute = ((dy / timeRowHeight - hour) * 60).toInt();
-    int day = startDateOfWeek.day + weekDay - 1;
+    final hourValue = dy / hourRowHeight;
+    final hour = hourValue.floor().clamp(0, hoursPerDay - 1).toInt();
+    final minute = ((hourValue - hour) * 60).floor().clamp(0, 59).toInt();
 
-    final startDateForTile = DateTime(
+    return DateTime(
       startDateOfWeek.year,
       startDateOfWeek.month,
-      day,
+      startDateOfWeek.day,
       hour,
       minute,
-    );
+    ).add(Duration(days: weekDay - 1));
+  }
 
-    return startDateForTile;
+  DateTime dateFromOffset(DateTime startDateOfWeek, Offset offset) {
+    return dateFromDxDy(
+      startDateOfWeek,
+      weekdayFromDx(offset.dx),
+      offset.dy,
+    );
+  }
+
+  Offset offsetFromDateTime(DateTime dateTime) {
+    return Offset(
+      timeColumnWidth + (dateTime.weekday - 1) * dayColumnWidth,
+      dateTime.hour * hourRowHeight + dateTime.minute * hourRowHeight / 60,
+    );
+  }
+
+  double heightFromDuration(DateTime start, DateTime end) {
+    final minutes = end.difference(start).inMinutes;
+    final height = minutes * hourRowHeight / 60;
+    return height < minScheduleTileHeight ? minScheduleTileHeight : height;
+  }
+
+  int minutesFromVerticalDelta(double dy) {
+    return (dy / hourRowHeight * 60).round();
+  }
+
+  int daysFromHorizontalDelta(double dx) {
+    return (dx / dayColumnWidth).round();
   }
 
   String currentDayName(DayOfWeek day) {
     switch (day) {
       case DayOfWeek.sunday:
-        return '일요일';
+        return '\uC77C\uC694\uC77C';
       case DayOfWeek.monday:
-        return '월요일';
+        return '\uC6D4\uC694\uC77C';
       case DayOfWeek.tuesday:
-        return '화요일';
+        return '\uD654\uC694\uC77C';
       case DayOfWeek.wednesday:
-        return '수요일';
+        return '\uC218\uC694\uC77C';
       case DayOfWeek.thursday:
-        return '목요일';
+        return '\uBAA9\uC694\uC77C';
       case DayOfWeek.friday:
-        return '금요일';
+        return '\uAE08\uC694\uC77C';
       case DayOfWeek.saturday:
-        return '토요일';
+        return '\uD1A0\uC694\uC77C';
     }
   }
 }

@@ -10,7 +10,7 @@ import 'package:week_plan/providers/schedule_provider/editing_schedule_id_provid
 import 'package:week_plan/providers/schedule_provider/schedule_provider.dart';
 import 'package:week_plan/providers/schedule_provider/temp_schedule_tile_state_provider.dart';
 import 'package:week_plan/providers/week_base_date_provider.dart';
-import 'package:week_plan/service/calendar_layout_service.dart';
+import 'package:week_plan/providers/calendar_interaction_provider.dart';
 
 import 'package:week_plan/usecases/add_schedule_from_block_provider.dart';
 import 'package:week_plan/usecases/add_schedule_usecase_provider.dart';
@@ -18,6 +18,7 @@ import 'package:week_plan/usecases/delete_schedule_usecase_provider.dart';
 
 import 'package:week_plan/service/block_drag_controller.dart';
 import 'package:week_plan/service/group_dates.dart';
+import 'package:week_plan/service/calendar_layout_service.dart';
 
 import 'package:week_plan/widgets/todo_plan/current_divider.dart';
 import 'package:week_plan/widgets/todo_plan/day_timeline_column.dart';
@@ -27,13 +28,16 @@ import 'package:week_plan/widgets/todo_plan/temp_schedule_tile.dart';
 import 'package:week_plan/widgets/todo_plan/timeline_column.dart';
 
 class WeekCalendar extends ConsumerStatefulWidget {
+  const WeekCalendar({super.key});
+
   @override
   ConsumerState<WeekCalendar> createState() => _WeekCalendarState();
 }
 
 class _WeekCalendarState extends ConsumerState<WeekCalendar> {
   final _dragController = BlockDragController.instance;
-  static const double dayColumnWidth = 180;
+  final _calendarBodyKey = GlobalKey();
+  static const _layout = CalendarLayoutService();
 
   @override
   Widget build(
@@ -44,12 +48,16 @@ class _WeekCalendarState extends ConsumerState<WeekCalendar> {
     final asyncList = ref.watch(comprehensiveListStreamProvider(weekBase));
     final scheduleStreamed = ref.watch(streamScheduleProvider(weekBase));
     final editingId = ref.watch(editingScheduleIdProvider);
+    final _interactionController =
+        ref.watch(calendarInteractionControllerProvider);
 
     return Column(
       spacing: 9,
       children: [
         Padding(
-          padding: EdgeInsets.only(left: 20),
+          padding: EdgeInsets.only(
+            left: CalendarLayoutService.timeColumnWidth,
+          ),
           child: Column(
             spacing: 9,
             children: [
@@ -60,7 +68,7 @@ class _WeekCalendarState extends ConsumerState<WeekCalendar> {
                   final date = weekBase.add(Duration(days: index));
 
                   return Container(
-                    width: dayColumnWidth,
+                    width: CalendarLayoutService.dayColumnWidth,
                     height: 44,
                     padding: EdgeInsets.symmetric(
                       vertical: 12,
@@ -71,7 +79,7 @@ class _WeekCalendarState extends ConsumerState<WeekCalendar> {
                     ),
                     child: Center(
                       child: Text(
-                        '${date.month}/${date.day} ${CalendarLayoutService().currentDayName(day)}',
+                        '${date.month}/${date.day} ${_layout.currentDayName(day)}',
                         style: AppFonts.blackTitle(
                           size: 14,
                         ),
@@ -85,7 +93,8 @@ class _WeekCalendarState extends ConsumerState<WeekCalendar> {
                   final grouped = groupByDate(list);
                   if (isLoggedIn) {
                     return Row(
-                      children: List.generate(7, (index) {
+                      children: List.generate(CalendarLayoutService.daysPerWeek,
+                          (index) {
                         return ComprehensiveListWidget(
                           isToday: false,
                         );
@@ -94,7 +103,8 @@ class _WeekCalendarState extends ConsumerState<WeekCalendar> {
                   }
 
                   return Row(
-                    children: List.generate(7, (index) {
+                    children: List.generate(CalendarLayoutService.daysPerWeek,
+                        (index) {
                       final date = weekBase.add(Duration(days: index));
                       final key = DateTime(date.year, date.month, date.day);
                       final itemsForThisDay = grouped[key] ?? [];
@@ -121,7 +131,7 @@ class _WeekCalendarState extends ConsumerState<WeekCalendar> {
           ),
         ),
         SizedBox(
-          height: 622,
+          height: CalendarLayoutService.calendarBodyHeight,
           child: ListView(
             children: [
               Column(
@@ -129,45 +139,33 @@ class _WeekCalendarState extends ConsumerState<WeekCalendar> {
                   Stack(
                     children: [
                       GestureDetector(
+                        key: _calendarBodyKey,
                         behavior: HitTestBehavior.opaque,
                         onTap: () {},
                         onPanUpdate: (details) {
                           _dragController.updateDrag(details.globalPosition);
                         },
-                        onPanEnd: (details) {
+                        onPanEnd: (_) {
                           final todoId = _dragController.draggingTodoId;
-                          final dropPos = _dragController.position;
+                          final dropPos = _localCalendarOffset(
+                            _dragController.position,
+                          );
 
                           ref.read(addScheduleFromBlockUsecaseProvider)(
                               todoId ?? '', dropPos);
                           _dragController.endDrag();
                         },
                         onTapDown: (details) {
-                          if (editingId != null) {
-                            ref.read(deleteScheduleUsecaseProvider)(editingId);
-                          }
-                          final localOffset =
-                              details.localPosition; // Offset(dx, dy)
-                          final dx = localOffset.dx;
-                          final dy = localOffset.dy;
-                          final day = CalendarLayoutService().weekdayFromDx(dx);
-                          final tempStartTime = CalendarLayoutService()
-                              .dateFromDxDy(weekBase, day, dy);
-                          ref
-                              .read(tempTileProvider.notifier)
-                              .create(tempStartTime);
-                          ref.read(addScheduleUsecaseProvider)();
+                          _interactionController.handleTapDown(
+                              weekBase, details.localPosition);
                         },
                         child: Row(
                           children: [
                             TimelineColumn(),
-                            DayTimelineColumn(),
-                            DayTimelineColumn(),
-                            DayTimelineColumn(),
-                            DayTimelineColumn(),
-                            DayTimelineColumn(),
-                            DayTimelineColumn(),
-                            DayTimelineColumn(),
+                            ...List.generate(
+                              CalendarLayoutService.daysPerWeek,
+                              (_) => DayTimelineColumn(),
+                            ),
                           ],
                         ),
                       ),
@@ -199,5 +197,11 @@ class _WeekCalendarState extends ConsumerState<WeekCalendar> {
         ),
       ],
     );
+  }
+
+  Offset _localCalendarOffset(Offset globalOffset) {
+    final renderBox =
+        _calendarBodyKey.currentContext?.findRenderObject() as RenderBox?;
+    return renderBox?.globalToLocal(globalOffset) ?? globalOffset;
   }
 }
