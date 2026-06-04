@@ -124,7 +124,7 @@ class _WeekCalendarState extends ConsumerState<WeekCalendar> {
           ),
         ),
         SizedBox(
-          height: CalendarLayoutService.calendarBodyHeight - 37,
+          height: CalendarLayoutService.adjustedCalendarBodyHeight,
           child: ListView(
             children: [
               Column(

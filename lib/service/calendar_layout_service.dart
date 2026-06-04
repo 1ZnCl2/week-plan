@@ -22,6 +22,7 @@ class CalendarLayoutService {
   static const double calendarBodyHeight = 622;
   static const double comprehensiveListHeight = 122;
   static const double minScheduleTileHeight = 30;
+  static const double adjustedCalendarBodyHeight = calendarBodyHeight - 37;
 
   static double get calendarContentHeight => hourRowHeight * hoursPerDay;
   static double get weekContentWidth =>
